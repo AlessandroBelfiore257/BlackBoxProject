@@ -1,9 +1,8 @@
 # Black-box per flotte a noleggio: monitoraggio/tracking veicoli, segnalazione allarmi e profilazione guida
 
 ## Che cosa viene realizzato?
-Progetto Open Source che prevede la realizzazione di una scatola nera collocabile all'interno di veicoli appartenenti ad una compagnia di autonoleggio che sia in grado
-di svolgere le seguenti funzionalità:
-1. Raccolta dati e tracking del veicolo
+Progetto Open Source che prevede la realizzazione di una scatola nera collocabile all'interno di veicoli appartenenti ad una compagnia di autonoleggio; la black box è in grado di svolgere le seguenti funzionalità:
+1. Monitoraggio dati e tracking del veicolo
 2. Segnalazione di allarmi, che andranno visualizzati sia al cliente, ovvero al guidatore che alla compagnia dell'autonoleggio
 3. Profilazione del guidatore: sulla base di alcuni parametri posso raggruppare i guidatori (i clienti dell'autonoleggio) in certi cluster e classificarli come pessimi o buoni guidatori
 
