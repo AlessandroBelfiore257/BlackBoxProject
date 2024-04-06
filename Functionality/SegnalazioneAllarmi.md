@@ -4,16 +4,16 @@
 Il meccanismo di segnalazione allarmi prevede tre diversi tipi di dinamiche:
 - Precauzione da incidente
 - Assistenza cliente
-- Precauzione da alcuni sistemi non funzionanti / segnalazione di alcune situazioni anomale
+- Precauzione da alcuni sistemi non funzionanti / segnalazione di alcune situazioni anomale 
 
 1) La precauzione da incidente tratta la dinamica relativa ad un incidente stradale, inviando le coordinate GPS ed un insieme di informazioni utili ad una stazione remota dell'autonoleggio, sarà proprio lei ad avvisare i soccorsi che poi andranno a recarsi nel preciso punto di impatto.
 2) L'assistenza cliente include due semplici funzionalità: la prima di Sos dove il cliente si mette in contatto con un operatore dell'autonoleggio per qualsiasi necessità/bisogno, la seconda prevede la chiamata ad un carro attrezzi con il relativo invio di coordinate GPS.
-3) Per concludere, l'ultima dinamica è quella più interessante che consiste nel rilevamento di alcuni malfunzionamenti del veicolo e di alcuni comportamenti anomali del cliente a bordo dell'autovettura. Di seguito approfondiremo quest'ultima dinamica in modo più dettagliato
+3) Per concludere, l'ultima dinamica è quella più interessante che consiste nel rilevamento di alcuni malfunzionamenti del veicolo e di alcuni comportamenti non corretti da parte del cliente a bordo dell'autovettura. Di seguito approfondiremo quest'ultima dinamica in modo più dettagliato
 
 ## Piccola overview del sistema proposto
 Per gestire le situazioni relative all'ultima dinamica, il sistema (black box) viene dotato di 3 LED (verdo, giallo, rosso) per indicare diversi tipi di situazioni e per suggerire al cliente il corretto comportamento da intraprendere nel caso dell'accensione di una spia (led) indicante una situazione di avvertimento/pericolo:
-1. Led verde: il veicolo funziona correttamente e il comportamneto del conducente è corretto.
-2. Led giallo: indica un AVVERTIMENTO, se vengono eseguite azioni non lecite o vengono rilevati problemi di poca rilevanza viene azionato il led; dopo un breve periodo ad esempio 1/2 giorni nel quale continua a persistere l'azione o il problema, viene avvertita la centrale operativa. Ad esempio considerando che non è possibile fumare all'interno dei veicoli dell'autonoleggio e se viene rilevata una solo volta la presenza di fumo all'interno dell'abitacolo non viene avvisata la centrale; per cui il motto di questa spia è: se un problema di poca rilevanza o un'azione persistono, avverto la centrale operativa.
+1. Led verde: il veicolo funziona correttamente e il comportamento del conducente è corretto.
+2. Led giallo: indica un AVVERTIMENTO, se vengono eseguite azioni non lecite o vengono rilevati problemi di poca rilevanza viene azionato il led; dopo un breve periodo ad esempio 1/2 giorni nel quale continua a persistere il problema o l'azione, viene avvertita la centrale operativa. Ad esempio considerando che non è possibile fumare all'interno dei veicoli dell'autonoleggio e se viene rilevata una sola volta la presenza di fumo all'interno dell'abitacolo non viene avvisata la centrale; per cui il motto di questa spia è: se un problema di poca rilevanza o un'azione persistono, avverto la centrale operativa.
 3. Led rosso: indica una situazione di PERICOLO, in questo caso la centrale operativa viene avvertita immediatamente.
 
 Di seguito verranno proposte le dinamiche delle situazioni per le quali viene attivata una spia gialla piuttosto che una rossa:
@@ -21,7 +21,7 @@ Di seguito verranno proposte le dinamiche delle situazioni per le quali viene at
 __Situazioni azionamento led giallo:__
 - Divieto di fumo all'interno dell'abitacolo per il mantenimento di un ambiente pulito e privo di odori sgradevoli per i successivi clienti. La presenza di fumo può essere rilevata da un sensore.
 - Rilevamento guida su terreni non adatti: fuoristrada o percorsi non asfaltati sono vietati al conducente per evitare danni al veicolo. La presenza di terreni disconnessi può essere rilevata con l'accelerometro utilizzando l'asse verticale (z).
-- Rilevamento guida su aree geografiche non percorribili: non posso recarmi ovunque con il mio veicolo. La segnalazione di aree non  percorribili può essere rilevata grazie al GPS.
+- Rilevamento guida su aree geografiche non percorribili: non posso recarmi ovunque con il mio veicolo. La segnalazione di aree non percorribili può essere rilevata grazie al GPS.
 - Rilevamento attività di trasporto/rimorchio: non posso trainare nulla con il veicolo a noleggio. E' possibile rilevare l'attività con alcuni parametri provenienti dalla rete CAN-BUS ad esempio carico motore e velocità.
 - (?) Se la black box viene alimentata da una pila è necessario monitorarne la sua durata, se viene alimentata con la corrente della macchina non esiste alcun tipo di problema e può essere omessa questa casistica.
 
@@ -42,22 +42,21 @@ Sensoristica: CAN-BUS.
 
 ## Configurazione
 ### - Incidente
-Sostanzialmente il sistema si divide in due fasi: la fase di RILEVAMENTO e quella di NOTIFICA.
+Sostanzialmente il meccanismo si divide in due fasi: la fase di RILEVAMENTO e quella di NOTIFICA.
 
-[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbmFbU3RhcnRdIC0tPiBiKFJlYWQgdGhlIHN0YXR1cyBvZiBzZW5zb3IpXG5iIC0tPiBjKFJlYWQgdGhlIGRhdGEgZnJvbSBHUFMpXG5jIC0tPiBke1NlbnNvciBpcyB0cmlnZ2VyZWQ_fVxuZCAtLT4gfE5vfCBmXG5kIC0tPiB8WWVzfCBlKFNlbmQgU01TIHVzaW5nIEdTTSlcbmUgLS0-IGYoRU5EKVxuZiAtLT4gYlxuICAgICAgICAgICAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggVERcbmFbU3RhcnRdIC0tPiBiKFJlYWQgdGhlIHN0YXR1cyBvZiBzZW5zb3IpXG5iIC0tPiBjKFJlYWQgdGhlIGRhdGEgZnJvbSBHUFMpXG5jIC0tPiBke1NlbnNvciBpcyB0cmlnZ2VyZWQ_fVxuZCAtLT4gfE5vfCBmXG5kIC0tPiB8WWVzfCBlKFNlbmQgU01TIHVzaW5nIEdTTSlcbmUgLS0-IGYoRU5EKVxuZiAtLT4gYlxuICAgICAgICAgICAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
+[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbmFbU3RhcnRdIC0tPiBiKFJlYWQgdGhlIHN0YXR1cyBvZiBzZW5zb3IpXG5iIC0tPiBjKFJlYWQgdGhlIGRhdGEgZnJvbSBHUFMpXG5jIC0tPiBke1NlbnNvciBpcyB0cmlnZ2VyZWQ_fVxuZCAtLT4gfE5vfCBiXG5kIC0tPiB8WWVzfCBlKFNlbmQgU01TIHVzaW5nIEdTTSlcbmUgLS0-IGYoRU5EKVxuICAgICAgICAgICAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggVERcbmFbU3RhcnRdIC0tPiBiKFJlYWQgdGhlIHN0YXR1cyBvZiBzZW5zb3IpXG5iIC0tPiBjKFJlYWQgdGhlIGRhdGEgZnJvbSBHUFMpXG5jIC0tPiBke1NlbnNvciBpcyB0cmlnZ2VyZWQ_fVxuZCAtLT4gfE5vfCBiXG5kIC0tPiB8WWVzfCBlKFNlbmQgU01TIHVzaW5nIEdTTSlcbmUgLS0-IGYoRU5EKVxuICAgICAgICAgICAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
 
 __Accelerometro__: nella fase di rilevamento l'accelerometro continua ad estrarre informazioni relative alla forza G (forza di accelerazione) sperimentata dagli occupanti.
 __Microfono__: nella fase di rilevamento viene usato per rilevare valori di decibel decisivamente alti dovuti ad alcuni eventi ad esempio l'impatto o lo scoppio di un airbag. Viene usato come secondo filtro per ridurre i falsi positivi. (threshold > 140 db)
 __GPS__: nella fase di notifica è utile per inviare le coordinate GPS alla stazione remota.
 __VELOCITA' VEICOLO__: nella fase di notifica viene mandata alla stazione remota e può essere usata per future ricostruzioni/analisi dell'incidente.
 
-Posso usare un accelerometro, in un evento del genere la black box subirà la stessa accelerazione degli occupanti del veicolo. La forza G che si ricava dall'accelerazione deve essere ragionevolmente alta per un incidente, per questo non vengono considerati incidenti se tutte le accelerazioni sono inferiori a 4/5G. Infatti sulle auto gli airbag non vengono altro che azionati dal superamento di una certa soglia di accelerazione.
+Per il rilevamento di una situazione di incidente posso usare un accelerometro, in un evento del genere la black box subirà la stessa accelerazione degli occupanti del veicolo. La forza G che si ricava dall'accelerazione deve essere ragionevolmente alta per un incidente, per questo non vengono considerati incidenti se tutte le accelerazioni sono inferiori a 4/5G. Infatti sulle auto gli airbag non vengono altro che azionati dal superamento di una certa soglia di accelerazione.
 Come secondo filtro viene utilizzato un microfono per cercare di ridurre i falsi allarmi.
-Per un ulteriore riduzione di situazioni di falso allarme, all'utente vengono concessi 30 secondi per annullare il rilevamento della situazione di incidente; terminati i 30sec la chiamata partirà in automatico, in caso di annullamento si ritornerà ad una situazione di partenza
+Per un ulteriore riduzione di situazioni di falso allarme, all'utente vengono concessi 30 secondi per annullare il rilevamento della situazione di incidente, terminati i 30sec la chiamata partirà in automatico, in caso di annullamento si ritornerà ad una situazione di partenza
 
 [![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbmFbU3RhcnRdIC0tPiBiKFJlYWQgZGF0YSlcbmIgLS0-IGN7RyBmb3JjZSB0cmlnZ2VyZWR9XG5jIC0tPiB8WWVzfCBke01pY3JvcGhvbmUgdHJpZ2dlcmVkfVxuYyAtLT4gfE5vfCBiXG5kIC0tPiB8WWVzfCBlKFJpbGV2YW1lbnRvIGluY2lkZW50ZSlcbmQgLS0-IHxOb3wgYlxuZSAtLT4gZnt1c2VyIGFib3J0fVxuZiAtLT4gfFllc3wgYlxuZiAtLT4gfE5vfCBnKFNlbmQgYWNjaWRlbnQgU01TKVxuZyAtLT4gaChFTkQpIiwibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQifSwidXBkYXRlRWRpdG9yIjpmYWxzZX0)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggVERcbmFbU3RhcnRdIC0tPiBiKFJlYWQgZGF0YSlcbmIgLS0-IGN7RyBmb3JjZSB0cmlnZ2VyZWR9XG5jIC0tPiB8WWVzfCBke01pY3JvcGhvbmUgdHJpZ2dlcmVkfVxuYyAtLT4gfE5vfCBiXG5kIC0tPiB8WWVzfCBlKFJpbGV2YW1lbnRvIGluY2lkZW50ZSlcbmQgLS0-IHxOb3wgYlxuZSAtLT4gZnt1c2VyIGFib3J0fVxuZiAtLT4gfFllc3wgYlxuZiAtLT4gfE5vfCBnKFNlbmQgYWNjaWRlbnQgU01TKVxuZyAtLT4gaChFTkQpIiwibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQifSwidXBkYXRlRWRpdG9yIjpmYWxzZX0)
 
-I = 1 se (Acc/4o5G + SU/140db) >= Accident-threshold (in questo caso At = 2), 0 altrimenti
 ```sh
 Incidente = I
 Accident-threshold  = 2
@@ -65,7 +64,7 @@ I = 1 se ( (Accelerazione/4G) + (RumoreUrto/140db) ) >= Accident-threshold
 I = 0 altrimenti
 ```
 
-A seguito dell'incidente le informazioni che possono essere trasportate sono: G-force per capire quanto effettivamente è stato forte l'impatto, la velocità del veicolo per capire a quanto stava andando, le coordinate GPS di latitudine e longitudine per capire dove è avvenuto l'incidente e in che momento è avvenuto (time).
+A seguito dell'incidente le informazioni che possono essere trasportate sono: **G-force** per capire quanto effettivamente è stato forte l'impatto, la **velocità del veicolo** per capire a quanto stava andando, le coordinate GPS **latitudine** e **longitudine** per capire dove è avvenuto l'incidente e in che **momento** è avvenuto (time).
 
 Punto di debolezza: in caso di incidente estremo se la black box viene distrutta non è possibile contattare i soccorsi.
 ### - Assistenza cliente
@@ -88,4 +87,4 @@ comportamento/problema : sensore di rilevamento
 - Rilevamento pressione olio motore : dati CAN-BUS
 
 ## Feedback del corretto funzionamento
-Dove sono presenti errori proveniente dalla rete CAN-BUS, bisogna agire sui valore dei vari campi e verificare che la segnalazione d'errore venga effettivamente fatta, dove sono presenti sensori bisogna simulare le varie situaioni ad esempio fumo, gas, zone non visitabili... e verificarne il corretto rilevamento.
+Dove sono presenti errori proveniente dalla rete CAN-BUS bisogna agire sui valore dei vari campi e verificare che la segnalazione d'errore venga effettivamente fatta, dove sono presenti sensori bisogna simulare le varie situazioni ad esempio fumo, gas, zone non visitabili... e verificarne il corretto rilevamento.

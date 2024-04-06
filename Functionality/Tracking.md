@@ -1,7 +1,7 @@
 # Real-time vehicle tracking
 
 ## Introduzione
-Questo sistema è usato per monitorare e localizzare i veicoli della flotta ovunque si trovino. Il sistema di tracking
+Questa funzionalità del sistema viene usata per monitorare e localizzare i veicoli della flotta ovunque si trovino. Il sistema di tracking
 è in grado di generare la posizione esatta del veicolo usando due precisi parametri, latitudine e longitudine;
 i dati di geolocalizzazione possono poi essere trasferiti e memorizzati all'interno di un computer per analisi future,
 ad esempio visualizzare i percorsi più abituali del veicolo o il percorso effettuato in un preciso giorno ad
