@@ -43,19 +43,19 @@ __Di seguito vengono suggerite alcune tecniche che potrebbero essere utilizzate 
 - Clustering gerarchico
 - Clustering basato sulla densità
 
-### Clustering partizionale:
+##### Clustering partizionale:
 Il clustering partizionale è la tecnica più comunemente utilizzata tra gli algoritmi di clusterizzazione. Questi algoritmi lavorano per minimizzare un determinato criterio di clustering, spostando iterativamente i punti dati tra i cluster fino a raggiungere una partizione ottimale. Questo approccio suddivide gli oggetti in K partizioni, ognuna delle quali rappresenta un cluster. La suddivisione avviene in base a una specifica funzione obiettivo. I cluster vengono formati per ottimizzare un criterio di partizionamento definito, come una funzione di dissimilarità basata sulla distanza, in modo che gli oggetti all'interno di un cluster siano considerati "simili", mentre quelli in cluster diversi siano considerati "dissimili". I metodi di clustering partizionale sono particolarmente adatti per applicazioni in cui è richiesto un numero predefinito di cluster, alcuni esempi di algoritmi di clustering partizionale includono K-means, PAM (Partition Around Medoids) e Clara.
 
 ![Clustering Partizionale](https://www.mathisintheair.org/wp/wp-content/uploads/2016/09/download.jpg)
 
-### Clustering gerarchico:
+##### Clustering gerarchico:
 Gli algoritmi di clustering gerarchico dividono o uniscono un dataset in una sequenza di partizioni nidificate. La gerarchia delle partizioni nidificate può essere agglomerativa (bottom-up) o divisiva (top-down). Nel metodo agglomerativo, il clustering inizia con ogni singolo oggetto in un singolo cluster e continua a raggruppare le coppie di cluster più vicine fino a quando tutti gli oggetti sono insieme in un unico cluster. Il clustering gerarchico divisivo, d'altra parte, inizia con tutti gli oggetti in un singolo cluster e continua a dividere i cluster più grandi in cluster più piccoli fino a quando tutti gli oggetti sono separati in cluster unitari. Entrambi i metodi gerarchici mostrano il modo naturale di rappresentare i cluster, chiamato dendrogramma. Esempi di questi algoritmi sono ROCK, BIRCH (Balance Iterative Reducing and Clustering using Hierarchies), CURE (Cluster Using REpresentatives).
 
 Una gerarchia di cluster può essere interpretata come un albero binario standard in cui la radice rappresenta tutti gli insiemi di oggetti dati da clusterizzare che formano il livello più alto della gerarchia (livello 0). Ad ogni livello, i nodi che sono il sottoinsieme dell'intero dataset corrispondono al cluster. Gli elementi in ciascuno di questi cluster possono essere determinati attraverso l'attraversamento dell'albero dal nodo del cluster corrente alla base singleton che sono le foglie dell'albero. Questa gerarchia di cluster è chiamata dendrogramma. Il vantaggio fondamentale di avere un metodo di clustering gerarchico è che consente di tagliare la gerarchia al livello desiderato e questa caratteristica lo rende significativamente diverso dagli altri algoritmi di clustering. Esistono diversi algoritmi di clustering agglomerativo che utilizzano misure di similarità diverse e quindi, basati su questo, sono presenti differenti algoritmi di clustering agglomerativo: linkage singolo, linkage completo, linkage medio di gruppo, linkage del centroide, criterio di Ward.
 
 ![Clustering Gerarchico](https://www.developersmaggioli.it/wp-content/uploads/2019/06/images.png)
 
-### Clustering basato sulla densità:
+##### Clustering basato sulla densità:
 Gli algoritmi di clustering basati sulla densità sono ideati per la creazione di cluster di forma arbitraria. In questo approccio, un cluster di forma arbitraria è considerato come una regione in cui la densità degli oggetti supera una soglia. Nel Clustering density-based, il raggruppamento avviene analizzando l'intorno di ogni punto dello spazio. In particolare, viene considerata la densità di punti in un intorno di raggio fissato. DBSCAN e SSN RDBC sono algoritmi tipici di questo tipo.
 
 ![Clustering basato su densità](https://lh3.googleusercontent.com/proxy/aUUxEVBkFfnCgXYt7PPsTX52j9cXBCExuwPBaa9Tpp9dJscXauJR0FUuZznrA7CR1-iIC6pPppgppNnvddc-7sBY-aSrb8QZEmEwDne5a-KeCqXGeKDPkZbVz9aj4bSNGmNWpYB7Wc53hyuGZyMaBHivrOxIeWfXkivzWFcbzgEc1jE)
