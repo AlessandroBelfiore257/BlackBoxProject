@@ -29,7 +29,8 @@ Il punteggio del guidatore [0,1] viene calcolato considerando un insieme di para
 | 0.38 - 0.56  | Risk              |
 | 0.56 - 0.75  | Reckless          |
 | > 0.75       | Critical          |
-Il punteggio del guidatore è inteso come la probabilità di rischio di procurare un incidente a seguito del viaggio osservato, pertanto sarà compreso tra 0 e 1.
+
+_*Il punteggio del guidatore è inteso come la probabilità di rischio di procurare un incidente a seguito del viaggio osservato, pertanto sarà compreso tra 0 e 1*_.
 
 Per concludere il nostro studio, possiamo utilizzare tecniche di Machine Learning relative sia all'apprendimento supervisionato che non supervisionato, consentendoci di esaminare più approfonditamente la natura della nostra flotta.
 In questo contesto, ci concentreremo su due principali tecniche di Machine Learning: la _*classificazione*_ e il _*clustering*_. La classificazione ci permette di assegnare ai guidatori delle etichette di classificazione, come ad esempio 'prudente' o 'negligente', in base ai loro comportamenti al volante, mentre il clustering ci consente di raggruppare i guidatori in base a similitudini nel comportamento di guida. Esploreremo queste tecniche nel dettaglio, evidenziando le loro applicazioni specifiche e i benefici che possono apportare all'analisi dei guidatori e alla gestione dell'autonoleggio.
