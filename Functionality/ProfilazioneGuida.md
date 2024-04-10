@@ -16,7 +16,8 @@ Il punteggio del guidatore [0,1] viene calcolato considerando un insieme di para
 -   Calcolo il numero di eccessi di velocità dati dalla differenza tra i limiti imposti dalla legge e quelli reali del veicolo
 -   Calcolo delle accelerazioni e decelerazioni brusche
 -   Calcolo delle sterzate sia a sinistra che a destra brusche
--   0.9 <= (valvola a farfalla / giri motore) <= 1.3 per una buona guida
+-   0.9 <= (velocità del veicolo / giri del motore) <= 1.3 (rapporto relativo)
+-   0.9 <= (valvola a farfalla / giri motore) <= 1.3 per una buona guida (rapporto relativo)
 -   20% <= carico del motore (%) <= 50% per una buona guida 
 
 ### Tabella valutativa
