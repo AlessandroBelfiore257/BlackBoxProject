@@ -1,6 +1,36 @@
 # Profilazione guida
 Nel quadro del nostro progetto di analisi della profilazione della guida, sfruttiamo tecnologie avanzate di acquisizione dati per ottenere una comprensione dettagliata del comportamento del guidatore. A tale scopo, facciamo uso di due principali fonti di informazioni: i dati provenienti dal sistema di diagnostica a bordo (OBDII) e quelli registrati tramite un accelerometro. Questi dispositivi forniscono una vasta gamma di dati in tempo reale, quali velocità, accelerazione, frenata e angoli di sterzata, consentendo di valutare numerosi aspetti della guida. Attraverso l'analisi approfondita di tali dati, siamo in grado di creare profili individuali dei guidatori e identificare modelli di comportamento distintivi che influenzano la sicurezza, l'efficienza e l'affidabilità del veicolo. Nel corso di questa relazione, esploreremo come l'integrazione di queste tecnologie ci permetta di ottenere informazioni preziose per migliorare l'esperienza di guida e ottimizzare le operazioni di gestione della flotta.
-... Analisi mancante ...
+
+Un possibile approccio potrebbe essere quello di contare il numero di accelerazioni, frenate e svolte (brusche) condotte dal guidatore utilizzando i parametri del motore: **rpm** ovvero i giri motore al minuto, la **velocità del veicolo**, il **carico del motore** e la **valvola a farfalla**. I risultati sono collezionati all'interno di una struttura dati che a fine giornata viene registrata presso l'autonoleggio. 
+Ecco le principali fasi: 
+
+[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggTFJcbiAgYShEYXRhIHNlbnNpbmcpXG4gIGIoRGF0YSBhY3F1aXNpdGlvbilcbiAgYyhEYXRhIHByb2Nlc3NpbmcpXG4gIGQoRGF0YSBzdG9yYWdlKVxuXG4gIGEtLT5iXG4gIGItLT5jXG4gIGMtLT5kXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggTFJcbiAgYShEYXRhIHNlbnNpbmcpXG4gIGIoRGF0YSBhY3F1aXNpdGlvbilcbiAgYyhEYXRhIHByb2Nlc3NpbmcpXG4gIGQoRGF0YSBzdG9yYWdlKVxuXG4gIGEtLT5iXG4gIGItLT5jXG4gIGMtLT5kXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
+1. Data sensing: i dati provenienti dal motore della macchina ad esempio rpm, velocità, accelerazione... vengono percepiti dall'unità di controllo ECU
+2. Data acquisition: i dati vengono acquisiti dalla ECU e trasferiti via Bluetooth alla board prescelta utilizzando un adattatore OBD-II
+3. Data processing: i dati trasferiti attraverso l'OBD-II sono processati dalla board di interesse
+4. Data storage: vengono memorizzati in una struttura dati i valori di alcuni parametri che vengono ritenuti significativi per la valutazione finale del guidatore
+
+ECU è l'unità centrale di controllo del veicolo dove sono collegati tutti i vari sensori presenti all'interno del motore dell'auto, aria condizionata, livello carburante, corpo dell'auto... . L'adapter OBD-II trasmette i dati dalla ECU alla board di interesse via Bluetooth. La board processa i dati ed è in grado di generare uno score del guidatore.
+
+Il punteggio del guidatore [0,1] viene calcolato considerando un insieme di parametri significativi:
+-   Calcolo il numero di eccessi di velocità dati dalla differenza tra i limiti imposti dalla legge e quelli reali del veicolo
+-   Calcolo delle accelerazioni e decelerazioni brusche
+-   Calcolo delle sterzate sia a sinistra che a destra brusche
+-   0.9 <= (valvola a farfalla / giri motore) <= 1.3 per una buona guida
+-   20% <= carico del motore (%) <= 50% per una buona guida 
+
+### Tabella valutativa
+
+| Driver score | Driving behaviour |
+|--------------|-------------------|
+| < 0.10       | Safe              |
+| 0.1 - 0.19   | Modest            |
+| 0.19 - 0.38  | Moderate Risk     |
+| 0.38 - 0.56  | Risk              |
+| 0.56 - 0.75  | Reckless          |
+| > 0.75       | Critical          |
+Il punteggio del guidatore è inteso come la probabilità di rischio di procurare un incidente a seguito del viaggio osservato, pertanto sarà compreso tra 0 e 1.
+
 Per concludere il nostro studio, possiamo utilizzare tecniche di Machine Learning relative sia all'apprendimento supervisionato che non supervisionato, consentendoci di esaminare più approfonditamente la natura della nostra flotta.
 In questo contesto, ci concentreremo su due principali tecniche di Machine Learning: la _*classificazione*_ e il _*clustering*_. La classificazione ci permette di assegnare ai guidatori delle etichette di classificazione, come ad esempio 'prudente' o 'negligente', in base ai loro comportamenti al volante, mentre il clustering ci consente di raggruppare i guidatori in base a similitudini nel comportamento di guida. Esploreremo queste tecniche nel dettaglio, evidenziando le loro applicazioni specifiche e i benefici che possono apportare all'analisi dei guidatori e alla gestione dell'autonoleggio.
 ## Machine Learning nell'analisi dei guidatori: applicazioni nel nostro contesto:
@@ -60,3 +90,7 @@ Una gerarchia di cluster può essere interpretata come un albero binario standar
 Gli algoritmi di clustering basati sulla densità sono ideati per la creazione di cluster di forma arbitraria. In questo approccio, un cluster di forma arbitraria è considerato come una regione in cui la densità degli oggetti supera una soglia. Nel Clustering density-based, il raggruppamento avviene analizzando l'intorno di ogni punto dello spazio. In particolare, viene considerata la densità di punti in un intorno di raggio fissato. DBSCAN e SSN RDBC sono algoritmi tipici di questo tipo.
 
 ![Clustering basato su densità](https://lh3.googleusercontent.com/proxy/aUUxEVBkFfnCgXYt7PPsTX52j9cXBCExuwPBaa9Tpp9dJscXauJR0FUuZznrA7CR1-iIC6pPppgppNnvddc-7sBY-aSrb8QZEmEwDne5a-KeCqXGeKDPkZbVz9aj4bSNGmNWpYB7Wc53hyuGZyMaBHivrOxIeWfXkivzWFcbzgEc1jE)
+
+Lo schema che seguira di seguito indica che con il nostro sistema è possibile sfuttare sia le capacità della board che sono in grado di generare uno score del guidatore e di offrire la possibilità di valutarlo in base a questo, oppure la possibilità di giudicarlo utilizzando tecniche di machine o la possibilità di utilizzare entrambe le tecniche per avere un quadro completo relativo alla sua guida:
+
+[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbiAgYShFQ1UpXG4gIGIoT0JELUlJIEFkYXB0ZXIpXG4gIGMoRHJpdmVyIFByb2ZpbGluZylcbiAgZChTY29yZSBvYnRlaW5lZCBieSBCb2FyZClcbiAgZShNYWNoaW5lIExlYXJuaW5nIHRlY25pcXVlKVxuICBcbiAgYS0tPmJcbiAgYi0tPmNcbiAgYy0tPmRcbiAgYy0tPmUiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggVERcbiAgYShFQ1UpXG4gIGIoT0JELUlJIEFkYXB0ZXIpXG4gIGMoRHJpdmVyIFByb2ZpbGluZylcbiAgZChTY29yZSBvYnRlaW5lZCBieSBCb2FyZClcbiAgZShNYWNoaW5lIExlYXJuaW5nIHRlY25pcXVlKVxuICBcbiAgYS0tPmJcbiAgYi0tPmNcbiAgYy0tPmRcbiAgYy0tPmUiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
