@@ -14,7 +14,6 @@ Ecco le principali fasi del sistema proposto:
 4. Data storage: vengono memorizzati in una struttura dati i valori di alcuni parametri che vengono ritenuti significativi per la valutazione finale del guidatore
 
 ECU è l'unità centrale di controllo del veicolo dove sono collegati tutti i vari sensori presenti all'interno del motore dell'auto, aria condizionata, livello carburante, corpo dell'auto... . L'adapter OBD-II trasmette i dati dalla ECU alla board di interesse via Bluetooth. La board processa i dati ed è in grado di generare uno score del guidatore.
-
 Il punteggio del guidatore [0,1] viene calcolato considerando:
 -   Il numero di eccessi di velocità dati dalla differenza tra i limiti imposti dalla legge e quelli reali del veicolo
 -   Le accelerazioni e decelerazioni brusche
@@ -34,11 +33,7 @@ Per quanto riguarda il secondo e il terzo punto è possibile utilizzare un accel
 
 ![Accelerometro](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD7ePphShh30lDGfMYCU6N-NpKGUrzpNGroEUhe6-lpAqAL8NibGitXKTDsnjMunm4pt0&usqp=CAU)
 
-Di seguito sarà presente un esempio di guida sicura e non analizzando prima accelerazione e decelerazione e un ulteriore esempio relativo alle svolte a sinistra e destra:
-
-![Accelerazione/decelerazione](Desktop/Acceleration-and-braking-being-performed-in-two-different-manners-a-Safe-acceleration_Q320)
-
-![Svolte a sinistra e destra](https://www.researchgate.net/profile/Marta-C-Gonzalez/publication/260543538/figure/fig6/AS:296735747395589@1447758723681/Acceleration-signature-of-a-left-lane-change-and-b-right-lane-change-These.png)
+Per quanto riguarda i punti 3 e 4 è possibile calcolarli per via analitica conoscendo i dati provenienti dall'OBD-II, mentre per l'ultimo punto (carico motore espresso in %) non si ha bisogno di alcuna manipolazione dei dati in quanto esso proviene direttamente dalla rete CAN-BUS.
 
 ### Tabella valutativa
 Per valutare il comportamento del guidatore di seguito vengono mostrati i vari livelli che posso essere ottenuto dopo un periodo di 24h di monitoraggio guida
@@ -56,7 +51,7 @@ _*Il punteggio del guidatore è inteso come la probabilità di rischio di procur
 
 Per concludere il nostro studio, possiamo utilizzare tecniche di Machine Learning relative sia all'apprendimento supervisionato che non supervisionato, consentendoci di esaminare più approfonditamente la natura della nostra flotta.
 In questo contesto, ci concentreremo su due principali tecniche di Machine Learning: la _*classificazione*_ e il _*clustering*_. La classificazione ci permette di assegnare ai guidatori delle etichette di classificazione, come ad esempio 'prudente' o 'negligente', in base ai loro comportamenti al volante, mentre il clustering ci consente di raggruppare i guidatori in base a similitudini nel comportamento di guida. Esploreremo queste tecniche nel dettaglio, evidenziando le loro applicazioni specifiche e i benefici che possono apportare all'analisi dei guidatori e alla gestione dell'autonoleggio.
-## Machine Learning nell'analisi dei guidatori: applicazioni nel nostro contesto:
+## Machine Learning nell'analisi dei guidatori: applicazioni nel nostro contesto
 Una volta processati i dati relativi all'analisi di profilazione del guidatore, essi possono essere inviati ad un server remoto. Dopodichè è possibile usare varie tecniche di machine learning di apprendiamento supervisionato ad esempio la **classificazione** o di apprendimento non supervisionato ad esempio il **clustering**, per assegnare ai clienti dell'autonoleggio una certa etichetta di classificazione (prudenti o negligenti) o raggrupparli in cluster e osservare il comportamento della flotta.
 ### Apprendimento supervisionato
 La **classificazione** è una tecnica di apprendimento supervisionato, l'obiettivo è quello di predire la classe di appartenenza di un'istanza di input in un insieme discreto di classi. Ad esempio, classificare se una mail è spam o non spam, o se un'immagine contiene un gatto o un cane. Nel nosto caso di studio vorremmo poter classificare i clienti come guidatori prudenti o negligenti in base ai valori di valutazione studiati durante l'analisi di profilazione. Questa tecnica di ML prevede la suddivisione dei dati in due insiemi distinti: un insieme di addestramento e un insieme di test. L'insieme di addestramento viene utilizzato per addestrare il modello, mentre l'insieme di test viene utilizzato per valutarne le prestazioni su dati non visti. Per addestrare un modello di apprendimento supervisionato, vengono utilizzati diversi algoritmi in base al tipo di problema e al tipo di dati. Alcuni esempi di algoritmi comuni includono Support Vector Machines (SVM), Random Forest, Decision Trees, Neural Networks, e Regressione Lineare. Dopo l'addestramento, il modello viene valutato utilizzando l'insieme di test. Una volta soddisfatti delle prestazioni del modello, esso può essere pubblicato, implementato in un'applicazione o integrato in un sistema più ampio per fare previsioni su nuovi dati.
@@ -114,6 +109,10 @@ Gli algoritmi di clustering basati sulla densità sono ideati per la creazione d
 
 ![Clustering basato su densità](https://lh3.googleusercontent.com/proxy/aUUxEVBkFfnCgXYt7PPsTX52j9cXBCExuwPBaa9Tpp9dJscXauJR0FUuZznrA7CR1-iIC6pPppgppNnvddc-7sBY-aSrb8QZEmEwDne5a-KeCqXGeKDPkZbVz9aj4bSNGmNWpYB7Wc53hyuGZyMaBHivrOxIeWfXkivzWFcbzgEc1jE)
 
+## Feedback del corretto funzionamento
+Provare ad eseguire più volte lo stesso percorso in auto affrontandolo con 3 tipi diversi di stili di guida: tranquillo, moderato e brusco.
+
+## Conclusioni
 Lo schema che seguirà di seguito indica che con il nostro sistema è possibile sfuttare sia le capacità della board che sono in grado di generare uno score del guidatore e di offrire la possibilità di valutarlo in base a questo, oppure la possibilità di giudicarlo utilizzando tecniche di machine o la possibilità di utilizzare entrambe le tecniche per avere un quadro completo relativo alla sua guida:
 
 [![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbiAgYShFQ1UpXG4gIGIoT0JELUlJIEFkYXB0ZXIpXG4gIGMoRHJpdmVyIFByb2ZpbGluZylcbiAgZChTY29yZSBvYnRlaW5lZCBieSBCb2FyZClcbiAgZShNYWNoaW5lIExlYXJuaW5nIHRlY25pcXVlKVxuICBcbiAgYS0tPmJcbiAgYi0tPmNcbiAgYy0tPmRcbiAgYy0tPmUiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggVERcbiAgYShFQ1UpXG4gIGIoT0JELUlJIEFkYXB0ZXIpXG4gIGMoRHJpdmVyIFByb2ZpbGluZylcbiAgZChTY29yZSBvYnRlaW5lZCBieSBCb2FyZClcbiAgZShNYWNoaW5lIExlYXJuaW5nIHRlY25pcXVlKVxuICBcbiAgYS0tPmJcbiAgYi0tPmNcbiAgYy0tPmRcbiAgYy0tPmUiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
