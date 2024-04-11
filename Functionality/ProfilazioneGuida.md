@@ -1,8 +1,11 @@
 # Profilazione guida
-Nel quadro del nostro progetto di analisi della profilazione della guida, sfruttiamo tecnologie avanzate di acquisizione dati per ottenere una comprensione dettagliata del comportamento del guidatore. A tale scopo, facciamo uso di due principali fonti di informazioni: i dati provenienti dal sistema di diagnostica a bordo (OBDII) e quelli registrati tramite un accelerometro. Questi dispositivi forniscono una vasta gamma di dati in tempo reale, quali velocità, accelerazione, frenata e angoli di sterzata, consentendo di valutare numerosi aspetti della guida. Attraverso l'analisi approfondita di tali dati, siamo in grado di creare profili individuali dei guidatori e identificare modelli di comportamento distintivi che influenzano la sicurezza, l'efficienza e l'affidabilità del veicolo. Nel corso di questa relazione, esploreremo come l'integrazione di queste tecnologie ci permetta di ottenere informazioni preziose per migliorare l'esperienza di guida e ottimizzare le operazioni di gestione della flotta.
+## Introduzione
+Nel quadro del nostro progetto di analisi della profilazione della guida, sfruttiamo tecnologie di acquisizione dati per ottenere una comprensione dettagliata del comportamento del guidatore. A tale scopo, facciamo uso di due principali fonti di informazioni: i dati provenienti dal sistema di diagnostica a bordo (OBD-II) e quelli registrati tramite un accelerometro. Questi dispositivi forniscono una vasta gamma di dati in tempo reale, quali velocità, accelerazione, frenata e angoli di sterzata, consentendo di valutare numerosi aspetti relativi alla guida. Attraverso l'analisi approfondita di tali dati, siamo in grado di creare profili individuali dei guidatori e identificare modelli di comportamento distintivi che influenzano la sicurezza, l'efficienza e l'affidabilità del veicolo. Nel corso di questa relazione, esploreremo come l'integrazione di queste tecnologie ci permetta di ottenere informazioni preziose per migliorare l'esperienza di guida e ottimizzare le operazioni di gestione della flotta.
 
-Un possibile approccio potrebbe essere quello di contare il numero di accelerazioni, frenate e svolte (brusche) condotte dal guidatore utilizzando i parametri del motore: **rpm** ovvero i giri motore al minuto, la **velocità del veicolo**, il **carico del motore** e la **valvola a farfalla**. I risultati sono collezionati all'interno di una struttura dati che a fine giornata viene registrata presso l'autonoleggio. 
-Ecco le principali fasi: 
+## Piccola overview del sistema proposto
+I principali parametri che vengono catturati per l'analisi del guidatore sono: **rpm** ovvero i giri motore al minuto, la **velocità del veicolo**, il **carico del motore** e la **valvola a farfalla** provenienti dalla rete CAN-BUS presente all'interno del veicolo, i valori relativi **all'accelerazione**, **decelerazione** (frenata) e **sterzate** provengono invece dall'accelerometro. 
+Una volta che la black box riceve i valori dei parametri è in grado di analizzarli e raccogliere le situazioni riconducibili ad una guida impropria raccogliendone il numero in cui si verificano tali situazioni all'interno di una struttura dati, dopo un periodo di 24h i dati vengono utilizzati per attribuire al guidatore un punteggio compreso tra [0-1].
+Ecco le principali fasi del sistema proposto: 
 
 [![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggTFJcbiAgYShEYXRhIHNlbnNpbmcpXG4gIGIoRGF0YSBhY3F1aXNpdGlvbilcbiAgYyhEYXRhIHByb2Nlc3NpbmcpXG4gIGQoRGF0YSBzdG9yYWdlKVxuXG4gIGEtLT5iXG4gIGItLT5jXG4gIGMtLT5kXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggTFJcbiAgYShEYXRhIHNlbnNpbmcpXG4gIGIoRGF0YSBhY3F1aXNpdGlvbilcbiAgYyhEYXRhIHByb2Nlc3NpbmcpXG4gIGQoRGF0YSBzdG9yYWdlKVxuXG4gIGEtLT5iXG4gIGItLT5jXG4gIGMtLT5kXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
 1. Data sensing: i dati provenienti dal motore della macchina ad esempio rpm, velocità, accelerazione... vengono percepiti dall'unità di controllo ECU
@@ -12,27 +15,33 @@ Ecco le principali fasi:
 
 ECU è l'unità centrale di controllo del veicolo dove sono collegati tutti i vari sensori presenti all'interno del motore dell'auto, aria condizionata, livello carburante, corpo dell'auto... . L'adapter OBD-II trasmette i dati dalla ECU alla board di interesse via Bluetooth. La board processa i dati ed è in grado di generare uno score del guidatore.
 
-Il punteggio del guidatore [0,1] viene calcolato considerando un insieme di parametri significativi:
--   Calcolo il numero di eccessi di velocità dati dalla differenza tra i limiti imposti dalla legge e quelli reali del veicolo
--   Calcolo delle accelerazioni e decelerazioni brusche
--   Calcolo delle sterzate sia a sinistra che a destra brusche
--   0.9 <= (velocità del veicolo / giri del motore) <= 1.3 per una buona guida (rapporto relativo)
--   0.9 <= (valvola a farfalla / giri motore) <= 1.3 per una buona guida (rapporto relativo)
--   20% <= carico del motore (%) <= 50% per una buona guida 
+Il punteggio del guidatore [0,1] viene calcolato considerando:
+-   Il numero di eccessi di velocità dati dalla differenza tra i limiti imposti dalla legge e quelli reali del veicolo
+-   Le accelerazioni e decelerazioni brusche
+-   Le sterzate sia a sinistra che a destra brusche
+-   Il rapporto di velocità (relativo) del veicolo con i giri del motore che deve essere compreso tra i valori di 0.9-1.3 per una buona guida 
+-   Il rapporto (relativo) tra la valvola a farfalla e i giri del motore che deve essere compreso tra i valori di 0.9-1.3 per una buona guida 
+-   Il carico del motore che deve essere compreso da il 20% e il 50% per una buona guida 
 
-Per quanto riguarda i primi 2 punti è possibile utilizzare un sensore a 3 assi utile per monitorare le accelerazioni/decelerazioni e le sterzate improvvise:
-| Asse | Direzione | Azione |
+## Configurazione
+Per quanto riguarda il secondo e il terzo punto è possibile utilizzare un accelerometro a 3 assi utile per monitorare le accelerazioni/decelerazioni e le sterzate improvvise:
+
+| Asse | Direzione | Azione/Evento |
 | ------ | ------ | ------ | 
 | x | sinistra/destra | sterzata
-| y | anteriore/posteriore | accelerazione/decelerazione
+| y | anteriore/posteriore | accelerazione/decelerazione (frenata)
 | z | su/giù | strada dissestata
+
 ![Accelerometro](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD7ePphShh30lDGfMYCU6N-NpKGUrzpNGroEUhe6-lpAqAL8NibGitXKTDsnjMunm4pt0&usqp=CAU)
-Ecco un esempio di guida sicura e non analizzando prima accelerazione e decelerazione e successivamente le svolte a sinistra e destra:
-![Accelerazione/decelerazione](https://www.researchgate.net/profile/Marta-C-Gonzalez/publication/260543538/figure/fig5/AS:296735747395588@1447758723639/Acceleration-and-braking-being-performed-in-two-different-manners-a-Safe-acceleration_Q320.jpg)
+
+Di seguito sarà presente un esempio di guida sicura e non analizzando prima accelerazione e decelerazione e un ulteriore esempio relativo alle svolte a sinistra e destra:
+
+![Accelerazione/decelerazione](Desktop/Acceleration-and-braking-being-performed-in-two-different-manners-a-Safe-acceleration_Q320)
 
 ![Svolte a sinistra e destra](https://www.researchgate.net/profile/Marta-C-Gonzalez/publication/260543538/figure/fig6/AS:296735747395589@1447758723681/Acceleration-signature-of-a-left-lane-change-and-b-right-lane-change-These.png)
 
 ### Tabella valutativa
+Per valutare il comportamento del guidatore di seguito vengono mostrati i vari livelli che posso essere ottenuto dopo un periodo di 24h di monitoraggio guida
 
 | Driver score | Driving behaviour |
 |--------------|-------------------|
@@ -105,6 +114,6 @@ Gli algoritmi di clustering basati sulla densità sono ideati per la creazione d
 
 ![Clustering basato su densità](https://lh3.googleusercontent.com/proxy/aUUxEVBkFfnCgXYt7PPsTX52j9cXBCExuwPBaa9Tpp9dJscXauJR0FUuZznrA7CR1-iIC6pPppgppNnvddc-7sBY-aSrb8QZEmEwDne5a-KeCqXGeKDPkZbVz9aj4bSNGmNWpYB7Wc53hyuGZyMaBHivrOxIeWfXkivzWFcbzgEc1jE)
 
-Lo schema che seguira di seguito indica che con il nostro sistema è possibile sfuttare sia le capacità della board che sono in grado di generare uno score del guidatore e di offrire la possibilità di valutarlo in base a questo, oppure la possibilità di giudicarlo utilizzando tecniche di machine o la possibilità di utilizzare entrambe le tecniche per avere un quadro completo relativo alla sua guida:
+Lo schema che seguirà di seguito indica che con il nostro sistema è possibile sfuttare sia le capacità della board che sono in grado di generare uno score del guidatore e di offrire la possibilità di valutarlo in base a questo, oppure la possibilità di giudicarlo utilizzando tecniche di machine o la possibilità di utilizzare entrambe le tecniche per avere un quadro completo relativo alla sua guida:
 
 [![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbiAgYShFQ1UpXG4gIGIoT0JELUlJIEFkYXB0ZXIpXG4gIGMoRHJpdmVyIFByb2ZpbGluZylcbiAgZChTY29yZSBvYnRlaW5lZCBieSBCb2FyZClcbiAgZShNYWNoaW5lIExlYXJuaW5nIHRlY25pcXVlKVxuICBcbiAgYS0tPmJcbiAgYi0tPmNcbiAgYy0tPmRcbiAgYy0tPmUiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggVERcbiAgYShFQ1UpXG4gIGIoT0JELUlJIEFkYXB0ZXIpXG4gIGMoRHJpdmVyIFByb2ZpbGluZylcbiAgZChTY29yZSBvYnRlaW5lZCBieSBCb2FyZClcbiAgZShNYWNoaW5lIExlYXJuaW5nIHRlY25pcXVlKVxuICBcbiAgYS0tPmJcbiAgYi0tPmNcbiAgYy0tPmRcbiAgYy0tPmUiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
