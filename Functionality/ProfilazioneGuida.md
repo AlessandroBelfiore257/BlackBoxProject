@@ -16,9 +16,21 @@ Il punteggio del guidatore [0,1] viene calcolato considerando un insieme di para
 -   Calcolo il numero di eccessi di velocità dati dalla differenza tra i limiti imposti dalla legge e quelli reali del veicolo
 -   Calcolo delle accelerazioni e decelerazioni brusche
 -   Calcolo delle sterzate sia a sinistra che a destra brusche
--   0.9 <= (velocità del veicolo / giri del motore) <= 1.3 (rapporto relativo)
+-   0.9 <= (velocità del veicolo / giri del motore) <= 1.3 per una buona guida (rapporto relativo)
 -   0.9 <= (valvola a farfalla / giri motore) <= 1.3 per una buona guida (rapporto relativo)
 -   20% <= carico del motore (%) <= 50% per una buona guida 
+
+Per quanto riguarda i primi 2 punti è possibile utilizzare un sensore a 3 assi utile per monitorare le accelerazioni/decelerazioni e le sterzate improvvise:
+| Asse | Direzione | Azione |
+| ------ | ------ | ------ | 
+| x | sinistra/destra | sterzata
+| y | anteriore/posteriore | accelerazione/decelerazione
+| z | su/giù | strada dissestata
+![Accelerometro](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD7ePphShh30lDGfMYCU6N-NpKGUrzpNGroEUhe6-lpAqAL8NibGitXKTDsnjMunm4pt0&usqp=CAU)
+Ecco un esempio di guida sicura e non analizzando prima accelerazione e decelerazione e successivamente le svolte a sinistra e destra:
+![Accelerazione/decelerazione](https://www.researchgate.net/profile/Marta-C-Gonzalez/publication/260543538/figure/fig5/AS:296735747395588@1447758723639/Acceleration-and-braking-being-performed-in-two-different-manners-a-Safe-acceleration_Q320.jpg)
+
+![Svolte a sinistra e destra](https://www.researchgate.net/profile/Marta-C-Gonzalez/publication/260543538/figure/fig6/AS:296735747395589@1447758723681/Acceleration-signature-of-a-left-lane-change-and-b-right-lane-change-These.png)
 
 ### Tabella valutativa
 
