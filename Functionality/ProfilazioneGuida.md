@@ -4,7 +4,7 @@ Nel quadro del nostro progetto di analisi della profilazione guida, sfruttiamo t
 
 ## Piccola overview del sistema proposto
 I principali parametri che vengono catturati per l'analisi del guidatore sono: **rpm** ovvero i giri motore al minuto, la **velocità dell'auto**, il **carico del motore** e la **valvola a farfalla** provenienti dalla rete CAN-BUS presente all'interno del veicolo, **accelerazione**, **decelerazione** (frenata) e **sterzate** provengono invece dall'accelerometro. 
-Una volta che la black box riceve i valori dei parametri, essa è in grado di analizzarli e riconoscere situazioni riconducibili ad una guida impropria raccogliendo il numero in cui si verificano tali situazioni all'interno di una struttura dati, dopo un periodo di 24h i dati vengono utilizzati per attribuire al guidatore un punteggio compreso tra [0,1].
+Una volta che la black box riceve i valori dei parametri, essa è in grado di analizzarli e riconoscere situazioni riconducibili ad una guida impropria raccogliendo il numero in cui si verificano tali situazioni all'interno di una struttura dati, dopo un periodo di 24h i dati vengono elaborati per calcolare un punteggio di guida compreso tra 0 e 1. Questo punteggio potrebbe essere utilizzato dalla compagnia per varie finalità, come ad esempio fornire incentivi ai guidatori che adottano comportamenti più sicuri.
 Ecco le principali fasi del sistema proposto: 
 
 [![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggTFJcbiAgYShEYXRhIHNlbnNpbmcpXG4gIGIoRGF0YSBhY3F1aXNpdGlvbilcbiAgYyhEYXRhIHByb2Nlc3NpbmcpXG4gIGQoRGF0YSBzdG9yYWdlKVxuXG4gIGEtLT5iXG4gIGItLT5jXG4gIGMtLT5kXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggTFJcbiAgYShEYXRhIHNlbnNpbmcpXG4gIGIoRGF0YSBhY3F1aXNpdGlvbilcbiAgYyhEYXRhIHByb2Nlc3NpbmcpXG4gIGQoRGF0YSBzdG9yYWdlKVxuXG4gIGEtLT5iXG4gIGItLT5jXG4gIGMtLT5kXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
@@ -33,7 +33,7 @@ Per quanto riguarda il secondo e il terzo punto è possibile utilizzare un accel
 
 ![Accelerometro](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD7ePphShh30lDGfMYCU6N-NpKGUrzpNGroEUhe6-lpAqAL8NibGitXKTDsnjMunm4pt0&usqp=CAU)
 
-Per quanto riguarda i punti 4 e 5 è possibile calcolarli per via analitica conoscendo i dati provenienti dall'OBD-II, mentre per l'ultimo punto (carico motore espresso in %) non si ha bisogno di alcuna manipolazione dei dati in quanto esso proviene direttamente dalla rete CAN-BUS.
+Per quanto riguarda i punti 4 e 5 è possibile calcolarli per via analitica conoscendo i dati provenienti dall'OBD-II, mentre per l'ultimo punto (carico motore espresso in %) non si ha bisogno di alcuna manipolazione dei dati in quanto essi provengono direttamente dalla rete CAN-BUS.
 
 ### Tabella valutativa
 Per valutare il comportamento del guidatore di seguito vengono mostrati i vari livelli di punteggio del guidatore che posso essere ottenuto dopo un periodo di 24h di monitoraggio guida
