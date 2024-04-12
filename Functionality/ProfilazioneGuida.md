@@ -4,7 +4,7 @@ Nel quadro del nostro progetto di analisi della profilazione guida, sfruttiamo t
 
 ## Piccola overview del sistema proposto
 I principali parametri che vengono catturati per l'analisi del guidatore sono: **rpm** ovvero i giri motore al minuto, la **velocità dell'auto**, il **carico del motore** e la **valvola a farfalla** provenienti dalla rete CAN-BUS presente all'interno del veicolo, **accelerazione**, **decelerazione** (frenata) e **sterzate** provengono invece dall'accelerometro. 
-Una volta che la black box riceve i valori dei parametri, essa è in grado di analizzarli e riconoscere situazioni riconducibili ad una guida impropria raccogliendo il numero in cui si verificano tali situazioni all'interno di una struttura dati, dopo un periodo di 24h i dati vengono utilizzati per attribuire al guidatore un punteggio compreso tra [0-1].
+Una volta che la black box riceve i valori dei parametri, essa è in grado di analizzarli e riconoscere situazioni riconducibili ad una guida impropria raccogliendo il numero in cui si verificano tali situazioni all'interno di una struttura dati, dopo un periodo di 24h i dati vengono utilizzati per attribuire al guidatore un punteggio compreso tra [0,1].
 Ecco le principali fasi del sistema proposto: 
 
 [![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggTFJcbiAgYShEYXRhIHNlbnNpbmcpXG4gIGIoRGF0YSBhY3F1aXNpdGlvbilcbiAgYyhEYXRhIHByb2Nlc3NpbmcpXG4gIGQoRGF0YSBzdG9yYWdlKVxuXG4gIGEtLT5iXG4gIGItLT5jXG4gIGMtLT5kXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggTFJcbiAgYShEYXRhIHNlbnNpbmcpXG4gIGIoRGF0YSBhY3F1aXNpdGlvbilcbiAgYyhEYXRhIHByb2Nlc3NpbmcpXG4gIGQoRGF0YSBzdG9yYWdlKVxuXG4gIGEtLT5iXG4gIGItLT5jXG4gIGMtLT5kXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
@@ -13,7 +13,7 @@ Ecco le principali fasi del sistema proposto:
 3. Data processing: i dati trasferiti attraverso l'OBD-II sono processati dalla board di interesse
 4. Data storage: vengono memorizzati in una struttura dati i valori di alcuni parametri che vengono ritenuti significativi per la valutazione finale del guidatore
 
-ECU è l'unità centrale di controllo del veicolo dove sono collegati tutti i vari sensori presenti all'interno del motore dell'auto, aria condizionata, livello carburante, corpo dell'auto... . L'adapter OBD-II trasmette i dati dalla ECU alla board di interesse via Bluetooth. La board processa i dati ed è in grado di generare uno score del guidatore.
+ECU è l'unità centrale di controllo del veicolo dove sono collegati tutti i vari sensori presenti all'interno del veicolo: motore dell'auto, aria condizionata, livello carburante, corpo dell'auto... . L'adapter OBD-II trasmette i dati dalla ECU alla board di interesse via Bluetooth. La board processa i dati ed è in grado di generare uno score del guidatore.
 Il punteggio [0,1] viene calcolato considerando:
 -   Il numero di eccessi di velocità dati dalla differenza tra i limiti imposti dalla legge e quelli reali del veicolo
 -   Le accelerazioni e decelerazioni brusche
