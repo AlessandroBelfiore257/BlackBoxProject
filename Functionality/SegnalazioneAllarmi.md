@@ -2,11 +2,11 @@
 
 ## Introduzione
 Il meccanismo di segnalazione allarmi prevede tre diversi tipi di dinamiche:
-- Precauzione da incidente
+- Assistenza incidente
 - Assistenza cliente
-- Precauzione da alcuni sistemi non funzionanti / segnalazione di alcune situazioni anomale 
+- Avvertimento di alcuni sistemi non funzionanti / segnalazione di alcune situazioni anomale 
 
-1) La precauzione da incidente tratta la dinamica relativa ad un incidente stradale, inviando le coordinate GPS ed un insieme di informazioni utili ad una stazione remota dell'autonoleggio, sarà proprio lei ad avvisare i soccorsi che poi andranno a recarsi nel preciso punto di impatto.
+1) L'assistenza incidente tratta la dinamica relativa ad un incidente stradale, inviando le coordinate GPS ed un insieme di informazioni utili ad una stazione remota dell'autonoleggio, sarà proprio lei ad avvisare i soccorsi che poi andranno a recarsi nel preciso punto di impatto.
 2) L'assistenza cliente include due semplici funzionalità: la prima di Sos dove il cliente si mette in contatto con un operatore dell'autonoleggio per qualsiasi necessità/bisogno, la seconda prevede la chiamata ad un carro attrezzi con il relativo invio di coordinate GPS.
 3) Per concludere, l'ultima dinamica è quella più interessante che consiste nel rilevamento di alcuni malfunzionamenti del veicolo e di alcuni comportamenti non corretti da parte del cliente a bordo dell'autovettura. Di seguito approfondiremo quest'ultima dinamica in modo più dettagliato
 
@@ -41,26 +41,24 @@ Sensoristica: CAN-BUS.
 Sensoristica: CAN-BUS.
 
 ## Configurazione
-### - Precauzione da incidente
+### - Assistenza incidente
 Sostanzialmente il meccanismo si divide in due fasi: la fase di RILEVAMENTO e quella di NOTIFICA.
 
 [![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbmFbU3RhcnRdIC0tPiBiKFJlYWQgdGhlIHN0YXR1cyBvZiBzZW5zb3IpXG5iIC0tPiBjKFJlYWQgdGhlIGRhdGEgZnJvbSBHUFMpXG5jIC0tPiBke1NlbnNvciBpcyB0cmlnZ2VyZWQ_fVxuZCAtLT4gfE5vfCBiXG5kIC0tPiB8WWVzfCBlKFNlbmQgU01TIHVzaW5nIEdTTSlcbmUgLS0-IGYoRU5EKVxuICAgICAgICAgICAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggVERcbmFbU3RhcnRdIC0tPiBiKFJlYWQgdGhlIHN0YXR1cyBvZiBzZW5zb3IpXG5iIC0tPiBjKFJlYWQgdGhlIGRhdGEgZnJvbSBHUFMpXG5jIC0tPiBke1NlbnNvciBpcyB0cmlnZ2VyZWQ_fVxuZCAtLT4gfE5vfCBiXG5kIC0tPiB8WWVzfCBlKFNlbmQgU01TIHVzaW5nIEdTTSlcbmUgLS0-IGYoRU5EKVxuICAgICAgICAgICAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
 
 __Accelerometro__: nella fase di rilevamento l'accelerometro continua ad estrarre informazioni relative alla forza G (forza di accelerazione) sperimentata dagli occupanti.
-__Microfono__: nella fase di rilevamento viene usato per rilevare valori di decibel decisivamente alti dovuti ad alcuni eventi ad esempio l'impatto o lo scoppio di un airbag. Viene usato come secondo filtro per ridurre i falsi positivi. (threshold > 140 db)
 __GPS__: nella fase di notifica è utile per inviare le coordinate GPS alla stazione remota.
 __VELOCITA' VEICOLO__: nella fase di notifica viene mandata alla stazione remota e può essere usata per future ricostruzioni/analisi dell'incidente.
 
 Per il rilevamento di una situazione di incidente posso usare un accelerometro, in un evento del genere la black box subirà la stessa accelerazione degli occupanti del veicolo. La forza G che si ricava dall'accelerazione deve essere ragionevolmente alta per un incidente, per questo non vengono considerati incidenti se tutte le accelerazioni sono inferiori a 4/5G. Infatti sulle auto gli airbag non vengono altro che azionati dal superamento di una certa soglia di accelerazione.
-Come secondo filtro viene utilizzato un microfono per cercare di ridurre i falsi allarmi.
-Per un ulteriore riduzione di situazioni di falso allarme, all'utente vengono concessi 30 secondi per annullare il rilevamento della situazione di incidente, terminati i 30sec la chiamata partirà in automatico, in caso di annullamento si ritornerà ad una situazione di partenza
+Come secondo filtro viene utilizzato un sistema di conferma per evitare i falsi positivi, all'utente vengono concessi 30 secondi per annullare il rilevamento della situazione di incidente, terminati i 30sec la chiamata partirà in automatico, in caso di annullamento si ritornerà ad una situazione di partenza
 
-[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbmFbU3RhcnRdIC0tPiBiKFJlYWQgZGF0YSlcbmIgLS0-IGN7RyBmb3JjZSB0cmlnZ2VyZWR9XG5jIC0tPiB8WWVzfCBke01pY3JvcGhvbmUgdHJpZ2dlcmVkfVxuYyAtLT4gfE5vfCBiXG5kIC0tPiB8WWVzfCBlKFJpbGV2YW1lbnRvIGluY2lkZW50ZSlcbmQgLS0-IHxOb3wgYlxuZSAtLT4gZnt1c2VyIGFib3J0fVxuZiAtLT4gfFllc3wgYlxuZiAtLT4gfE5vfCBnKFNlbmQgYWNjaWRlbnQgU01TKVxuZyAtLT4gaChFTkQpIiwibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQifSwidXBkYXRlRWRpdG9yIjpmYWxzZX0)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggVERcbmFbU3RhcnRdIC0tPiBiKFJlYWQgZGF0YSlcbmIgLS0-IGN7RyBmb3JjZSB0cmlnZ2VyZWR9XG5jIC0tPiB8WWVzfCBke01pY3JvcGhvbmUgdHJpZ2dlcmVkfVxuYyAtLT4gfE5vfCBiXG5kIC0tPiB8WWVzfCBlKFJpbGV2YW1lbnRvIGluY2lkZW50ZSlcbmQgLS0-IHxOb3wgYlxuZSAtLT4gZnt1c2VyIGFib3J0fVxuZiAtLT4gfFllc3wgYlxuZiAtLT4gfE5vfCBnKFNlbmQgYWNjaWRlbnQgU01TKVxuZyAtLT4gaChFTkQpIiwibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQifSwidXBkYXRlRWRpdG9yIjpmYWxzZX0)
+[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbmFbSW5pemlvXSAtLT4gYihSZWFkIGRhdGEpXG5iIC0tPiBje0cgZm9yY2UgdHJpZ2dlcmVkfVxuYyAtLT4gfE5vfCBiXG5jIC0tPiB8WWVzfCBkKFJpbGV2YW1lbnRvIGluY2lkZW50ZSlcbmQgLS0-IGZ7dXNlciBhYm9ydH1cbmYgLS0-IHxZZXN8IGJcbmYgLS0-IHxOb3wgZyhTZW5kIGFjY2lkZW50IFNNUylcbmcgLS0-IGgoRU5EKVxuICAgICAgICAgICAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggVERcbmFbSW5pemlvXSAtLT4gYihSZWFkIGRhdGEpXG5iIC0tPiBje0cgZm9yY2UgdHJpZ2dlcmVkfVxuYyAtLT4gfE5vfCBiXG5jIC0tPiB8WWVzfCBkKFJpbGV2YW1lbnRvIGluY2lkZW50ZSlcbmQgLS0-IGZ7dXNlciBhYm9ydH1cbmYgLS0-IHxZZXN8IGJcbmYgLS0-IHxOb3wgZyhTZW5kIGFjY2lkZW50IFNNUylcbmcgLS0-IGgoRU5EKVxuICAgICAgICAgICAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
 
 ```sh
 Incidente = I
-Accident-threshold  = 2
-I = 1 se ( (Accelerazione/4G) + (RumoreUrto/140db) ) >= Accident-threshold 
+Accident_threshold  = 1
+I = 1 se ((Accelerazione/4G) >= (Accident_threshold)) && !userAbort
 I = 0 altrimenti
 ```
 
@@ -69,7 +67,7 @@ A seguito dell'incidente le informazioni che possono essere trasportate sono: **
 Punto di debolezza: in caso di incidente estremo se la black box viene distrutta non è possibile contattare i soccorsi.
 ### - Assistenza cliente
 Utilizzo di un bottone per gestire sia Sos che la chiamata al carro attrezzi, premendo il bottone per una durata di 5 sec mi metto in contatto con la centrale operativa, premendolo invece per 10 sec mi metto in contatto con il carro attrezzi (+ invio coordinate GPS).
-### - Precauzione da alcuni sistemi non funzionanti / segnalazione di alcune situazioni anomale
+### - Avvertimento di alcuni sistemi non funzionanti / segnalazione di alcune situazioni anomale
 Per ogni casistica utilizzo opportuni sensori per catturare i possibili problemi del veicolo o comportamenti scorretti del cliente:
 comportamento/problema : sensore di rilevamento
 - Fumo : rilevatore di fumi
