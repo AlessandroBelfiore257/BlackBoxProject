@@ -7,7 +7,18 @@ I principali parametri che vengono catturati per l'analisi del guidatore sono: *
 Una volta che la black box riceve i valori dei parametri, essa è in grado di analizzarli e riconoscere situazioni riconducibili ad una guida impropria raccogliendo il numero in cui si verificano tali situazioni all'interno di una struttura dati, dopo un periodo di 24h i dati vengono elaborati per calcolare un punteggio di guida compreso tra 0 e 1. Questo punteggio potrebbe essere utilizzato dalla compagnia per varie finalità, come ad esempio fornire incentivi ai guidatori che adottano comportamenti più sicuri.
 Ecco le principali fasi del sistema proposto: 
 
-[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggTFJcbiAgYShEYXRhIHNlbnNpbmcpXG4gIGIoRGF0YSBhY3F1aXNpdGlvbilcbiAgYyhEYXRhIHByb2Nlc3NpbmcpXG4gIGQoRGF0YSBzdG9yYWdlKVxuXG4gIGEtLT5iXG4gIGItLT5jXG4gIGMtLT5kXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggTFJcbiAgYShEYXRhIHNlbnNpbmcpXG4gIGIoRGF0YSBhY3F1aXNpdGlvbilcbiAgYyhEYXRhIHByb2Nlc3NpbmcpXG4gIGQoRGF0YSBzdG9yYWdlKVxuXG4gIGEtLT5iXG4gIGItLT5jXG4gIGMtLT5kXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
+```mermaid
+graph LR
+  a(Data sensing)
+  b(Data acquisition)
+  c(Data processing)
+  d(Data storage)
+
+  a-->b
+  b-->c
+  c-->d
+```
+
 1. Data sensing: i dati provenienti dal motore della macchina ad esempio rpm, velocità, accelerazione... vengono percepiti dall'unità di controllo ECU
 2. Data acquisition: i dati acquisiti dalla ECU vengono trasferiti via Bluetooth alla board prescelta utilizzando un adattatore OBD-II
 3. Data processing: i dati trasferiti attraverso l'OBD-II sono processati dalla board di interesse
@@ -64,7 +75,23 @@ Se nel nostro studio si volesse classificare il guidatore in più classi (pruden
 
 Le fasi principali sono 7:
 
-[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggTFJcbiAgYShEYXRhIHJlYWwgZGlydHkpXG4gIGIoUHJlLXByb2Nlc3NpbmcgZGVpIGRhdGkpXG4gIGMoRGl2aXNpb25lIGRlaSBkYXRpKVxuICBkKEFkZGVzdHJhbWVudG8gZGVsIG1vZGVsbG8pXG4gIGUoVmFsdXRhemlvbmUgZGVsIG1vZGVsbG8pXG4gIGYoVHVuaW5nIGRlZ2xpIGlwZXJwYXJhbWV0cmkgZSBkZXBsb3kgZGVsIG1vZGVsbG8pXG4gIGcoTW9uaXRvcmFnZ2lvIGUgYWdnaW9ybmFtZW50bylcblxuICBhLS0-YlxuICBiLS0-Y1xuICBjLS0-ZFxuICBkLS0-ZVxuICBlLS0-ZlxuICBmLS0-ZyIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggTFJcbiAgYShEYXRhIHJlYWwgZGlydHkpXG4gIGIoUHJlLXByb2Nlc3NpbmcgZGVpIGRhdGkpXG4gIGMoRGl2aXNpb25lIGRlaSBkYXRpKVxuICBkKEFkZGVzdHJhbWVudG8gZGVsIG1vZGVsbG8pXG4gIGUoVmFsdXRhemlvbmUgZGVsIG1vZGVsbG8pXG4gIGYoVHVuaW5nIGRlZ2xpIGlwZXJwYXJhbWV0cmkgZSBkZXBsb3kgZGVsIG1vZGVsbG8pXG4gIGcoTW9uaXRvcmFnZ2lvIGUgYWdnaW9ybmFtZW50bylcblxuICBhLS0-YlxuICBiLS0-Y1xuICBjLS0-ZFxuICBkLS0-ZVxuICBlLS0-ZlxuICBmLS0-ZyIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)
+```mermaid
+graph LR
+  a(Data real dirty)
+  b(Pre-processing dei dati)
+  c(Divisione dei dati)
+  d(Addestramento del modello)
+  e(Valutazione del modello)
+  f(Tuning degli iperparametri e deploy del modello)
+  g(Monitoraggio e aggiornamento)
+
+  a-->b
+  b-->c
+  c-->d
+  d-->e
+  e-->f
+  f-->g
+```
 
 1. Acquisizione dei dati
 2. Pre-processing dei dati, preparare i dati per l'analisi, inclusa la loro pulizia e la preparazione delle feature
@@ -79,7 +106,19 @@ Il **clustering** è una tecnica di apprendimento non supervisionato il cui scop
 
 Le fasi principali sono 5: 
 
-[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggTFJcbiAgYShEYXRhIHJlYWwgZGlydHkpXG4gIGIoUHJlLXByb2Nlc3NpbmcpXG4gIGMoRGF0YSBtYXRyaXgpXG4gIGQoQ2x1c3RlcmluZyBhbGdvcml0aG1zKVxuICBlKENsdXN0ZXJzKVxuICBcbiAgYS0tPmJcbiAgYi0tPmNcbiAgYy0tSU5QVVQtLT5kXG4gIGQtLU9VVFBVVC0tPmUiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggTFJcbiAgYShEYXRhIHJlYWwgZGlydHkpXG4gIGIoUHJlLXByb2Nlc3NpbmcpXG4gIGMoRGF0YSBtYXRyaXgpXG4gIGQoQ2x1c3RlcmluZyBhbGdvcml0aG1zKVxuICBlKENsdXN0ZXJzKVxuICBcbiAgYS0tPmJcbiAgYi0tPmNcbiAgYy0tSU5QVVQtLT5kXG4gIGQtLU9VVFBVVC0tPmUiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
+```mermaid
+graph LR
+  a(Data real dirty)
+  b(Pre-processing)
+  c(Data matrix)
+  d(Clustering algorithms)
+  e(Clusters)
+  
+  a-->b
+  b-->c
+  c--INPUT-->d
+  d--OUTPUT-->e
+```
 
 1. Acquisizione dei dati
 2. Pre-processing composto a sua volta da più fasi, data cleaning, data integration, data reduction e data transformation
@@ -115,4 +154,16 @@ Si propone di eseguire ripetutamente lo stesso percorso in automobile, affrontan
 ## Conclusioni
 Lo schema che seguirà di seguito indica che con il nostro sistema è possibile sfuttare la capacità valutativa della board, la quale è in grado di generare uno score del guidatore e di offrire la possibilità di valutarlo in base a questo, la possibilità di giudicarlo utilizzando tecniche di machine learning o la possibilità di utilizzare entrambe le tecniche per avere un quadro completo relativo alla sua guida:
 
-[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbiAgYShFQ1UpXG4gIGIoT0JELUlJIEFkYXB0ZXIpXG4gIGMoRHJpdmVyIFByb2ZpbGluZylcbiAgZChTY29yZSBvYnRlaW5lZCBieSBCb2FyZClcbiAgZShNYWNoaW5lIExlYXJuaW5nIHRlY25pcXVlKVxuICBcbiAgYS0tPmJcbiAgYi0tPmNcbiAgYy0tPmRcbiAgYy0tPmUiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggVERcbiAgYShFQ1UpXG4gIGIoT0JELUlJIEFkYXB0ZXIpXG4gIGMoRHJpdmVyIFByb2ZpbGluZylcbiAgZChTY29yZSBvYnRlaW5lZCBieSBCb2FyZClcbiAgZShNYWNoaW5lIExlYXJuaW5nIHRlY25pcXVlKVxuICBcbiAgYS0tPmJcbiAgYi0tPmNcbiAgYy0tPmRcbiAgYy0tPmUiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
+```mermaid
+graph TD
+  a(ECU)
+  b(OBD-II Adapter)
+  c(Driver Profiling)
+  d(Score obteined by Board)
+  e(Machine Learning tecnique)
+  
+  a-->b
+  b-->c
+  c-->d
+  c-->e
+```
