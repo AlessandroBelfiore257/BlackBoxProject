@@ -24,6 +24,16 @@ La SIM800A ha bisogno di 2A, vieni quindi collegata una alimentazione esterna di
 Il GPS lo si può connettere a dei semplici pin digitali di input/output della board.
 SIM800A è connesso anche lui a dei pin digitali di input/output.
 
+```mermaid
+graph LR
+  a(GPS + bussola __ricezione dati__)
+  b(microcontrollore __i dati vengono processati__)
+  c(GSM __trasferisce i dati via GPRS o SMS__)
+  
+  a-->b
+  b-->c
+```
+
 [![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggTFJcbiAgYShHUFMgKyBidXNzb2xhIF9fcmljZXppb25lIGRhdGlfXylcbiAgYihtaWNyb2NvbnRyb2xsb3JlIF9faSBkYXRpIHZlbmdvbm8gcHJvY2Vzc2F0aV9fKVxuICBjKEdTTSBfX3RyYXNmZXJpc2NlIGkgZGF0aSB2aWEgR1BSUyBvIFNNU19fKVxuICBcbiAgYS0tPmJcbiAgYi0tPmMiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggTFJcbiAgYShHUFMgKyBidXNzb2xhIF9fcmljZXppb25lIGRhdGlfXylcbiAgYihtaWNyb2NvbnRyb2xsb3JlIF9faSBkYXRpIHZlbmdvbm8gcHJvY2Vzc2F0aV9fKVxuICBjKEdTTSBfX3RyYXNmZXJpc2NlIGkgZGF0aSB2aWEgR1BSUyBvIFNNU19fKVxuICBcbiAgYS0tPmJcbiAgYi0tPmMiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
 
 ## Imprecisione
