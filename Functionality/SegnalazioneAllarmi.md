@@ -53,6 +53,18 @@ __VELOCITA' VEICOLO__: nella fase di notifica viene mandata alla stazione remota
 Per il rilevamento di una situazione di incidente posso usare un accelerometro, in un evento del genere la black box subirà la stessa accelerazione degli occupanti del veicolo. La forza G che si ricava dall'accelerazione deve essere ragionevolmente alta per un incidente, per questo non vengono considerati incidenti se tutte le accelerazioni sono inferiori a 4/5G. Infatti sulle auto gli airbag non vengono altro che azionati dal superamento di una certa soglia di accelerazione.
 Come secondo filtro viene utilizzato un sistema di conferma per evitare i falsi positivi, all'utente vengono concessi 30 secondi per annullare il rilevamento della situazione di incidente, terminati i 30sec la chiamata partirà in automatico, in caso di annullamento si ritornerà ad una situazione di partenza
 
+```mermaid
+graph TD;
+a[Inizio] --> b(Read data);
+b --> c{G force triggered};
+c --> |No| b;
+c --> |Yes| d(Rilevamento incidente);
+d --> f{user abort};
+f --> |Yes| b;
+f --> |No| g(Send accident SMS);
+g --> h(END);
+```
+
 [![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbmFbSW5pemlvXSAtLT4gYihSZWFkIGRhdGEpXG5iIC0tPiBje0cgZm9yY2UgdHJpZ2dlcmVkfVxuYyAtLT4gfE5vfCBiXG5jIC0tPiB8WWVzfCBkKFJpbGV2YW1lbnRvIGluY2lkZW50ZSlcbmQgLS0-IGZ7dXNlciBhYm9ydH1cbmYgLS0-IHxZZXN8IGJcbmYgLS0-IHxOb3wgZyhTZW5kIGFjY2lkZW50IFNNUylcbmcgLS0-IGgoRU5EKVxuICAgICAgICAgICAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggVERcbmFbSW5pemlvXSAtLT4gYihSZWFkIGRhdGEpXG5iIC0tPiBje0cgZm9yY2UgdHJpZ2dlcmVkfVxuYyAtLT4gfE5vfCBiXG5jIC0tPiB8WWVzfCBkKFJpbGV2YW1lbnRvIGluY2lkZW50ZSlcbmQgLS0-IGZ7dXNlciBhYm9ydH1cbmYgLS0-IHxZZXN8IGJcbmYgLS0-IHxOb3wgZyhTZW5kIGFjY2lkZW50IFNNUylcbmcgLS0-IGgoRU5EKVxuICAgICAgICAgICAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
 
 ```sh
