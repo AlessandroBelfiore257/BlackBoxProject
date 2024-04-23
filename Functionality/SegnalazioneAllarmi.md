@@ -44,7 +44,15 @@ Sensoristica: CAN-BUS.
 ### - Assistenza incidente
 Sostanzialmente il meccanismo si divide in due fasi: la fase di RILEVAMENTO e quella di NOTIFICA.
 
-[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbmFbU3RhcnRdIC0tPiBiKFJlYWQgdGhlIHN0YXR1cyBvZiBzZW5zb3IpXG5iIC0tPiBjKFJlYWQgdGhlIGRhdGEgZnJvbSBHUFMpXG5jIC0tPiBke1NlbnNvciBpcyB0cmlnZ2VyZWQ_fVxuZCAtLT4gfE5vfCBiXG5kIC0tPiB8WWVzfCBlKFNlbmQgU01TIHVzaW5nIEdTTSlcbmUgLS0-IGYoRU5EKVxuICAgICAgICAgICAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggVERcbmFbU3RhcnRdIC0tPiBiKFJlYWQgdGhlIHN0YXR1cyBvZiBzZW5zb3IpXG5iIC0tPiBjKFJlYWQgdGhlIGRhdGEgZnJvbSBHUFMpXG5jIC0tPiBke1NlbnNvciBpcyB0cmlnZ2VyZWQ_fVxuZCAtLT4gfE5vfCBiXG5kIC0tPiB8WWVzfCBlKFNlbmQgU01TIHVzaW5nIEdTTSlcbmUgLS0-IGYoRU5EKVxuICAgICAgICAgICAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
+```mermaid
+graph TD
+  a[Start] --> b(Read the status of sensor)
+  b --> c(Read the data from GPS)
+  c --> d{Sensor is triggered?}
+  d --> |No| b
+  d --> |Yes| e(Send SMS using GSM)
+  e --> f(END)
+```
 
 __Accelerometro__: nella fase di rilevamento l'accelerometro continua ad estrarre informazioni relative alla forza G (forza di accelerazione) sperimentata dagli occupanti.
 __GPS__: nella fase di notifica è utile per inviare le coordinate GPS alla stazione remota.
@@ -54,18 +62,16 @@ Per il rilevamento di una situazione di incidente posso usare un accelerometro, 
 Come secondo filtro viene utilizzato un sistema di conferma per evitare i falsi positivi, all'utente vengono concessi 30 secondi per annullare il rilevamento della situazione di incidente, terminati i 30sec la chiamata partirà in automatico, in caso di annullamento si ritornerà ad una situazione di partenza
 
 ```mermaid
-graph TD;
-a[Inizio] --> b(Read data);
-b --> c{G force triggered};
-c --> |No| b;
-c --> |Yes| d(Rilevamento incidente);
-d --> f{user abort};
-f --> |Yes| b;
-f --> |No| g(Send accident SMS);
-g --> h(END);
+graph TD
+  a[Inizio] --> b(Read data)
+  b --> c{G force triggered}
+  c --> |No| b
+  c --> |Yes| d(Rilevamento incidente)
+  d --> f{user abort}
+  f --> |Yes| b
+  f --> |No| g(Send accident SMS)
+  g --> h(END)
 ```
-
-[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbmFbSW5pemlvXSAtLT4gYihSZWFkIGRhdGEpXG5iIC0tPiBje0cgZm9yY2UgdHJpZ2dlcmVkfVxuYyAtLT4gfE5vfCBiXG5jIC0tPiB8WWVzfCBkKFJpbGV2YW1lbnRvIGluY2lkZW50ZSlcbmQgLS0-IGZ7dXNlciBhYm9ydH1cbmYgLS0-IHxZZXN8IGJcbmYgLS0-IHxOb3wgZyhTZW5kIGFjY2lkZW50IFNNUylcbmcgLS0-IGgoRU5EKVxuICAgICAgICAgICAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggVERcbmFbSW5pemlvXSAtLT4gYihSZWFkIGRhdGEpXG5iIC0tPiBje0cgZm9yY2UgdHJpZ2dlcmVkfVxuYyAtLT4gfE5vfCBiXG5jIC0tPiB8WWVzfCBkKFJpbGV2YW1lbnRvIGluY2lkZW50ZSlcbmQgLS0-IGZ7dXNlciBhYm9ydH1cbmYgLS0-IHxZZXN8IGJcbmYgLS0-IHxOb3wgZyhTZW5kIGFjY2lkZW50IFNNUylcbmcgLS0-IGgoRU5EKVxuICAgICAgICAgICAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
 
 ```sh
 Incidente = I
