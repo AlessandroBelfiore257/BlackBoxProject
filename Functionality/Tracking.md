@@ -34,8 +34,6 @@ graph LR
   b-->c
 ```
 
-[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggTFJcbiAgYShHUFMgKyBidXNzb2xhIF9fcmljZXppb25lIGRhdGlfXylcbiAgYihtaWNyb2NvbnRyb2xsb3JlIF9faSBkYXRpIHZlbmdvbm8gcHJvY2Vzc2F0aV9fKVxuICBjKEdTTSBfX3RyYXNmZXJpc2NlIGkgZGF0aSB2aWEgR1BSUyBvIFNNU19fKVxuICBcbiAgYS0tPmJcbiAgYi0tPmMiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)](https://workflow.jace.pro/#/edit/eyJjb2RlIjoiZ3JhcGggTFJcbiAgYShHUFMgKyBidXNzb2xhIF9fcmljZXppb25lIGRhdGlfXylcbiAgYihtaWNyb2NvbnRyb2xsb3JlIF9faSBkYXRpIHZlbmdvbm8gcHJvY2Vzc2F0aV9fKVxuICBjKEdTTSBfX3RyYXNmZXJpc2NlIGkgZGF0aSB2aWEgR1BSUyBvIFNNU19fKVxuICBcbiAgYS0tPmJcbiAgYi0tPmMiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
-
 ## Imprecisione
 In molti casi il GPS potrebbe darci una risposta errata o non sufficientemente precisa, dovuta a molti fattori esterni, ad esempio:
 condizioni del tempo atmosferico, ambiente che circonda il veicolo, il ricevitore GPS, il sensore bussola e la variazione tra
