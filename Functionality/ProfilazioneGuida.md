@@ -44,6 +44,8 @@ Per quanto riguarda il secondo e il terzo punto è possibile utilizzare un accel
 
 ![Accelerometro](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD7ePphShh30lDGfMYCU6N-NpKGUrzpNGroEUhe6-lpAqAL8NibGitXKTDsnjMunm4pt0&usqp=CAU)
 
+![Accelerometro](https://github.com/AlessandroBelfiore257/BlackBoxProject/assets/73615267/827fdc91-5df9-4de6-80c5-953bab8fd969)
+
 Per quanto riguarda i punti 4 e 5 è possibile calcolarli per via analitica conoscendo i dati provenienti dall'OBD-II, mentre per l'ultimo punto (carico motore espresso in %) non si ha bisogno di alcuna manipolazione dei dati in quanto essi provengono direttamente dalla rete CAN-BUS.
 
 ### Tabella valutativa
