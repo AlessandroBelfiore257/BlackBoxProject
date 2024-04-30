@@ -8,11 +8,12 @@ Scheduler scheduler;
 #define ELM_PORT   SerialBT
 #define DEBUG_PORT Serial
 
+// Soglia giri motore
 const int THESHOLD = 3000;
 
-void rilevoVelCallback();
+void rilevoRPMCallback();
 
-Task rilevoVelTask(10000, TASK_FOREVER, &rilevoVelCallback);
+Task rilevoRPMTask(10000, TASK_FOREVER, &rilevoRPMCallback);
 
 ELM327 myELM327;
 
@@ -53,8 +54,8 @@ void setup()
   Serial.println("Connected to ELM327");
   
   scheduler.init();
-  scheduler.addTask(rilevoVelTask);
-  rilevoVelTask.enable();
+  scheduler.addTask(rilevoRPMTask);
+  rilevoRPMTask.enable();
 }
 
 
@@ -73,7 +74,7 @@ void loop()
     scheduler.execute();
 }
 
-void rilevoVelCallback() {
+void rilevoRPMCallback() {
     countTOT++;
     if(registeredRPM > THESHOLD) {
           countSuperior++;
