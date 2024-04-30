@@ -8,6 +8,8 @@ Scheduler scheduler;
 #define ELM_PORT   SerialBT
 #define DEBUG_PORT Serial
 
+const int THESHOLD = 3000;
+
 void rilevoVelCallback();
 
 Task rilevoVelTask(10000, TASK_FOREVER, &rilevoVelCallback);
@@ -73,7 +75,7 @@ void loop()
 
 void rilevoVelCallback() {
     countTOT++;
-    if(registeredRPM > 1000) {
+    if(registeredRPM > THESHOLD) {
           countSuperior++;
     }
     DEBUG_PORT.printf("############################# Numero di volte in cui eccedo gli rpm: %d #############################", countSuperior);
