@@ -64,9 +64,9 @@ void initializeStorage() {
 
 void createPolicyStorage() {
   int rc = db_exec(db, "CREATE TABLE t2 (nome_sensore TEXT, frequency INTEGER);");
-  sprintf(buffer, "INSERT INTO t2 VALUES ('Button pressure', 60000);");
+  sprintf(buffer, "INSERT INTO t2 VALUES ('Button pressure', 60);");
   rc = db_exec(db, buffer);
-  sprintf(buffer, "INSERT INTO t2 VALUES ('Casual number', 120000);");
+  sprintf(buffer, "INSERT INTO t2 VALUES ('Casual number', 120);");
   rc = db_exec(db, buffer);
   rc = db_exec(db, "SELECT * FROM t2");
   if (rc != SQLITE_OK) {
