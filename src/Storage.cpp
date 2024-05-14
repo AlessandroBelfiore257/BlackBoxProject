@@ -1,14 +1,11 @@
 #include "storage.h"
+
+#include <Arduino.h>
 #include <SPI.h>
 #include <FS.h>
 #include <LittleFS.h>
-#include <Arduino.h>
 
 #include "Config.h"
-
-extern char buffer[BUFFER_SIZE];
-sqlite3 *db;
-struct tm timeinfo;
 
 static int callback(void *data, int argc, char **argv, char **azColName) {
   int i;
@@ -18,6 +15,37 @@ static int callback(void *data, int argc, char **argv, char **azColName) {
   }
   Serial.printf("\n");
   return 0;
+}
+
+void createPolicyStorage() {
+  /*
+  int rc = db_exec(db, "CREATE TABLE t2 (nome_sensore TEXT, frequency INTEGER);");
+  char buffer1[BUFFER_SIZE];
+  char buffer2[BUFFER_SIZE];
+  sprintf(buffer1, "INSERT INTO t2 VALUES ('Button pressure', 60);");
+  rc = db_exec(db, buffer1);
+  sprintf(buffer2, "INSERT INTO t2 VALUES ('Casual number', 120);");
+  rc = db_exec(db, buffer2);
+  rc = db_exec(db, "SELECT * FROM t2");
+  if (rc != SQLITE_OK) {
+    sqlite3_close(db);
+    return;
+  } */
+  Serial.println("Si vedrà se memorizzare su un file di config o su una tabella");
+}
+
+void initializeStorage() {
+  sqlite3_initialize();
+  if (db_open("/littlefs/dati.db", &db))
+    return;
+  // Creazione tabella principale di storage
+  int rc = db_exec(db, "CREATE TABLE t1 (nome_sensore TEXT, valore REAL, timestamp INTEGER, synchronised INTEGER, priority INTEGER);");
+  if (rc != SQLITE_OK) {
+    sqlite3_close(db);
+    return;
+  }
+  createPolicyStorage();
+  sqlite3_close(db);
 }
 
 int db_open(const char *filename, sqlite3 **db) {
@@ -42,35 +70,29 @@ int db_exec(sqlite3 *db, const char *sql) {
   } else {
     Serial.printf("Operation done successfully\n");
   }
-  Serial.print(F("Time taken:"));
-  Serial.println(micros() - start);
   return rc;
 }
 
-void initializeStorage() {
-  sqlite3_initialize();
+/*
+  Creazione record e inserimento nella tabella t1 
+*/
+void createRecordToInsertIntot1(char* name_sensor, int value, long long int ts, int synch, int pr) {
   if (db_open("/littlefs/dati.db", &db))
     return;
-
-  int rc = db_exec(db, "CREATE TABLE t1 (nome_sensore TEXT, valore REAL, timestamp TEXT, synchronised INTEGER, priority INTEGER);");
-  if (rc != SQLITE_OK) {
-    sqlite3_close(db);
-    return;
-  }
-  createPolicyStorage();
-
+  char buffer[BUFFER_SIZE];
+  memset(buffer, 0, sizeof(buffer));
+  Serial.print("Not buffered: ");
+  Serial.println(buffer);
+  sprintf(buffer, "INSERT INTO t1 VALUES ('%s', %d, %lld, %d, %d);", name_sensor, value, ts, synch, pr);
+  Serial.print("Buffered: ");
+  Serial.println(buffer);
+  int rc = db_exec(db, buffer);
+  // Debugging
+  Serial.println("DB/t1:");
+    rc = db_exec(db, "SELECT * FROM t1");
+    if (rc != SQLITE_OK) {
+      sqlite3_close(db);
+      return;
+    }
   sqlite3_close(db);
-}
-
-void createPolicyStorage() {
-  int rc = db_exec(db, "CREATE TABLE t2 (nome_sensore TEXT, frequency INTEGER);");
-  sprintf(buffer, "INSERT INTO t2 VALUES ('Button pressure', 60);");
-  rc = db_exec(db, buffer);
-  sprintf(buffer, "INSERT INTO t2 VALUES ('Casual number', 120);");
-  rc = db_exec(db, buffer);
-  rc = db_exec(db, "SELECT * FROM t2");
-  if (rc != SQLITE_OK) {
-    sqlite3_close(db);
-    return;
-  }
 }
