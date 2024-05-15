@@ -40,7 +40,7 @@ graph TD
 - uguale al primo task di G1
 - dopo il superamento di una soglia 7gg ad esempio elimina metà dei record più vecchi ancora non sincronizzati
 
-Considerazioni generali sulla black:
+## Considerazioni generali sulla black:
 
 ### Tracking: 
 - Coord GPS: (sms) + store db
