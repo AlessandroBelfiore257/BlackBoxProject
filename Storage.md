@@ -16,11 +16,11 @@ _Numeri bassi indicano priorità alta_
 |Carico motore|45|0|0
 
 ### Tabella dati statistici:
-|nome_sensore|data (YYYY/MM/GG)|media|mediana|moda|dev.std.|vMin|vMax 
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:| 
-|Text|INTEGER|REAL|REAL|REAL|REAL|REAL|REAL
-|Temperatura liquido refrigerante|2024/05/15|120,4|115,8|109|110|45|150
-|Carico motore|2024/05/15|60|56|56|59|0|99
+|nome_sensore|data (YYYY/MM/GG)|media|mediana|moda|dev.std.|vMin|vMax|sincornizzato
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:--:
+|Text|INTEGER|REAL|REAL|REAL|REAL|REAL|REAL|INTEGER (boolean)
+|Temperatura liquido refrigerante|2024/05/15|120,4|115,8|109|110|45|150|0
+|Carico motore|2024/05/15|60|56|56|59|0|99|1
 
 ## Meccanismo di cambio frequenza
 ```mermaid
@@ -30,3 +30,28 @@ graph TD
   C --> |YES| D[change freq. in db]
   C --> |NO| E[nothing]
 ```
+
+## Pulizia dati: simulo ciò che fa il garbage collection
+
+### G1 (dedicato alla tabella principale di memorizzazione dati): 
+- task che passa ogni tot tempo (8h) e pulisce i record già sincronizzati
+- task che viene chiamato se la memoria del mio db supera una certa soglia 80/90%. Reagisco eleiminando metà dei record presenti nel db (i più datati)
+### G2 (dedicato alla tabella contenente i dati statistici):
+- uguale al primo task di G1
+- dopo il superamento di una soglia 7gg ad esempio elimina metà dei record più vecchi ancora non sincronizzati
+
+Considerazioni generali sulla black:
+
+### Tracking: 
+- Coord GPS: (sms) + store db
+### Seganalazione allarmi:
+- Assistenza incidente: (sms)
+- Assistenza cliente: (sms)
+- Avvertimento di alcuni sistemi non funzionanti/segnalazione di alcune anomalie: store db, naturalmente alcuni task avranno priorità più alta rispetto ad altri 
+### Profilazione guida:
+- store db
+
+#### Domande:
+- GPS_LONG / GPS_LAT
+- Gestione memoria (sqlite3.h)
+- Synch step finale mancante
