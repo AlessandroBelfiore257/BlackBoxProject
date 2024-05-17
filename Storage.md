@@ -2,11 +2,11 @@
 _Numeri bassi indicano priorità alta_
 
 ### Tabella principale di memorizzazione dati (sensori/can bus):
-|nome_sensore|valore|timestamp|sincronizzato|priorità 
-|:---:|:---:|:---:|:---:|:---:| 
-|TEXT|REAL|INTEGER (numero di secondi trascorsi dall'epoc)|INTEGER (boolean)|INTEGER
-|Temperatura liquido refrigerante|98 (°C)|1715786497|0 (false) | 8
-|Carico motore|47 (%) |1715269497| 1 (true)| 3
+|nome_sensore|valore_generico|tipo_di_dato|unità_di_misura|timestamp|sincronizzato|priorità 
+|:---:|:---:|:---:|:---:|:---:| :---:|:---:
+|TEXT|TEXT|TEXT|TEXT|INTEGER (numero di secondi trascorsi dall'epoc)|INTEGER (boolean)|INTEGER
+|"Temperatura liquido refrigerante"|"98.6"|"Float"|"°C"|1715786497|0|8
+|"Carico motore"|"47"|"Integer"|"%"|1715269497|1|3
 
 ### Tabella frequenze di campionamento:
 |nome_sensore|frequenza|variabile
@@ -52,6 +52,4 @@ graph TD
 - store db
 
 #### Domande:
-- GPS_LONG / GPS_LAT
-- Gestione memoria (sqlite3.h)
 - Synch step finale mancante
