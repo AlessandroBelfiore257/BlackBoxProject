@@ -50,6 +50,3 @@ graph TD
 - Avvertimento di alcuni sistemi non funzionanti/segnalazione di alcune anomalie: store db, naturalmente alcuni task avranno priorità più alta rispetto ad altri 
 ### Profilazione guida:
 - store db
-
-#### Domande:
-- Synch step finale mancante
