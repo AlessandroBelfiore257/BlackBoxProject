@@ -6,7 +6,7 @@ _Inventario dei sensori utili e stima delle componenti che mi serviranno_
 3 resistori 
 3 collegamenti grd
 3 pin digitali
-- Sensore di rilevamento fumo utile per "segnalazione allarmi": 
+- Sensore di rilevamento gas e fumo utile per "segnalazione allarmi": 
 1 modulo MQ-2
 1 collegamento a grd
 1 collegamento a Vcc (5V)
@@ -22,27 +22,12 @@ _Inventario dei sensori utili e stima delle componenti che mi serviranno_
 1 collegamento a grd
 1 collegamento a Vcc (5V)
 2 pin digitali (TX/RX)
-- Antenna GPRS utile per "tracking/segnalazione allarmi/profilazione guida":
-1 modulo shield gprs-gsm sim 900
-1 collegamento a grd
-1 collegamento a Vcc (5V)
-2 pin digitali (TXD/RXD)
-- Bussola utile per "tracking":
-1 modulo GY-273 HMC5883L (magnetometro a tre assi) 
-1 collegamento a grd
-1 collegamento a Vcc (3.3/5V)
-2 pin analogici (SDA/SCL)
 - Sensore di rilevamento alcool utile per "segnalazione allarmi":
 1 modulo MQ-3
 1 collegamento a grd
 1 collegamento a Vcc (5V)
 1 pin analogico
 1 pin digitale
-- Sensore di qualità dell'aria utile per "segnalazione allarmi":
-1 modulo CCS811
-1 collegamento a grd
-1 collegamento a Vcc (3.3/5V)
-2 pin analogici (SDA/SCL)
 - Display utile per "segnalazione allarmi":
 1 Display LCD 16X2
 1 collegamento a grd
@@ -54,14 +39,18 @@ _Inventario dei sensori utili e stima delle componenti che mi serviranno_
 1 collegamento a grd
 1 collegamento a Vcc (5V)
 1 pin digitale
+- Modulo RTC utile per monitoraggio orarario in assenza di connessione
+1 collegamento a grd
+1 collegamento a Vcc (5V)
+2 pin analogici (SDA/SCL)
 
-- Totale collegamenti a grd: 12
-- Totale collegamenti a Vcc: 12
-- Totale pin digitali sfruttati: 7
-- Totale pin analogici sfruttati: 11
+- Totale collegamenti a grd: 10
+- Totale collegamenti a Vcc: 7
+- Totale pin digitali sfruttati: 8
+- Totale pin analogici sfruttati: 8
 - Breadboard da 830 pin: 2
 - Stima jumper totali: 40/45
-- Stima numero totale di sensori: 10
+- Stima numero totale di sensori: 8
 #### Board proposta: ESP32
 ##### caratteristiche:
 bluetooth 4.2 e ble, modulo wi-fi, dual core, ADC 12 bit, funziona a 3.3V
