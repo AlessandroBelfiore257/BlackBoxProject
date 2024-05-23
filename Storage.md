@@ -33,12 +33,9 @@ graph TD
 
 ## Pulizia dati: simulo ciò che fa il garbage collection
 
-### G1 (dedicato alla tabella principale di memorizzazione dati): 
-- task che passa ogni tot tempo (8h) e pulisce i record già sincronizzati
+### Garbage collection: 
+- task che passa ogni tot tempo (8h) e pulisce i record già sincronizzati presenti nella tabella di storage principale e nella tabella statistica
 - task che viene chiamato se la memoria del mio db supera una certa soglia 80/90%. Reagisco eleiminando metà dei record presenti nel db (i più datati)
-### G2 (dedicato alla tabella contenente i dati statistici):
-- uguale al primo task di G1
-- dopo il superamento di una soglia 7gg ad esempio elimina metà dei record più vecchi ancora non sincronizzati
 
 ## Considerazioni generali sulla black:
 
