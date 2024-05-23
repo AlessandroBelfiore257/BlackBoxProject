@@ -35,7 +35,7 @@ graph TD
 
 ### Garbage collection: 
 - task che passa ogni tot tempo (8h) e pulisce i record già sincronizzati presenti nella tabella di storage principale e nella tabella statistica
-- task che viene chiamato se la memoria del mio db supera una certa soglia 80/90%. Reagisco eleiminando metà dei record presenti nel db (i più datati)
+- task che viene chiamato se la memoria del mio db supera una certa soglia (90%). Reagisco eliminando metà dei record presenti nel db (i più datati)
 
 ## Considerazioni generali sulla black:
 
