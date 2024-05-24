@@ -1,47 +1,84 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <TaskScheduler.h>
+#include <Wire.h>
 #include <LittleFS.h>
 
 #include "Storage.h"
+#include "Filesystem.h"
+#include "Synch.h"
 #include "LCtime.h"
 
 #include "Config.h"
 #include "Secrets.h"
 
+// Credenziale di accesso alla rete
 const char* ssid = WIFI_SSID;
 const char* password = WIFI_PASSWORD;
+// Porta di ascolto e indirizzo IP (del server remoto ovvero la stazione di controllo dell'autonoleggio)
 const uint16_t port = PORT;
 const char* host = HOST;
+// Sensore bottone
 const int BUTTON_PIN = BUTTON;
-const char* data = "Callback function called";
 
 Scheduler scheduler;
-WiFiClient client;
 sqlite3* db;
-struct tm timeinfo;
-// Rimpiazzo le variabili sottostanti con quelle dei sensori veri e propri della BB
+WiFiClient client;
+RTC_DS3231 rtc;
+const char* data = "Callback function called";
+// Rimpiazzo le variabili sottostanti con quelle dei sensori e della rete CAN-BUS
+// Sensore bottone
+int buttonState = 0;
 // Sensore numero casuale
 int mydata = 0;
-// Sensore button
-int buttonState = 0;
 
 int rc = 0;
 bool passed = false;
 long long int lastStoredTS = 0;
+long long int lastSynchTS = 0;
 
+// Prototipi delle funzioni chiamate dai task dello scheduler
 void rilevoButtonPressureCallback();
-//void rilevoCasualNumberCallback();
+void synchDataCallback();  // -> sarà messo in un task a priorità alta nella versione finale
 
+// Definizione dei task
 Task ButtonPressureTask(TASK_BUTTON_PRESSURE, TASK_FOREVER, &rilevoButtonPressureCallback);
-//Task CasualNumberTask(TASK_CASUAL_NUMBER, TASK_FOREVER, &rilevoCasualNumberCallback);
+Task synchDataTask(240000, TASK_FOREVER, &synchDataCallback);
 
 void setup() {
+
   Serial.begin(115200);
 
-  setTimeIT();
+  Wire.begin();
+  if (!rtc.begin()) {
+    Serial.println("Couldn't find RTC");
+    while (1)
+      ;
+  }
 
-  // Richiesta di connessione che andrà in un task (polling)
+  /* DA USARE PER LA VERSIONE UFFICIALE
+  LittleFS.begin();
+  if (!LittleFS.exists(DB_FILE)) {
+    configurationProcess();
+  } else {
+    Serial.println("Database alredy exist");
+  } */
+
+  // La prima accensione va fatta in presenza di una connessione internet in modo tale da poter sincronizzare tutte le informazioni necessare per un corretto funzionamento futuro della Black Box
+  configurationProcess();
+
+  scheduler.init();
+  scheduler.addTask(synchDataTask);
+  scheduler.addTask(ButtonPressureTask);
+  synchDataTask.enable();
+  ButtonPressureTask.enable();
+}
+
+void loop() {
+  scheduler.execute();
+}
+
+void configurationProcess() {
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -49,65 +86,28 @@ void setup() {
   }
   Serial.print("WiFi connected\n");
 
-  // Gestione di montaggio e apertura del filesystem (verifica dei file presenti in esso)
-  if (!LittleFS.begin(FORMAT_LITTLEFS_IF_FAILED, "/littlefs")) {
-    Serial.println("Failed to mount file system");
-    return;
-  } else {
+  // Viene assegnato all'RTC un orario di "nascita" (configurazione che va fatta con una connessione internet per contattare i server NTP)
+  setTimeIT();
+  // Montaggio filesystem
+  if (mountingFS(FILE_SYSTEM)) {
     Serial.println("Little FS Mounted Successfully");
+  } else {
+    Serial.println("Failed to mount file system");
   }
-  File root = LittleFS.open("/");
-  if (!root) {
-    Serial.println("- failed to open directory");
-    return;
-  }
-  if (!root.isDirectory()) {
-    Serial.println(" - not a directory");
-    return;
-  }
-  File file = root.openNextFile();
-  while (file) {
-    if (file.isDirectory()) {
-      Serial.print("  DIR : ");
-      Serial.println(file.name());
-    } else {
-      Serial.print("  FILE: ");
-      Serial.print(file.name());
-      Serial.print("\tSIZE: ");
-      Serial.println(file.size());
-    }
-    file = root.openNextFile();
-  }
-  LittleFS.remove("/dati.db");
+  // Apertura filesystem + cancellazione precedenti dati memorizzati in "/dati.db"
+  openFS();
   // Creazione file dati.db + tabella principale di memorizzazione (t1)
-  initializeStorage();
-  // Inizializzazione dello scheduler
-  scheduler.init();
-  // Aggiunta Task allo scheduler
-  scheduler.addTask(ButtonPressureTask);
-  // scheduler.addTask(CasualNumberTask);
-  // Abilito i Task
-  ButtonPressureTask.enable();
-  // CasualNumberTask.enable();
-  client.connect(host, port);
+  initializeStorage(PATH_STORAGE_DATA);
+
+  // Disconnect WiFi as it's no longer needed
+  WiFi.disconnect(true);
+  WiFi.mode(WIFI_OFF);
 }
 
-void loop() {
-  scheduler.execute();
-}
-
-void rilevoButtonPressureCallback() {
-  buttonState = digitalRead(BUTTON_PIN);
-
-  // Converte il timestamp attuale in millisecondi
-  struct tm timeinfo = getDateAndTime();
-  time_t timestampNow_ret = mktime(&timeinfo);
-  unsigned long timestampNow = timestampNow_ret;
-
-  if (db_open("/littlefs/dati.db", &db))
-    return;
+bool spentEnoughTimeFromLastStrorage(char* nameSensor, long long int timestampNow, long long int lastStoredTS) {
+  if (db_open(PATH_STORAGE_DATA, &db))
+    return false;
   // Query e verifico se è passato il tempo di campionamento:
-
   const char* sql = "SELECT * FROM t1 WHERE nome_sensore = ? AND timestamp = ?";
   // Prepara la dichiarazione SQL
   sqlite3_stmt* stmt;
@@ -115,10 +115,10 @@ void rilevoButtonPressureCallback() {
   if (rc != SQLITE_OK) {
     Serial.println("Errore durante la preparazione della query SQL");
     sqlite3_close(db);
-    return;
+    return false;
   }
   // Associa i valori dei parametri (nome sensore e timestamp) alla query
-  sqlite3_bind_text(stmt, 1, "Button pressure", -1, SQLITE_TRANSIENT);
+  sqlite3_bind_text(stmt, 1, nameSensor, -1, SQLITE_TRANSIENT);
   sqlite3_bind_int64(stmt, 2, lastStoredTS);
   // Esegui la query
   rc = sqlite3_step(stmt);
@@ -144,10 +144,22 @@ void rilevoButtonPressureCallback() {
 
   // Verifica se è passato il tempo di campionamento --> politica di storage!!! (Da rivedere)
   if ((timestampNow - lastStoredTS) >= 60) {
-    passed = true;
+    return true;
   } else {
-    passed = false;
+    return false;
   }
+}
+
+// TASK 1
+void rilevoButtonPressureCallback() {
+
+  buttonState = digitalRead(BUTTON_PIN);
+
+  // Converte il timestamp attuale in secondi trascorsi dal 1970/01/01
+  const DateTime dt = rtc.now();
+  long long int timestampNow = DateTimeToEpoch(dt);
+  ;
+
   Serial.print(timestampNow);
   Serial.print(" - ");
   Serial.println(lastStoredTS);
@@ -155,92 +167,33 @@ void rilevoButtonPressureCallback() {
   char b2[20];
   SecondsToString(timestampNow, b1);
   SecondsToString(lastStoredTS, b2);
-  Serial.print(b1);
+  Serial.print(DateTimeToString(EpochToDateTime(timestampNow)));
   Serial.print(" - ");
-  Serial.println(b2);
+  Serial.println(DateTimeToString(EpochToDateTime(lastStoredTS)));
 
-  // Se è passato il tempo di campionamento, esegui le azioni desiderate
+  passed = spentEnoughTimeFromLastStrorage("Button pressure", timestampNow, lastStoredTS);
+
+  // Se è passato il tempo di storage, esegui le azioni desiderate
   if (passed) {
-    String timeStamp = createTimeStampStringFormat(timeinfo.tm_mday, timeinfo.tm_mon + 1, timeinfo.tm_year + 1900, timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec);
+    String timeStamp = DateTimeToString(dt);
     int syn = NO_SYNCHRONIZED;
     long long int ts = stringToMilliseconds(timeStamp.c_str());
     createRecordToInsertIntot1("Button pressure", buttonState, ts, syn, 2);
     lastStoredTS = timestampNow;
-
-    // Fase di synch (In seguito)
-    if (!client.connected()) {
-    if (!client.connect(host, port)) {
-      Serial.println("Connection to host failed");
-      return;
-    } else {
-      Serial.println("Connected to server successful!");
-    }
-  }
-  SendToServer("Button pressure", buttonState, b1, 0, 2);
   } else {
-    Serial.println("Mancato");
+    Serial.println("Non è trascorso abbastanza tempo dall'ultima storage del dato");
   }
 }
 
-void rilevoCasualNumberCallback() {
-  mydata = random(0, 1000);
-
-  if (db_open("/littlefs/dati.db", &db))
-    return;
-  struct tm timeinfo = getDateAndTime();
-  String timeStamp = createTimeStampStringFormat(timeinfo.tm_mday, timeinfo.tm_mon + 1, timeinfo.tm_year + 1900, timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec);
-  int syn = NO_SYNCHRONIZED;
-  long long int ts = stringToMilliseconds(timeStamp.c_str());
-  createRecordToInsertIntot1("Casual number", mydata, ts, syn, 1);
-  rc = db_exec(db, "SELECT * FROM t1");
-  if (rc != SQLITE_OK) {
-    sqlite3_close(db);
-    return;
+// TASK 2
+void synchDataCallback() {
+  Serial.println("--------------------------------------------            --------------------------------------------");
+  Serial.println("Syncronisation...");
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.println("...");
   }
-
-  sqlite3_close(db);
-
-  // Fase di synch (In seguito)
-  /*
-  if (!client.connected()) {
-    if (!client.connect(host, port)) {
-      Serial.println("Connection to host failed");
-      return;
-    } else {
-      Serial.println("Connected to server successful!");
-    }
-  }
-  SendToServer("Casual number", mydata, fattaAmano.c_str(), syn, 1);
-  */
-} 
-
-/*
-  Invio al server le informazioni utili
-*/
-void SendToServer(char* name_sensor, int value, const char* timestamp, int synchronized, int priority) {
-  client.print(String(name_sensor) + "," + String(value) + "," + timestamp + "," + String(synchronized) + "," + String(priority) + "\n");
-}
-
-/*
-  Creazione timestamp sotto forma di stringa nel formato "YYYY-MM-DD HH:MM:SS"
-*/
-String createTimeStampStringFormat(int day, int month, int year, int hour, int minute, int second) {
-  return String(year) + "-" + String(month) + "-" + String(day) + " " + String(hour) + ":" + String(minute) + ":" + String(second);
-}
-
-/*
-  Funzione per convertire un timestamp sotto forma di stringa in secondi
-*/
-long long int stringToMilliseconds(const char* timestamp) {
-  struct tm tm;
-  strptime(timestamp, "%Y-%m-%d %H:%M:%S", &tm);
-  time_t time_seconds = mktime(&tm);
-  return time_seconds;
-}
-
-// Funzione per convertire un timestamp sotto forma di secondi in una stringa nel formato "YYYY-MM-DD HH:MM:SS"
-void SecondsToString(long long int total_seconds, char* date_string) {
-  time_t raw_time = (time_t)total_seconds;
-  struct tm* timeinfo = localtime(&raw_time);
-  strftime(date_string, 20, "%Y-%m-%d %H:%M:%S", timeinfo);
+  Serial.print("WiFi connected\n");
+  syncData(db);
 }
