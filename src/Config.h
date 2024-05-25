@@ -13,6 +13,10 @@
 
 #define BUTTON 4
 
+#define FILE_SYSTEM "/littlefs"
+#define PATH_STORAGE_DATA "/littlefs/dati.db"
+#define DB_FILE "/dati.db"
+
 #define TASK_BUTTON_PRESSURE 30000
 #define TASK_CASUAL_NUMBER 30000
 
