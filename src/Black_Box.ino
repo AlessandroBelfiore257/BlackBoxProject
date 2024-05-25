@@ -23,8 +23,8 @@ const int BUTTON_PIN = BUTTON;
 
 Scheduler scheduler;
 sqlite3* db;
-WiFiClient client;
 RTC_DS3231 rtc;
+WiFiClient client;
 const char* data = "Callback function called";
 // Rimpiazzo le variabili sottostanti con quelle dei sensori e della rete CAN-BUS
 // Sensore bottone
@@ -35,19 +35,27 @@ int mydata = 0;
 int rc = 0;
 bool passed = false;
 long long int lastStoredTS = 0;
-long long int lastSynchTS = 0;
 
 // Prototipi delle funzioni chiamate dai task dello scheduler
 void rilevoButtonPressureCallback();
-void synchDataCallback();  // -> sarà messo in un task a priorità alta nella versione finale
+void verifyConnectionCallback();
+//void synchDataCallback();  // -> sarà messo in un task a priorità alta nella versione finale
 
 // Definizione dei task
 Task ButtonPressureTask(TASK_BUTTON_PRESSURE, TASK_FOREVER, &rilevoButtonPressureCallback);
-Task synchDataTask(240000, TASK_FOREVER, &synchDataCallback);
+Task verifyConnectionTask(90000, TASK_FOREVER, &verifyConnectionCallback);
+//Task synchDataTask(0, TASK_FOREVER, &synchDataCallback);
 
 void setup() {
 
   Serial.begin(115200);
+
+  /* WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.println("Connecting to WiFi...");
+  }
+  Serial.println("WiFi connected"); */
 
   Wire.begin();
   if (!rtc.begin()) {
@@ -68,9 +76,10 @@ void setup() {
   configurationProcess();
 
   scheduler.init();
-  scheduler.addTask(synchDataTask);
+  scheduler.addTask(verifyConnectionTask);
   scheduler.addTask(ButtonPressureTask);
-  synchDataTask.enable();
+  // scheduler.addTask(synchDataTask);
+  verifyConnectionTask.enable();
   ButtonPressureTask.enable();
 }
 
@@ -98,10 +107,6 @@ void configurationProcess() {
   openFS();
   // Creazione file dati.db + tabella principale di memorizzazione (t1)
   initializeStorage(PATH_STORAGE_DATA);
-
-  // Disconnect WiFi as it's no longer needed
-  WiFi.disconnect(true);
-  WiFi.mode(WIFI_OFF);
 }
 
 bool spentEnoughTimeFromLastStrorage(char* nameSensor, long long int timestampNow, long long int lastStoredTS) {
@@ -143,7 +148,7 @@ bool spentEnoughTimeFromLastStrorage(char* nameSensor, long long int timestampNo
   sqlite3_close(db);
 
   // Verifica se è passato il tempo di campionamento --> politica di storage!!! (Da rivedere)
-  if ((timestampNow - lastStoredTS) >= 60) {
+  if ((timestampNow - lastStoredTS) >= 30) {
     return true;
   } else {
     return false;
@@ -158,7 +163,6 @@ void rilevoButtonPressureCallback() {
   // Converte il timestamp attuale in secondi trascorsi dal 1970/01/01
   const DateTime dt = rtc.now();
   long long int timestampNow = DateTimeToEpoch(dt);
-  ;
 
   Serial.print(timestampNow);
   Serial.print(" - ");
@@ -186,14 +190,18 @@ void rilevoButtonPressureCallback() {
 }
 
 // TASK 2
-void synchDataCallback() {
-  Serial.println("--------------------------------------------            --------------------------------------------");
-  Serial.println("Syncronisation...");
+void verifyConnectionCallback() {
+  // Andrà aggiunto un controllo di connessione ad una rete
+  // Se c'è connessione -> mi connetto e mi sincronizzo
+  // CONNESSIONE
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
-    Serial.println("...");
+    Serial.println("Connecting to WiFi...");
   }
-  Serial.print("WiFi connected\n");
+  Serial.println("WiFi connected");
+  // SYNCH (sarà un task a priorità alta)
+  Serial.println("--------------------------------------------            --------------------------------------------");
+  Serial.println("Syncronisation...");
   syncData(db);
 }
