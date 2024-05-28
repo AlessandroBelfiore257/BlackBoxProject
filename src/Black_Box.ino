@@ -8,6 +8,7 @@
 #include "Filesystem.h"
 #include "Synch.h"
 #include "LCtime.h"
+#include "Garbage.h"
 
 #include "Config.h"
 #include "Secrets.h"
@@ -24,7 +25,6 @@ const int BUTTON_PIN = BUTTON;
 Scheduler scheduler;
 sqlite3* db;
 RTC_DS3231 rtc;
-WiFiClient client;
 const char* data = "Callback function called";
 // Rimpiazzo le variabili sottostanti con quelle dei sensori e della rete CAN-BUS
 // Sensore bottone
@@ -38,13 +38,15 @@ long long int lastStoredTS = 0;
 
 // Prototipi delle funzioni chiamate dai task dello scheduler
 void rilevoButtonPressureCallback();
-void verifyConnectionCallback();
-//void synchDataCallback();  // -> sarà messo in un task a priorità alta nella versione finale
+void synchDataCallback();
+void cleanDataRoutineCallback();
+void cleanDataMemoryCallback();
 
 // Definizione dei task
-Task ButtonPressureTask(TASK_BUTTON_PRESSURE, TASK_FOREVER, &rilevoButtonPressureCallback);
-Task verifyConnectionTask(90000, TASK_FOREVER, &verifyConnectionCallback);
-//Task synchDataTask(0, TASK_FOREVER, &synchDataCallback);
+Task ButtonPressureTask(10 * TASK_SECOND, TASK_FOREVER, &rilevoButtonPressureCallback);
+Task synchDataTask(30 * TASK_SECOND, TASK_FOREVER, &synchDataCallback);
+Task cleanDataRoutineTask(60 * TASK_SECOND, TASK_FOREVER, &cleanDataRoutineCallback);
+Task cleanDataMemoryTask(60 * TASK_SECOND, TASK_FOREVER, &cleanDataMemoryCallback);
 
 void setup() {
 
@@ -76,11 +78,16 @@ void setup() {
   configurationProcess();
 
   scheduler.init();
-  scheduler.addTask(verifyConnectionTask);
+
+  scheduler.addTask(cleanDataRoutineTask);
+  scheduler.addTask(cleanDataMemoryTask);
   scheduler.addTask(ButtonPressureTask);
-  // scheduler.addTask(synchDataTask);
-  verifyConnectionTask.enable();
+  scheduler.addTask(synchDataTask);
+
+  cleanDataRoutineTask.enable();
+  // cleanDataMemoryTask.enable();
   ButtonPressureTask.enable();
+  synchDataTask.enable();
 }
 
 void loop() {
@@ -148,7 +155,7 @@ bool spentEnoughTimeFromLastStrorage(char* nameSensor, long long int timestampNo
   sqlite3_close(db);
 
   // Verifica se è passato il tempo di campionamento --> politica di storage!!! (Da rivedere)
-  if ((timestampNow - lastStoredTS) >= 30) {
+  if ((timestampNow - lastStoredTS) >= 5) {
     return true;
   } else {
     return false;
@@ -190,18 +197,38 @@ void rilevoButtonPressureCallback() {
 }
 
 // TASK 2
-void verifyConnectionCallback() {
+void synchDataCallback() {
   // Andrà aggiunto un controllo di connessione ad una rete
   // Se c'è connessione -> mi connetto e mi sincronizzo
   // CONNESSIONE
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.println("Connecting to WiFi...");
+  /* */
+  if (WiFi.status() == WL_CONNECTED) {  // ed è passato abbastanza tempo >= 24h dall'ultima sincronizzazione
+    Serial.println("Connessione WiFi attiva");
+    WiFi.begin(ssid, password);
+    while (WiFi.status() != WL_CONNECTED) {
+      delay(500);
+      Serial.println("Connecting to WiFi...");
+    }
+    Serial.println("WiFi connected");
+    Serial.println("--------------------------------------------            --------------------------------------------");
+    Serial.println("Syncronisation...");
+    syncData(db);
+  } else {
+    Serial.println("Nessuna connessione WiFi");
   }
-  Serial.println("WiFi connected");
-  // SYNCH (sarà un task a priorità alta)
-  Serial.println("--------------------------------------------            --------------------------------------------");
-  Serial.println("Syncronisation...");
-  syncData(db);
+}
+
+// TASK 3
+void cleanDataRoutineCallback() {
+  Serial.println("---------------------------- Pulisco routine ----------------------------");
+  garbageCollectorRoutine();
+}
+
+// TASK 4
+void cleanDataMemoryCallback() {
+  /*
+  if (raggiungo un 90 % di capienza adotto la mia politica) {
+    Serial.println("---------------------------- Pulisco memory ----------------------------");
+    garbageCollectorMemoryFull();
+  } */
 }
