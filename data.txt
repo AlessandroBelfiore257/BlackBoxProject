@@ -1,0 +1,16 @@
+Button pressure,0,Integer,Assente,2024-05-30 12:15:34,0,2
+Coordinate GPS,45.839245 - 8.805856,String,(°),2024-05-30 12:15:35,0,3
+Button pressure,0,Integer,Assente,2024-05-30 12:15:44,0,2
+Button pressure,0,Integer,Assente,2024-05-30 12:15:54,0,2
+Coordinate GPS,45.839529 - 8.805548,String,(°),2024-05-30 12:16:04,0,3
+Button pressure,0,Integer,Assente,2024-05-30 12:16:04,0,2
+Button pressure,0,Integer,Assente,2024-05-30 12:16:14,0,2
+Button pressure,0,Integer,Assente,2024-05-30 12:16:24,0,2
+Coordinate GPS,45.839732 - 8.805855,String,(°),2024-05-30 12:16:38,0,3
+Button pressure,0,Integer,Assente,2024-05-30 12:16:38,0,2
+Button pressure,0,Integer,Assente,2024-05-30 12:16:44,0,2
+Button pressure,0,Integer,Assente,2024-05-30 12:16:54,0,2
+Coordinate GPS,45.839484 - 8.805839,String,(°),2024-05-30 12:17:04,0,3
+Button pressure,0,Integer,Assente,2024-05-30 12:17:05,0,2
+Button pressure,0,Integer,Assente,2024-05-30 12:17:14,0,2
+Button pressure,0,Integer,Assente,2024-05-30 12:17:24,0,2
