@@ -31,7 +31,12 @@ TinyGPSPlus gps;
 int buttonState = 0;
 HardwareSerial hs = Serial2;
 
+// button set-up
 long long int lastStoredTS1 = 0;
+const int maxReadings = 10;
+float readings[10];
+int currentIndex = 0;
+// GPS set-up
 long long int lastStoredTS2 = 0;
 
 // Prototipi delle funzioni chiamate dai task dello scheduler
@@ -129,15 +134,14 @@ bool spentEnoughTimeFromLastStrorage(char* nameSensor, long long int timestampNo
   // Associa i valori dei parametri (nome sensore e timestamp) alla query
   sqlite3_bind_text(stmt, 1, nameSensor, -1, SQLITE_TRANSIENT);
   sqlite3_bind_int64(stmt, 2, lastStoredTS);
+  Serial.print(nameSensor);
+  Serial.print("----");
+  Serial.println(lastStoredTS);
   // Esegui la query
   rc = sqlite3_step(stmt);
   if (rc == SQLITE_ROW) {
     // Il record è stato trovato, ora puoi recuperare i valori dei campi e visualizzarli
-    const char* nome_sensore = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
-    double valore = sqlite3_column_double(stmt, 1);
-    long long int timestamp = sqlite3_column_int64(stmt, 2);  // Modifica qui se il timestamp è un intero a 64 bit
-    int sincronizzato = sqlite3_column_int(stmt, 3);
-    int priorita = sqlite3_column_int(stmt, 4);
+    long long int timestamp = sqlite3_column_int64(stmt, 4);  // Modifica qui se il timestamp è un intero a 64 bit
     Serial.print("Last registered record timestamp: ");
     char prova[20];
     SecondsToString(timestamp, prova);
@@ -149,8 +153,15 @@ bool spentEnoughTimeFromLastStrorage(char* nameSensor, long long int timestampNo
   sqlite3_finalize(stmt);
   sqlite3_close(db);
 
-  // Il valore hard-coded verrà sostituito con una tabella dei tempi di campionamento variabili disponibili per ogni sensore
-  if ((timestampNow - lastStoredTS) >= 5) {
+  // Verifico che sia passato abbastanza tempo dall'ultima storage del sensore coinvolto
+  long long int tempoStorage = getTempoStorage(db, nameSensor);
+  Serial.print("Tempo di storage: ");
+  Serial.println(tempoStorage);
+  Serial.print("Tempo di adesso: ");
+  Serial.println(timestampNow);
+  Serial.print("Tempo ultima storage: ");
+  Serial.println(lastStoredTS);
+  if ((timestampNow - lastStoredTS) >= tempoStorage) {
     return true;
   } else {
     return false;
@@ -159,10 +170,52 @@ bool spentEnoughTimeFromLastStrorage(char* nameSensor, long long int timestampNo
 
 void rilevoButtonPressureCallback() {
   buttonState = digitalRead(BUTTON_PIN);
+  if (currentIndex == maxReadings) {
+    // attuo la mia politica di storage intelligente che cambia in base alla natura dei dati i tempi di storage
+
+    // Calcola la deviazione standard delle letture
+    float stdDev = calculateStdDev(readings, maxReadings);
+
+    // Ottieni i parametri dal database
+    int tempoStorage, fattoreIncrDecr, tMinStorage, tMaxStorage;
+    float soglia;
+    if (!getSensorParameters("Button pressure", tempoStorage, fattoreIncrDecr, soglia, tMinStorage, tMaxStorage)) {
+      Serial.println("Failed to get sensor parameters.");
+      return;
+    }
+    Serial.println(tempoStorage);
+    Serial.println(fattoreIncrDecr);
+    Serial.println(soglia);
+    Serial.println(tMinStorage);
+    // Aggiorna il tempo di storage in base alla deviazione standard
+    if (stdDev <= soglia) {
+      tempoStorage += fattoreIncrDecr;  // Incrementa il tempo di storage
+    } else {
+      tempoStorage -= fattoreIncrDecr;  // Decrementa il tempo di storage
+      if (tempoStorage < tMinStorage) {
+        tempoStorage = tMinStorage;  // Assicurati che non scenda sotto il minimo
+      }
+    }
+    // Verifica se il nuovo tempo di storage supera il valore massimo consentito
+    if (tempoStorage > tMaxStorage) {
+      // Se supera il valore massimo, imposta il tempo di storage al valore massimo consentito
+      tempoStorage = tMaxStorage;
+      Serial.println("Il nuovo tempo di storage supera il valore massimo consentito. Viene impostato al valore massimo consentito.");
+    }
+
+    // Aggiorna il database con il nuovo tempo di storage
+    updateTempoStorage("Button pressure", tempoStorage);
+
+    currentIndex = 0;
+  }
+  readings[currentIndex] = buttonState;
+  currentIndex++;
   long long int result = parteComune(lastStoredTS1, "Button pressure", String(buttonState).c_str(), "Integer", "Assente", 2);
-  if(result != -1) {
+  if (result != -1) {
     lastStoredTS1 = result;
   }
+  Serial.print("Ultima mem button: ");
+  Serial.println(lastStoredTS1);
 }
 
 void synchDataCallback() {
@@ -213,9 +266,11 @@ void gspTrackerCallback() {
   Serial.print("Coordinate gps: ");
   Serial.println(res);
   long long int result = parteComune(lastStoredTS2, "Coordinate GPS", res.c_str(), "String", "(°)", 3);
-  if(result != -1) {
+  if (result != -1) {
     lastStoredTS2 = result;
   }
+  Serial.print("Ultima mem gps: ");
+  Serial.println(lastStoredTS2);
 }
 
 // return lastStoredTS1 changed se è passato il tempo di storage, -1 otherwise
@@ -240,12 +295,69 @@ long long int parteComune(long long int lastStoredTS, char* nome_sensore, const 
 
   // Se è passato il tempo di storage, esegui le azioni desiderate
   if (passed) {
-    String timeStamp = DateTimeToString(dt);
-    long long int ts = stringToMilliseconds(timeStamp.c_str());
-    createRecordToInsertIntot1(nome_sensore, valore, tipo, misura, ts, NO_SYNCHRONIZED, priority);
+    createRecordToInsertIntot1(nome_sensore, valore, tipo, misura, timestampNow, NO_SYNCHRONIZED, priority);
     res = timestampNow;
   } else {
     Serial.println("Non è trascorso abbastanza tempo dall'ultima storage del dato");
   }
   return res;
 }
+
+// Funzione per calcolare la media
+float calculateMean(float data[], int size) {
+  float sum = 0;
+  for (int i = 0; i < size; i++) {
+    sum += data[i];
+  }
+  return sum / size;
+}
+
+// Funzione per calcolare la deviazione standard
+float calculateStdDev(float data[], int size) {
+  float mean = calculateMean(data, size);
+  float sum = 0;
+  for (int i = 0; i < size; i++) {
+    sum += pow(data[i] - mean, 2);
+  }
+  return sqrt(sum / size);
+}
+
+bool getSensorParameters(const char* sensorName, int& tempoStorage, int& fattoreIncrDecr, float& soglia, int& tMinStorage, int& tMaxStorage) {
+  sqlite3_stmt* stmt;  // Dichiarazione della variabile stmt
+  char sql[128];
+  snprintf(sql, sizeof(sql), "SELECT tempo_storage, fattore_incr_decr, soglia, tMinStorage, tMaxStorage FROM t2 WHERE nome_sensore = '%s';", sensorName);
+
+  if (db_open(PATH_STORAGE_DATA_DB, &db))
+    return false;
+
+  int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);  // Ottenere il puntatore stmt tramite sqlite3_prepare_v2
+
+  if (rc == SQLITE_OK) {
+    if (sqlite3_step(stmt) == SQLITE_ROW) {
+      tempoStorage = sqlite3_column_int(stmt, 0);
+      fattoreIncrDecr = sqlite3_column_int(stmt, 1);
+      soglia = sqlite3_column_double(stmt, 2);  // Modifica qui per ottenere un valore float
+      tMinStorage = sqlite3_column_int(stmt, 3);
+      tMaxStorage = sqlite3_column_int(stmt, 4);
+      sqlite3_finalize(stmt);  // Rilascio delle risorse allocate
+      sqlite3_close(db);
+      return true;
+    }
+  }
+
+  sqlite3_finalize(stmt);  // Rilascio delle risorse allocate
+  sqlite3_close(db);
+  return false;
+}
+
+void updateTempoStorage(const char* sensorName, int newTempoStorage) {
+  char sql[128];
+  Serial.println("Sto cambiando il tempo di storage -------------------------------");
+  if (db_open(PATH_STORAGE_DATA_DB, &db))
+    return;
+  snprintf(sql, sizeof(sql), "UPDATE t2 SET tempo_storage = %d WHERE nome_sensore = '%s';", newTempoStorage, sensorName);
+  int rc = db_exec(db, sql);
+  sqlite3_close(db);
+}
+
+// Funzione per gestire la logica di cambio del tempo di storage --> va inserita
