@@ -1,0 +1,24 @@
+Coordinate GPS,45.839378 - 8.805944,String,(°),2024-05-31 20:30:00,0,3
+Button pressure,0,Integer,Assente,2024-05-31 20:30:00,0,2
+Button pressure,0,Integer,Assente,2024-05-31 20:30:19,0,2
+Coordinate GPS,45.839390 - 8.805941,String,(°),2024-05-31 20:30:29,0,3
+Button pressure,0,Integer,Assente,2024-05-31 20:30:30,0,2
+Button pressure,0,Integer,Assente,2024-05-31 20:30:49,0,2
+Coordinate GPS,45.839400 - 8.805953,String,(°),2024-05-31 20:30:59,0,3
+Button pressure,0,Integer,Assente,2024-05-31 20:31:02,0,2
+Button pressure,0,Integer,Assente,2024-05-31 20:31:19,0,2
+Coordinate GPS,45.839396 - 8.805927,String,(°),2024-05-31 20:31:30,0,3
+Button pressure,0,Integer,Assente,2024-05-31 20:31:30,0,2
+Coordinate GPS,45.839426 - 8.805885,String,(°),2024-05-31 20:32:00,0,3
+Button pressure,0,Integer,Assente,2024-05-31 20:32:04,0,2
+Button pressure,0,Integer,Assente,2024-05-31 20:32:29,0,2
+Coordinate GPS,45.839412 - 8.805906,String,(°),2024-05-31 20:32:30,0,3
+Button pressure,0,Integer,Assente,2024-05-31 20:32:49,0,2
+Coordinate GPS,45.839400 - 8.805882,String,(°),2024-05-31 20:33:00,0,3
+Button pressure,0,Integer,Assente,2024-05-31 20:33:09,0,2
+Coordinate GPS,45.839421 - 8.805893,String,(°),2024-05-31 20:33:29,0,3
+Button pressure,0,Integer,Assente,2024-05-31 20:33:39,0,2
+Coordinate GPS,45.839399 - 8.805867,String,(°),2024-05-31 20:34:00,0,3
+Button pressure,0,Integer,Assente,2024-05-31 20:34:09,0,2
+Coordinate GPS,45.839411 - 8.805857,String,(°),2024-05-31 20:34:30,0,3
+Button pressure,0,Integer,Assente,2024-05-31 20:34:39,0,2
