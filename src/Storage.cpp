@@ -20,23 +20,22 @@ static int callback(void *data, int argc, char **argv, char **azColName) {
 }
 
 void createPolicyStorage() {
-  /*
-  int rc = db_exec(db, "CREATE TABLE t2 (nome_sensore TEXT, frequency INTEGER);");
+  int rc = db_exec(db, "CREATE TABLE t2 (nome_sensore TEXT, tempo_storage INTEGER, variabile INTEGER, fattore_incr_decr INTEGER, soglia INTEGER, tMinStorage INTEGER, tMaxStorage INTEGER);");
   char buffer1[BUFFER_SIZE];
   char buffer2[BUFFER_SIZE];
-  sprintf(buffer1, "INSERT INTO t2 VALUES ('Button pressure', 60);");
+  sprintf(buffer1, "INSERT INTO t2 VALUES ('Button pressure', 10, 1, 10, 0.25, 10, 30);");
   rc = db_exec(db, buffer1);
-  sprintf(buffer2, "INSERT INTO t2 VALUES ('Casual number', 120);");
+  sprintf(buffer2, "INSERT INTO t2 VALUES ('Coordinate GPS', 30, 0, 'NULL', 'NULL', 'NULL', 'NULL');");
   rc = db_exec(db, buffer2);
   rc = db_exec(db, "SELECT * FROM t2");
   if (rc != SQLITE_OK) {
     sqlite3_close(db);
     return;
-  } */
+  }
   Serial.println("Si vedrà se memorizzare su un file di config o su una tabella");
 }
 
-void initializeStorage(char* path) {
+void initializeStorage(char *path) {
   sqlite3_initialize();
   if (db_open(path, &db))
     return;
@@ -78,7 +77,7 @@ int db_exec(sqlite3 *db, const char *sql) {
 /*
   Creazione record e inserimento nella tabella t1 
 */
-void createRecordToInsertIntot1(char* name_sensor, const char* value, char* data_type, char* unit_of_measure, long long int ts, int synch, int pr) {
+void createRecordToInsertIntot1(char *name_sensor, const char *value, char *data_type, char *unit_of_measure, long long int ts, int synch, int pr) {
   if (db_open(PATH_STORAGE_DATA_DB, &db))
     return;
   char buffer[BUFFER_SIZE];
@@ -91,10 +90,38 @@ void createRecordToInsertIntot1(char* name_sensor, const char* value, char* data
   int rc = db_exec(db, buffer);
   // Debugging
   Serial.println("DB/t1:");
-    rc = db_exec(db, "SELECT * FROM t1");
-    if (rc != SQLITE_OK) {
-      sqlite3_close(db);
-      return;
-    }
+  rc = db_exec(db, "SELECT * FROM t1");
+  if (rc != SQLITE_OK) {
+    sqlite3_close(db);
+    return;
+  }
   sqlite3_close(db);
+}
+
+long long int getTempoStorage(sqlite3 *db, const char *nome_sensore) {
+  sqlite3_stmt *stmt;
+  char sql[256];
+  snprintf(sql, sizeof(sql), "SELECT tempo_storage, variabile FROM t2 WHERE nome_sensore = '%s'", nome_sensore);
+
+  if (db_open(PATH_STORAGE_DATA_DB, &db))
+    return 0;
+
+  if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
+    Serial.printf("Failed to prepare statement: %s\n", sqlite3_errmsg(db));
+    return 0;
+  }
+
+  long long int tempo_storage = -1;
+
+  if (sqlite3_step(stmt) == SQLITE_ROW) {
+    int variabile = sqlite3_column_int(stmt, 1);
+    if (variabile == 1) {
+      tempo_storage = sqlite3_column_int64(stmt, 0);
+    } else {
+      tempo_storage = -1;
+    }
+  }
+  sqlite3_finalize(stmt);
+  sqlite3_close(db);
+  return tempo_storage;
 }
