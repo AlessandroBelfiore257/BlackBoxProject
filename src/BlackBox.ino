@@ -3,6 +3,8 @@
 #include <Wire.h>
 #include <TinyGPSPlus.h>
 #include <SoftwareSerial.h>
+#include <LiquidCrystal_I2C.h>  
+#include <Adafruit_MPU6050.h> 
 
 #include "Secrets.h"
 #include "Config.h"
@@ -13,6 +15,8 @@
 #include "Synch.h"
 #include "Garbage.h"
 
+#include "Dato.h"
+
 const char* ssid = WIFI_SSID;
 const char* password = WIFI_PASSWORD;
 
@@ -20,28 +24,27 @@ const uint16_t port = PORT;
 const char* host = HOST;
 
 static const uint32_t GPSBaud = 38400;
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+Adafruit_MPU6050 mpu;
 
 Scheduler scheduler;
 sqlite3* db;
 RTC_DS3231 rtc;
 TinyGPSPlus gps;
 
-// Rimpiazzo le variabili sottostanti con quelle dei sensori e della rete CAN-BUS
-// Sensore bottone
-int buttonState = 0;
 HardwareSerial hs = Serial2;
 
-// button set-up
-long long int lastStoredTS1 = 0;
-const int maxReadings = 10;
-float readings[10];
-int currentIndex = 0;
-// GPS set-up
-long long int lastStoredTS2 = 0;
+// Dato button
+Dato button_Sensor("Button pressure", 20);
+// GPS 
+Dato gps_Sensor("Coordinate GPS", 0); // Si dovrebbe pensare ad una gerarchia? penso proprio di si poi vediamo
+// Accelerometria
+Dato accelerometro_Sensor("Accelerometria", 0);
 
 // Prototipi delle funzioni chiamate dai task dello scheduler
 void rilevoButtonPressureCallback();
 void gspTrackerCallback();
+void accelerometriaCallback();
 
 void synchDataCallback();
 void cleanDataRoutineCallback();
@@ -49,10 +52,11 @@ void cleanDataMemoryFullCallback();
 
 // Definizione dei task
 Task ButtonPressureTask(BUTTON_PRESSURE_DETECTION* TASK_SECOND, TASK_FOREVER, &rilevoButtonPressureCallback);
+Task gpsTrackerTask(GPS* TASK_SECOND, TASK_FOREVER, &gspTrackerCallback);
 Task synchDataTask(SYNCHRONIZATION_DATA* TASK_SECOND, TASK_FOREVER, &synchDataCallback);
 Task cleanDataRoutineTask(CLEANING_ROUTINE* TASK_SECOND, TASK_FOREVER, &cleanDataRoutineCallback);
 Task cleanDataMemoryFullTask(CLEANING_MEMORY_FULL* TASK_SECOND, TASK_FOREVER, &cleanDataMemoryFullCallback);
-Task gpsTrackerTask(GPS* TASK_SECOND, TASK_FOREVER, &gspTrackerCallback);
+Task accelerometriaTask(20*TASK_SECOND, TASK_FOREVER, &accelerometriaCallback);
 
 void setup() {
 
@@ -65,6 +69,30 @@ void setup() {
       ;
   }
   hs.begin(GPSBaud);
+
+  // Display LCD
+  lcd.init();
+  lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.print("Benvenuto a"); 
+  lcd.setCursor(0, 1);
+  lcd.print("bordo"); 
+
+  // LED 
+  pinMode(LED_ROSSO, OUTPUT);
+  pinMode(LED_GIALLO, OUTPUT);
+  pinMode(LED_VERDE, OUTPUT);
+  digitalWrite(LED_ROSSO, HIGH);
+  digitalWrite(LED_GIALLO, HIGH);
+  digitalWrite(LED_VERDE, LOW);
+
+  // Inizializza l'accelerometro
+  if (!mpu.begin(0x69)) {
+    Serial.println("MPU6050 non trovato!");
+    while (1)
+      ;
+  }
+  Serial.println("MPU6050 trovato e inizializzato correttamente."); 
 
   /* DA USARE PER LA VERSIONE UFFICIALE
   LittleFS.begin();
@@ -84,12 +112,14 @@ void setup() {
   scheduler.addTask(synchDataTask);
   scheduler.addTask(ButtonPressureTask);
   scheduler.addTask(gpsTrackerTask);
+  scheduler.addTask(accelerometriaTask);
 
   // cleanDataRoutineTask.enable();
   // cleanDataMemoryFullTask.enable();
   synchDataTask.enable();
   ButtonPressureTask.enable();
   gpsTrackerTask.enable();
+  accelerometriaTask.enable();
 }
 
 void loop() {
@@ -168,54 +198,66 @@ bool spentEnoughTimeFromLastStrorage(char* nameSensor, long long int timestampNo
   }
 }
 
+// BUTTON TASK
 void rilevoButtonPressureCallback() {
-  buttonState = digitalRead(BUTTON_PIN);
-  if (currentIndex == maxReadings) {
-    // attuo la mia politica di storage intelligente che cambia in base alla natura dei dati i tempi di storage
-
-    // Calcola la deviazione standard delle letture
-    float stdDev = calculateStdDev(readings, maxReadings);
-
-    // Ottieni i parametri dal database
-    int tempoStorage, fattoreIncrDecr, tMinStorage, tMaxStorage;
-    float soglia;
-    if (!getSensorParameters("Button pressure", tempoStorage, fattoreIncrDecr, soglia, tMinStorage, tMaxStorage)) {
-      Serial.println("Failed to get sensor parameters.");
-      return;
-    }
-    Serial.println(tempoStorage);
-    Serial.println(fattoreIncrDecr);
-    Serial.println(soglia);
-    Serial.println(tMinStorage);
-    // Aggiorna il tempo di storage in base alla deviazione standard
-    if (stdDev <= soglia) {
-      tempoStorage += fattoreIncrDecr;  // Incrementa il tempo di storage
-    } else {
-      tempoStorage -= fattoreIncrDecr;  // Decrementa il tempo di storage
-      if (tempoStorage < tMinStorage) {
-        tempoStorage = tMinStorage;  // Assicurati che non scenda sotto il minimo
-      }
-    }
-    // Verifica se il nuovo tempo di storage supera il valore massimo consentito
-    if (tempoStorage > tMaxStorage) {
-      // Se supera il valore massimo, imposta il tempo di storage al valore massimo consentito
-      tempoStorage = tMaxStorage;
-      Serial.println("Il nuovo tempo di storage supera il valore massimo consentito. Viene impostato al valore massimo consentito.");
-    }
-
-    // Aggiorna il database con il nuovo tempo di storage
-    updateTempoStorage("Button pressure", tempoStorage);
-
-    currentIndex = 0;
+  int buttonState = digitalRead(BUTTON_PIN);
+  button_Sensor.addReading(buttonState);
+  // Fine delle mie x letture e verifica + cambio del tempo di storage del dato in questione
+  if (button_Sensor.currentIndex == button_Sensor.maxReadings) {
+    changeTimeStorage(button_Sensor);
   }
-  readings[currentIndex] = buttonState;
-  currentIndex++;
-  long long int result = parteComune(lastStoredTS1, "Button pressure", String(buttonState).c_str(), "Integer", "Assente", 2);
+  long long int result = parteComune(button_Sensor.lastStoredTS, button_Sensor.name, String(buttonState).c_str(), "Integer", "Assente", 2);
   if (result != -1) {
-    lastStoredTS1 = result;
+    button_Sensor.lastStoredTS = result;
   }
   Serial.print("Ultima mem button: ");
-  Serial.println(lastStoredTS1);
+  Serial.println(button_Sensor.lastStoredTS);
+}
+
+// GPS TASK
+void gspTrackerCallback() {
+  double lat = -1;
+  double lon = -1;
+  while (hs.available() > 0) {
+    gps.encode(hs.read());
+  }
+  if (gps.location.isValid()) {
+    lat = gps.location.lat();
+    lon = gps.location.lng();
+  } else {
+    Serial.println("INVALID LOCATION");
+  }
+  Serial.print(lat, 6);
+  Serial.print(F(","));
+  Serial.println(lon, 6);
+  String res = String(lat, 6) + " - " + String(lon, 6);
+  Serial.print("Coordinate gps: ");
+  Serial.println(res);
+  long long int result = parteComune(gps_Sensor.lastStoredTS, gps_Sensor.name, res.c_str(), "String", "(°)", 3);
+  if (result != -1) {
+    gps_Sensor.lastStoredTS = result;
+  }
+  Serial.print("Ultima mem gps: ");
+  Serial.println(gps_Sensor.lastStoredTS);
+}
+
+// ACCELEROMETRIA TASK
+void accelerometriaCallback() {
+  sensors_event_t a, g, temp;
+  mpu.getEvent(&a, &g, &temp);
+
+  float x,y,z;
+  x = a.acceleration.x;
+  y = a.acceleration.y;
+  z = a.acceleration.z;
+  String res = String(x) + " - " + String(y) + " - " + String(z);
+  Serial.println(res);
+  long long int result = parteComune(accelerometro_Sensor.lastStoredTS, accelerometro_Sensor.name, res.c_str(), "String", "m/s^2", 5);
+  if (result != -1) {
+    accelerometro_Sensor.lastStoredTS = result;
+  }
+  Serial.print("Ultima mem accelerometria: ");
+  Serial.println(accelerometro_Sensor.lastStoredTS);
 }
 
 void synchDataCallback() {
@@ -245,32 +287,6 @@ void cleanDataMemoryFullCallback() {
     Serial.println("---------------------------- Pulisco memory ----------------------------");
     garbageCollectorMemoryFull();
   } */
-}
-
-void gspTrackerCallback() {
-  double lat = -1;
-  double lon = -1;
-  while (hs.available() > 0) {
-    gps.encode(hs.read());
-  }
-  if (gps.location.isValid()) {
-    lat = gps.location.lat();
-    lon = gps.location.lng();
-  } else {
-    Serial.println("INVALID LOCATION");
-  }
-  Serial.print(lat, 6);
-  Serial.print(F(","));
-  Serial.println(lon, 6);
-  String res = String(lat, 6) + " - " + String(lon, 6);
-  Serial.print("Coordinate gps: ");
-  Serial.println(res);
-  long long int result = parteComune(lastStoredTS2, "Coordinate GPS", res.c_str(), "String", "(°)", 3);
-  if (result != -1) {
-    lastStoredTS2 = result;
-  }
-  Serial.print("Ultima mem gps: ");
-  Serial.println(lastStoredTS2);
 }
 
 // return lastStoredTS1 changed se è passato il tempo di storage, -1 otherwise
@@ -303,61 +319,37 @@ long long int parteComune(long long int lastStoredTS, char* nome_sensore, const 
   return res;
 }
 
-// Funzione per calcolare la media
-float calculateMean(float data[], int size) {
-  float sum = 0;
-  for (int i = 0; i < size; i++) {
-    sum += data[i];
+void changeTimeStorage(Dato& dato) {
+  // attuo la mia politica di storage intelligente che cambia in base alla natura dei dati i tempi di storage
+  // Calcola la deviazione standard delle letture
+  float stdDev = dato.calculateStdDev();
+  // Ottieni i parametri dal database
+  int tempoStorage, fattoreIncrDecr, tMinStorage, tMaxStorage;
+  float soglia;
+  if (!getSensorParameters("Button pressure", tempoStorage, fattoreIncrDecr, soglia, tMinStorage, tMaxStorage)) {
+    Serial.println("Failed to get sensor parameters.");
+    return;
   }
-  return sum / size;
-}
-
-// Funzione per calcolare la deviazione standard
-float calculateStdDev(float data[], int size) {
-  float mean = calculateMean(data, size);
-  float sum = 0;
-  for (int i = 0; i < size; i++) {
-    sum += pow(data[i] - mean, 2);
-  }
-  return sqrt(sum / size);
-}
-
-bool getSensorParameters(const char* sensorName, int& tempoStorage, int& fattoreIncrDecr, float& soglia, int& tMinStorage, int& tMaxStorage) {
-  sqlite3_stmt* stmt;  // Dichiarazione della variabile stmt
-  char sql[128];
-  snprintf(sql, sizeof(sql), "SELECT tempo_storage, fattore_incr_decr, soglia, tMinStorage, tMaxStorage FROM t2 WHERE nome_sensore = '%s';", sensorName);
-
-  if (db_open(PATH_STORAGE_DATA_DB, &db))
-    return false;
-
-  int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);  // Ottenere il puntatore stmt tramite sqlite3_prepare_v2
-
-  if (rc == SQLITE_OK) {
-    if (sqlite3_step(stmt) == SQLITE_ROW) {
-      tempoStorage = sqlite3_column_int(stmt, 0);
-      fattoreIncrDecr = sqlite3_column_int(stmt, 1);
-      soglia = sqlite3_column_double(stmt, 2);  // Modifica qui per ottenere un valore float
-      tMinStorage = sqlite3_column_int(stmt, 3);
-      tMaxStorage = sqlite3_column_int(stmt, 4);
-      sqlite3_finalize(stmt);  // Rilascio delle risorse allocate
-      sqlite3_close(db);
-      return true;
+  Serial.println(tempoStorage);
+  Serial.println(fattoreIncrDecr);
+  Serial.println(soglia);
+  Serial.println(tMinStorage);
+  // Aggiorna il tempo di storage in base alla deviazione standard
+  if (stdDev <= soglia) {
+    tempoStorage += fattoreIncrDecr;  // Incrementa il tempo di storage
+  } else {
+    tempoStorage -= fattoreIncrDecr;  // Decrementa il tempo di storage
+    if (tempoStorage < tMinStorage) {
+      tempoStorage = tMinStorage;  // Assicurati che non scenda sotto il minimo
     }
   }
-
-  sqlite3_finalize(stmt);  // Rilascio delle risorse allocate
-  sqlite3_close(db);
-  return false;
+  // Verifica se il nuovo tempo di storage supera il valore massimo consentito
+  if (tempoStorage > tMaxStorage) {
+    // Se supera il valore massimo, imposta il tempo di storage al valore massimo consentito
+    tempoStorage = tMaxStorage;
+    Serial.println("Il nuovo tempo di storage supera il valore massimo consentito. Viene impostato al valore massimo consentito.");
+  }
+  // Aggiorna il database con il nuovo tempo di storage
+  updateTempoStorage("Button pressure", tempoStorage);
+  dato.currentIndex = 0;
 }
-
-void updateTempoStorage(const char* sensorName, int newTempoStorage) {
-  char sql[128];
-  Serial.println("Sto cambiando il tempo di storage -------------------------------");
-  if (db_open(PATH_STORAGE_DATA_DB, &db))
-    return;
-  snprintf(sql, sizeof(sql), "UPDATE t2 SET tempo_storage = %d WHERE nome_sensore = '%s';", newTempoStorage, sensorName);
-  int rc = db_exec(db, sql);
-  sqlite3_close(db);
-}
-
-// Funzione per gestire la logica di cambio del tempo di storage --> va inserita
