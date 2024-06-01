@@ -1,24 +1,29 @@
-Coordinate GPS,45.839378 - 8.805944,String,(°),2024-05-31 20:30:00,0,3
-Button pressure,0,Integer,Assente,2024-05-31 20:30:00,0,2
-Button pressure,0,Integer,Assente,2024-05-31 20:30:19,0,2
-Coordinate GPS,45.839390 - 8.805941,String,(°),2024-05-31 20:30:29,0,3
-Button pressure,0,Integer,Assente,2024-05-31 20:30:30,0,2
-Button pressure,0,Integer,Assente,2024-05-31 20:30:49,0,2
-Coordinate GPS,45.839400 - 8.805953,String,(°),2024-05-31 20:30:59,0,3
-Button pressure,0,Integer,Assente,2024-05-31 20:31:02,0,2
-Button pressure,0,Integer,Assente,2024-05-31 20:31:19,0,2
-Coordinate GPS,45.839396 - 8.805927,String,(°),2024-05-31 20:31:30,0,3
-Button pressure,0,Integer,Assente,2024-05-31 20:31:30,0,2
-Coordinate GPS,45.839426 - 8.805885,String,(°),2024-05-31 20:32:00,0,3
-Button pressure,0,Integer,Assente,2024-05-31 20:32:04,0,2
-Button pressure,0,Integer,Assente,2024-05-31 20:32:29,0,2
-Coordinate GPS,45.839412 - 8.805906,String,(°),2024-05-31 20:32:30,0,3
-Button pressure,0,Integer,Assente,2024-05-31 20:32:49,0,2
-Coordinate GPS,45.839400 - 8.805882,String,(°),2024-05-31 20:33:00,0,3
-Button pressure,0,Integer,Assente,2024-05-31 20:33:09,0,2
-Coordinate GPS,45.839421 - 8.805893,String,(°),2024-05-31 20:33:29,0,3
-Button pressure,0,Integer,Assente,2024-05-31 20:33:39,0,2
-Coordinate GPS,45.839399 - 8.805867,String,(°),2024-05-31 20:34:00,0,3
-Button pressure,0,Integer,Assente,2024-05-31 20:34:09,0,2
-Coordinate GPS,45.839411 - 8.805857,String,(°),2024-05-31 20:34:30,0,3
-Button pressure,0,Integer,Assente,2024-05-31 20:34:39,0,2
+Coordinate GPS,45.756097 - 8.870065,String,(°),2024-06-01 18:27:48,0,3
+Button pressure,0,Integer,Assente,2024-06-01 18:27:48,0,2
+Accelerometria,0.25 - 0.21 - 9.71,String,m/s^2,2024-06-01 18:27:49,0,5
+Accelerometria,0.26 - 0.25 - 9.69,String,m/s^2,2024-06-01 18:28:01,0,5
+Button pressure,0,Integer,Assente,2024-06-01 18:28:02,0,2
+Coordinate GPS,45.756108 - 8.869990,String,(°),2024-06-01 18:28:12,0,3
+Button pressure,0,Integer,Assente,2024-06-01 18:28:21,0,2
+Accelerometria,0.32 - 0.13 - 9.73,String,m/s^2,2024-06-01 18:28:22,0,5
+Button pressure,0,Integer,Assente,2024-06-01 18:28:31,0,2
+Button pressure,0,Integer,Assente,2024-06-01 18:28:41,0,2
+Coordinate GPS,45.755936 - 8.869774,String,(°),2024-06-01 18:28:42,0,3
+Accelerometria,0.27 - 0.20 - 9.80,String,m/s^2,2024-06-01 18:28:43,0,5
+Button pressure,0,Integer,Assente,2024-06-01 18:28:51,0,2
+Button pressure,0,Integer,Assente,2024-06-01 18:29:01,0,2
+Accelerometria,0.28 - 0.17 - 9.71,String,m/s^2,2024-06-01 18:29:02,0,5
+Button pressure,0,Integer,Assente,2024-06-01 18:29:11,0,2
+Coordinate GPS,45.756093 - 8.869941,String,(°),2024-06-01 18:29:12,0,3
+Button pressure,0,Integer,Assente,2024-06-01 18:29:21,0,2
+Accelerometria,0.34 - 0.23 - 9.72,String,m/s^2,2024-06-01 18:29:22,0,5
+Button pressure,0,Integer,Assente,2024-06-01 18:29:31,0,2
+Button pressure,0,Integer,Assente,2024-06-01 18:29:46,0,2
+Coordinate GPS,45.756237 - 8.869863,String,(°),2024-06-01 18:29:47,0,3
+Accelerometria,0.35 - 0.18 - 9.58,String,m/s^2,2024-06-01 18:29:48,0,5
+Button pressure,0,Integer,Assente,2024-06-01 18:30:01,0,2
+Accelerometria,0.27 - 0.21 - 9.69,String,m/s^2,2024-06-01 18:30:02,0,5
+Button pressure,0,Integer,Assente,2024-06-01 18:30:11,0,2
+Coordinate GPS,45.756257 - 8.869707,String,(°),2024-06-01 18:30:12,0,3
+Accelerometria,0.30 - 0.14 - 9.73,String,m/s^2,2024-06-01 18:30:21,0,5
+Button pressure,0,Integer,Assente,2024-06-01 18:30:22,0,2
