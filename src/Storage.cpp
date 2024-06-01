@@ -23,10 +23,13 @@ void createPolicyStorage() {
   int rc = db_exec(db, "CREATE TABLE t2 (nome_sensore TEXT, tempo_storage INTEGER, variabile INTEGER, fattore_incr_decr INTEGER, soglia INTEGER, tMinStorage INTEGER, tMaxStorage INTEGER);");
   char buffer1[BUFFER_SIZE];
   char buffer2[BUFFER_SIZE];
+  char buffer3[BUFFER_SIZE];
   sprintf(buffer1, "INSERT INTO t2 VALUES ('Button pressure', 10, 1, 10, 0.25, 10, 30);");
   rc = db_exec(db, buffer1);
-  sprintf(buffer2, "INSERT INTO t2 VALUES ('Coordinate GPS', 30, 0, 'NULL', 'NULL', 'NULL', 'NULL');");
+  sprintf(buffer2, "INSERT INTO t2 VALUES ('Coordinate GPS', 30, 0, 'NULL', 'NULL', 'NULL', 'NULL');"); 
   rc = db_exec(db, buffer2);
+  sprintf(buffer3, "INSERT INTO t2 VALUES ('Accelerometria', 20, 0, 'NULL', 'NULL', 'NULL', 'NULL');"); 
+  rc = db_exec(db, buffer3);
   rc = db_exec(db, "SELECT * FROM t2");
   if (rc != SQLITE_OK) {
     sqlite3_close(db);
@@ -124,4 +127,41 @@ long long int getTempoStorage(sqlite3 *db, const char *nome_sensore) {
   sqlite3_finalize(stmt);
   sqlite3_close(db);
   return tempo_storage;
+}
+
+bool getSensorParameters(const char* sensorName, int& tempoStorage, int& fattoreIncrDecr, float& soglia, int& tMinStorage, int& tMaxStorage) {
+  sqlite3_stmt* stmt;  // Dichiarazione della variabile stmt
+  char sql[128];
+  snprintf(sql, sizeof(sql), "SELECT tempo_storage, fattore_incr_decr, soglia, tMinStorage, tMaxStorage FROM t2 WHERE nome_sensore = '%s';", sensorName);
+
+  if (db_open(PATH_STORAGE_DATA_DB, &db))
+    return false;
+
+  int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);  // Ottenere il puntatore stmt tramite sqlite3_prepare_v2
+
+  if (rc == SQLITE_OK) {
+    if (sqlite3_step(stmt) == SQLITE_ROW) {
+      tempoStorage = sqlite3_column_int(stmt, 0);
+      fattoreIncrDecr = sqlite3_column_int(stmt, 1);
+      soglia = sqlite3_column_double(stmt, 2);  // Modifica qui per ottenere un valore float
+      tMinStorage = sqlite3_column_int(stmt, 3);
+      tMaxStorage = sqlite3_column_int(stmt, 4);
+      sqlite3_finalize(stmt);  // Rilascio delle risorse allocate
+      sqlite3_close(db);
+      return true;
+    }
+  }
+  sqlite3_finalize(stmt);  // Rilascio delle risorse allocate
+  sqlite3_close(db);
+  return false;
+}
+
+void updateTempoStorage(const char* sensorName, int newTempoStorage) {
+  char sql[128];
+  Serial.println("Sto cambiando il tempo di storage -------------------------------");
+  if (db_open(PATH_STORAGE_DATA_DB, &db))
+    return;
+  snprintf(sql, sizeof(sql), "UPDATE t2 SET tempo_storage = %d WHERE nome_sensore = '%s';", newTempoStorage, sensorName);
+  int rc = db_exec(db, sql);
+  sqlite3_close(db);
 }
