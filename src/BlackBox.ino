@@ -40,11 +40,16 @@ Dato button_Sensor("Button pressure", 20);
 Dato gps_Sensor("Coordinate GPS", 0); // Si dovrebbe pensare ad una gerarchia? penso proprio di si poi vediamo
 // Accelerometria
 Dato accelerometro_Sensor("Accelerometria", 0);
+// Alcool
+Dato alcool_Sensor("Alcool", 30);
+// Air Qulity
+Dato airQuality_Sensor("Air quality", 30);
 
 // Prototipi delle funzioni chiamate dai task dello scheduler
 void rilevoButtonPressureCallback();
 void gspTrackerCallback();
 void accelerometriaCallback();
+void airMonitoringCallback();
 
 void synchDataCallback();
 void cleanDataRoutineCallback();
@@ -56,7 +61,8 @@ Task gpsTrackerTask(GPS* TASK_SECOND, TASK_FOREVER, &gspTrackerCallback);
 Task synchDataTask(SYNCHRONIZATION_DATA* TASK_SECOND, TASK_FOREVER, &synchDataCallback);
 Task cleanDataRoutineTask(CLEANING_ROUTINE* TASK_SECOND, TASK_FOREVER, &cleanDataRoutineCallback);
 Task cleanDataMemoryFullTask(CLEANING_MEMORY_FULL* TASK_SECOND, TASK_FOREVER, &cleanDataMemoryFullCallback);
-Task accelerometriaTask(20*TASK_SECOND, TASK_FOREVER, &accelerometriaCallback);
+Task accelerometriaTask(ACCELEROMETRIA*TASK_SECOND, TASK_FOREVER, &accelerometriaCallback);
+Task airMonitoringTask(AIR*TASK_SECOND, TASK_FOREVER, &airMonitoringCallback);
 
 void setup() {
 
@@ -94,6 +100,10 @@ void setup() {
   }
   Serial.println("MPU6050 trovato e inizializzato correttamente."); 
 
+  // Alcool e air quality
+  pinMode(ALCOOL_PIN, INPUT);  
+  pinMode(AIR_QUALITY_PIN, INPUT);
+
   /* DA USARE PER LA VERSIONE UFFICIALE
   LittleFS.begin();
   if (!LittleFS.exists(DB_FILE)) {
@@ -113,6 +123,7 @@ void setup() {
   scheduler.addTask(ButtonPressureTask);
   scheduler.addTask(gpsTrackerTask);
   scheduler.addTask(accelerometriaTask);
+  scheduler.addTask(airMonitoringTask);
 
   // cleanDataRoutineTask.enable();
   // cleanDataMemoryFullTask.enable();
@@ -120,6 +131,7 @@ void setup() {
   ButtonPressureTask.enable();
   gpsTrackerTask.enable();
   accelerometriaTask.enable();
+  airMonitoringTask.enable();
 }
 
 void loop() {
@@ -258,6 +270,35 @@ void accelerometriaCallback() {
   }
   Serial.print("Ultima mem accelerometria: ");
   Serial.println(accelerometro_Sensor.lastStoredTS);
+}
+
+// AIR MONITORING TASK
+void airMonitoringCallback() {
+
+  // Lettura sensore MQ-3
+  int mq3AnalogValue = analogRead(ALCOOL_PIN);
+  Serial.print("Alcool value detected: ");
+  Serial.println(mq3AnalogValue);
+
+  // Lettura sensore MQ-2
+  int mq2AnalogValue = analogRead(AIR_QUALITY_PIN);
+  Serial.print("Air quality value detected: ");
+  Serial.println(mq2AnalogValue);
+
+  long long int resultAlcool = parteComune(alcool_Sensor.lastStoredTS, alcool_Sensor.name, String(mq3AnalogValue).c_str(), "Integer", "Assente", 4);
+  long long int resultAirQuality = parteComune(airQuality_Sensor.lastStoredTS, airQuality_Sensor.name, String(mq2AnalogValue).c_str(), "Integer", "Assente", 6);
+
+  if (resultAlcool != -1) {
+    alcool_Sensor.lastStoredTS = resultAlcool;
+  }
+  Serial.print("Ultima mem alcool: ");
+  Serial.println(alcool_Sensor.lastStoredTS);
+
+  if (resultAirQuality != -1) {
+    airQuality_Sensor.lastStoredTS = resultAirQuality;
+  }
+  Serial.print("Ultima mem air quality: ");
+  Serial.println(airQuality_Sensor.lastStoredTS);
 }
 
 void synchDataCallback() {
