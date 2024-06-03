@@ -26,8 +26,8 @@ _Numeri alti indicano priorità alta_
 ```mermaid
 graph TD
   A[Sensor data] --> |Receving data| B(calculation of average and standard deviation)
-  B --> |After n readings changeTimeStorage funcion| C{std. low? (std < soglia)}
+  B --> |After n readings changeTimeStorage funcion| C{std. low?}
   C --> |YES| D[change time storage in db increasing by: fattore_incr_decr]
   C --> |NO| E[change time storage in db decreasing by: fattore_incr_decr]
 ```
-Logica: se dopo una serie di letture (n ad esempio) i dati hanno una bassa deviazione standard, ovvero sono molto simili tra di loro, memorizzo i dati del veicolo con una frequenza minore, aumentando il tempo di storage di un certo fattore (presente nella seconda tabella di questo file); se la deviazione standard è alta, significa che i dati sono abbastanza differenti tra di loro e li monitoro con una frequenza maggiore. Naturalmente vengono posti dei lower e upper bound per i tempo di memorizzazione entro i quali il tempo stesso può variare
+Logica: se dopo una serie di letture (n ad esempio) i dati hanno una bassa deviazione standard, ovvero sono molto simili tra di loro, memorizzo i dati del veicolo con una frequenza minore, aumentando il tempo di storage di un certo fattore (presente nella seconda tabella di questo file); se la deviazione standard è alta, significa che i dati sono abbastanza differenti tra di loro e li monitoro con una frequenza maggiore. Naturalmente vengono posti dei lower e upper bound per i tempo di memorizzazione entro i quali il tempo stesso può variare.
