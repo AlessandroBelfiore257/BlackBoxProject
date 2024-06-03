@@ -20,4 +20,16 @@ migliorare il servizio offerto alla clientela della compagnia (soccorso in caso 
 
 ## Risorse utilizzate 
 - OBD elm 327 bluetooth
-- androbd (sw libero)
+- ESP32
+- GPS GY-NEO 6M
+- Accelerometro GY-521
+- RTC DS3231 I2C
+- Display LCD
+- Sensore di Gas, Fumo e Qualità dell'Aria MQ-2
+- Sensore di alcool MQ-3
+- 3 Led
+- 3 Resistori
+- 1 Bottone
+- 2 Breadboard da 830 pin
+- Diversi jumper di lunghezza variabile
+- Power bank
