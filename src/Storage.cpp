@@ -21,15 +21,21 @@ static int callback(void *data, int argc, char **argv, char **azColName) {
 
 void createPolicyStorage() {
   int rc = db_exec(db, "CREATE TABLE t2 (nome_sensore TEXT, tempo_storage INTEGER, variabile INTEGER, fattore_incr_decr INTEGER, soglia INTEGER, tMinStorage INTEGER, tMaxStorage INTEGER);");
-  char buffer1[BUFFER_SIZE];
-  char buffer2[BUFFER_SIZE];
-  char buffer3[BUFFER_SIZE];
+  char buffer1[BUFFER_SIZE/2];
+  char buffer2[BUFFER_SIZE/2];
+  char buffer3[BUFFER_SIZE/2];
+  char buffer4[BUFFER_SIZE/2];
+  char buffer5[BUFFER_SIZE/2];
   sprintf(buffer1, "INSERT INTO t2 VALUES ('Button pressure', 10, 1, 10, 0.25, 10, 30);");
   rc = db_exec(db, buffer1);
   sprintf(buffer2, "INSERT INTO t2 VALUES ('Coordinate GPS', 30, 0, 'NULL', 'NULL', 'NULL', 'NULL');"); 
   rc = db_exec(db, buffer2);
   sprintf(buffer3, "INSERT INTO t2 VALUES ('Accelerometria', 20, 0, 'NULL', 'NULL', 'NULL', 'NULL');"); 
   rc = db_exec(db, buffer3);
+  sprintf(buffer4, "INSERT INTO t2 VALUES ('Alcool', 25, 1, 10, 0.25, 25, 125);");
+  rc = db_exec(db, buffer4);
+  sprintf(buffer5, "INSERT INTO t2 VALUES ('Air quality', 25, 1, 10, 0.25, 25, 150);");
+  rc = db_exec(db, buffer5);
   rc = db_exec(db, "SELECT * FROM t2");
   if (rc != SQLITE_OK) {
     sqlite3_close(db);
