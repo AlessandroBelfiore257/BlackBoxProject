@@ -21,12 +21,13 @@
 #define DB_FILE "/dati.db"
 
 #define BUTTON_PRESSURE_DETECTION 10
-#define SYNCHRONIZATION_DATA 60 // adesso sincronizzo ogni 30 sec, nella versione ufficiale la sincronizzazione avverrà in presenza di connessione e con un tempo maggiore di 24h dall'ultima sincronizzazione
+#define SYNCHRONIZATION_DATA 60 // adesso sincronizzo ogni 60 sec, nella versione ufficiale la sincronizzazione avverrà in presenza di connessione e con un tempo maggiore di 24h dall'ultima sincronizzazione
 #define CLEANING_ROUTINE 120 // adesso sono 120 secondi, nella versione ufficiale saranno 6h
 #define CLEANING_MEMORY_FULL 300 
 #define GPS 30
 #define ACCELEROMETRIA 20
 #define AIR 25
+#define CENTRALINA 15
 
 #define BUFFER_SIZE 1000
 
