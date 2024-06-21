@@ -1,0 +1,68 @@
+Coordinate GPS,45.839347 - 8.805932,String,(°),2024-06-21 18:54:25,0,3
+Button pressure,0,Integer,Assente,2024-06-21 18:54:25,0,2
+Accelerometria,-2.30 - -0.40 - 9.30,String,m/s^2,2024-06-21 18:54:26,0,5
+Alcool,2097,Integer,Assente,2024-06-21 18:54:26,0,4
+Air quality,1063,Integer,Assente,2024-06-21 18:54:27,0,6
+rpm,98.00,Integer,Giri al minuto,2024-06-21 18:54:27,0,2
+liquido,99.00,Integer,Gradi,2024-06-21 18:54:28,0,2
+rpm,98.00,Integer,Giri al minuto,2024-06-21 18:54:39,0,2
+liquido,99.00,Integer,Gradi,2024-06-21 18:54:40,0,2
+Button pressure,0,Integer,Assente,2024-06-21 18:54:44,0,2
+Accelerometria,-2.31 - -0.43 - 9.38,String,m/s^2,2024-06-21 18:54:45,0,5
+Coordinate GPS,45.839366 - 8.805945,String,(°),2024-06-21 18:54:55,0,3
+rpm,98.00,Integer,Giri al minuto,2024-06-21 18:54:55,0,2
+liquido,99.00,Integer,Gradi,2024-06-21 18:54:56,0,2
+Button pressure,0,Integer,Assente,2024-06-21 18:54:57,0,2
+Accelerometria,-2.28 - -0.37 - 9.36,String,m/s^2,2024-06-21 18:55:05,0,5
+rpm,98.00,Integer,Giri al minuto,2024-06-21 18:55:09,0,2
+liquido,99.00,Integer,Gradi,2024-06-21 18:55:10,0,2
+Button pressure,0,Integer,Assente,2024-06-21 18:55:14,0,2
+Button pressure,0,Integer,Assente,2024-06-21 18:55:24,0,2
+Coordinate GPS,45.839401 - 8.805870,String,(°),2024-06-21 18:55:25,0,3
+Accelerometria,-2.26 - -0.37 - 9.29,String,m/s^2,2024-06-21 18:55:26,0,5
+rpm,98.00,Integer,Giri al minuto,2024-06-21 18:55:27,0,2
+liquido,99.00,Integer,Gradi,2024-06-21 18:55:28,0,2
+Button pressure,0,Integer,Assente,2024-06-21 18:55:40,0,2
+rpm,98.00,Integer,Giri al minuto,2024-06-21 18:55:41,0,2
+liquido,99.00,Integer,Gradi,2024-06-21 18:55:41,0,2
+Accelerometria,-2.27 - -0.44 - 9.28,String,m/s^2,2024-06-21 18:55:45,0,5
+Button pressure,0,Integer,Assente,2024-06-21 18:55:54,0,2
+Coordinate GPS,45.839427 - 8.805896,String,(°),2024-06-21 18:55:55,0,3
+rpm,98.00,Integer,Giri al minuto,2024-06-21 18:55:56,0,2
+liquido,99.00,Integer,Gradi,2024-06-21 18:55:57,0,2
+Accelerometria,-2.27 - -0.35 - 9.34,String,m/s^2,2024-06-21 18:56:04,0,5
+Button pressure,0,Integer,Assente,2024-06-21 18:56:06,0,2
+rpm,98.00,Integer,Giri al minuto,2024-06-21 18:56:09,0,2
+liquido,99.00,Integer,Gradi,2024-06-21 18:56:10,0,2
+Accelerometria,-2.25 - -0.41 - 9.29,String,m/s^2,2024-06-21 18:56:24,0,5
+rpm,98.00,Integer,Giri al minuto,2024-06-21 18:56:25,0,2
+liquido,99.00,Integer,Gradi,2024-06-21 18:56:26,0,2
+Button pressure,0,Integer,Assente,2024-06-21 18:55:40,0,2
+rpm,98.00,Integer,Giri al minuto,2024-06-21 18:55:41,0,2
+liquido,99.00,Integer,Gradi,2024-06-21 18:55:41,0,2
+Accelerometria,-2.27 - -0.44 - 9.28,String,m/s^2,2024-06-21 18:55:45,0,5
+Button pressure,0,Integer,Assente,2024-06-21 18:55:54,0,2
+Coordinate GPS,45.839427 - 8.805896,String,(°),2024-06-21 18:55:55,0,3
+rpm,98.00,Integer,Giri al minuto,2024-06-21 18:55:56,0,2
+liquido,99.00,Integer,Gradi,2024-06-21 18:55:57,0,2
+Accelerometria,-2.27 - -0.35 - 9.34,String,m/s^2,2024-06-21 18:56:04,0,5
+Button pressure,0,Integer,Assente,2024-06-21 18:56:06,0,2
+rpm,98.00,Integer,Giri al minuto,2024-06-21 18:56:09,0,2
+liquido,99.00,Integer,Gradi,2024-06-21 18:56:10,0,2
+Accelerometria,-2.25 - -0.41 - 9.29,String,m/s^2,2024-06-21 18:56:24,0,5
+rpm,98.00,Integer,Giri al minuto,2024-06-21 18:56:25,0,2
+liquido,99.00,Integer,Gradi,2024-06-21 18:56:26,0,2
+Button pressure,0,Integer,Assente,2024-06-21 18:56:30,0,2
+Coordinate GPS,45.839391 - 8.805956,String,(°),2024-06-21 18:56:31,0,3
+rpm,98.00,Integer,Giri al minuto,2024-06-21 18:56:39,0,2
+liquido,99.00,Integer,Gradi,2024-06-21 18:56:40,0,2
+Accelerometria,-2.23 - -0.43 - 9.29,String,m/s^2,2024-06-21 18:56:44,0,5
+Button pressure,0,Integer,Assente,2024-06-21 18:56:46,0,2
+Coordinate GPS,45.839427 - 8.805926,String,(°),2024-06-21 18:56:55,0,3
+rpm,98.00,Integer,Giri al minuto,2024-06-21 18:56:56,0,2
+liquido,99.00,Integer,Gradi,2024-06-21 18:56:57,0,2
+Button pressure,0,Integer,Assente,2024-06-21 18:57:04,0,2
+Accelerometria,-2.27 - -0.43 - 9.35,String,m/s^2,2024-06-21 18:57:06,0,5
+rpm,98.00,Integer,Giri al minuto,2024-06-21 18:57:09,0,2
+liquido,99.00,Integer,Gradi,2024-06-21 18:57:11,0,2
+Button pressure,0,Integer,Assente,2024-06-21 18:57:14,0,2
