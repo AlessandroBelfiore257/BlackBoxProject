@@ -3,8 +3,11 @@
 #include <Wire.h>
 #include <TinyGPSPlus.h>
 #include <SoftwareSerial.h>
-#include <LiquidCrystal_I2C.h>  
-#include <Adafruit_MPU6050.h> 
+#include <LiquidCrystal_I2C.h>
+#include <Adafruit_MPU6050.h>
+
+#include "BluetoothSerial.h"
+#include "ELMduino.h"
 
 #include "Secrets.h"
 #include "Config.h"
@@ -32,24 +35,48 @@ sqlite3* db;
 RTC_DS3231 rtc;
 TinyGPSPlus gps;
 
+BluetoothSerial SerialBT;
+ELM327 myELM327;
+// Indirizzo MAC del dispositivo Bluetooth a cui ci si desidera connettere
+// Nel nostro caso OBDII: 1C:A1:35:69:8D:C5
+uint8_t remoteAddres[] = { 0x1C, 0xA1, 0x35, 0x69, 0x8D, 0xC5 };
+
 HardwareSerial hs = Serial2;
 
 // Dato button
 Dato button_Sensor("Button pressure", 20);
-// GPS 
-Dato gps_Sensor("Coordinate GPS", 0); // Si dovrebbe pensare ad una gerarchia? penso proprio di si poi vediamo
+// GPS
+Dato gps_Sensor("Coordinate GPS", 0);  // Si dovrebbe pensare ad una gerarchia? penso proprio di si poi vediamo
 // Accelerometria
 Dato accelerometro_Sensor("Accelerometria", 0);
 // Alcool
 Dato alcool_Sensor("Alcool", 30);
 // Air Qulity
 Dato airQuality_Sensor("Air quality", 30);
+// RPM
+Dato rpm_Sensor("rpm", 0);
+// Temperatura liquido refrigerante
+Dato temp_Sensor("liquido", 0);
+
+typedef enum { ENG_RPM,
+               SPEED,
+               TEMPERATURE,
+               VOLTAGE,
+               FUEL } obd_pid_states;
+obd_pid_states obd_state = ENG_RPM;
+
+float rpm = 0;
+float kph = 0;
+float temp = 0;
+float volt = 0;
+float fuel = 0;
 
 // Prototipi delle funzioni chiamate dai task dello scheduler
 void rilevoButtonPressureCallback();
 void gspTrackerCallback();
 void accelerometriaCallback();
 void airMonitoringCallback();
+void centralinaMonitoringCallBack();
 
 void synchDataCallback();
 void cleanDataRoutineCallback();
@@ -61,8 +88,9 @@ Task gpsTrackerTask(GPS* TASK_SECOND, TASK_FOREVER, &gspTrackerCallback);
 Task synchDataTask(SYNCHRONIZATION_DATA* TASK_SECOND, TASK_FOREVER, &synchDataCallback);
 Task cleanDataRoutineTask(CLEANING_ROUTINE* TASK_SECOND, TASK_FOREVER, &cleanDataRoutineCallback);
 Task cleanDataMemoryFullTask(CLEANING_MEMORY_FULL* TASK_SECOND, TASK_FOREVER, &cleanDataMemoryFullCallback);
-Task accelerometriaTask(ACCELEROMETRIA*TASK_SECOND, TASK_FOREVER, &accelerometriaCallback);
-Task airMonitoringTask(AIR*TASK_SECOND, TASK_FOREVER, &airMonitoringCallback);
+Task accelerometriaTask(ACCELEROMETRIA* TASK_SECOND, TASK_FOREVER, &accelerometriaCallback);
+Task airMonitoringTask(AIR* TASK_SECOND, TASK_FOREVER, &airMonitoringCallback);
+Task centralinaMonitoringTask(CENTRALINA * TASK_SECOND, TASK_FOREVER, &centralinaMonitoringCallBack);
 
 void setup() {
 
@@ -80,11 +108,11 @@ void setup() {
   lcd.init();
   lcd.backlight();
   lcd.setCursor(0, 0);
-  lcd.print("Benvenuto a"); 
+  lcd.print("Benvenuto a");
   lcd.setCursor(0, 1);
-  lcd.print("bordo"); 
+  lcd.print("bordo");
 
-  // LED 
+  // LED
   pinMode(LED_ROSSO, OUTPUT);
   pinMode(LED_GIALLO, OUTPUT);
   pinMode(LED_VERDE, OUTPUT);
@@ -98,10 +126,10 @@ void setup() {
     while (1)
       ;
   }
-  Serial.println("MPU6050 trovato e inizializzato correttamente."); 
+  Serial.println("MPU6050 trovato e inizializzato correttamente.");
 
   // Alcool e air quality
-  pinMode(ALCOOL_PIN, INPUT);  
+  pinMode(ALCOOL_PIN, INPUT);
   pinMode(AIR_QUALITY_PIN, INPUT);
 
   /* DA USARE PER LA VERSIONE UFFICIALE
@@ -111,6 +139,8 @@ void setup() {
   } else {
     Serial.println("Database already exist");
   } */
+
+  obdConfig();
 
   // La prima accensione va fatta in presenza di una connessione internet in modo tale da poter sincronizzare tutte le informazioni necessare per un corretto funzionamento futuro della Black Box
   configurationProcess();
@@ -124,6 +154,7 @@ void setup() {
   scheduler.addTask(gpsTrackerTask);
   scheduler.addTask(accelerometriaTask);
   scheduler.addTask(airMonitoringTask);
+  scheduler.addTask(centralinaMonitoringTask);
 
   // cleanDataRoutineTask.enable();
   // cleanDataMemoryFullTask.enable();
@@ -132,10 +163,100 @@ void setup() {
   gpsTrackerTask.enable();
   accelerometriaTask.enable();
   airMonitoringTask.enable();
+  centralinaMonitoringTask.enable();
 }
 
 void loop() {
+  switch (obd_state) {
+    case ENG_RPM:
+      {
+        rpm = myELM327.rpm();
+        if (myELM327.nb_rx_state == ELM_SUCCESS) {
+          Serial.print("rpm: ");
+          Serial.println(rpm);
+          obd_state = SPEED;
+        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
+          myELM327.printError();
+          obd_state = SPEED;
+        }
+        break;
+      }
+
+    case SPEED:
+      {
+        kph = myELM327.kph();
+        if (myELM327.nb_rx_state == ELM_SUCCESS) {
+          Serial.print("kph: ");
+          Serial.println(kph);
+          obd_state = TEMPERATURE;
+        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
+          myELM327.printError();
+          obd_state = TEMPERATURE;
+        }
+        break;
+      }
+
+    case TEMPERATURE:
+      {
+        temp = myELM327.engineCoolantTemp();
+        if (myELM327.nb_rx_state == ELM_SUCCESS) {
+          Serial.print("temp: ");
+          Serial.println(temp);
+          obd_state = VOLTAGE;
+        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
+          myELM327.printError();
+          obd_state = VOLTAGE;
+        }
+        break;
+      }
+
+    case VOLTAGE:
+      {
+        volt = myELM327.batteryVoltage();
+        if (myELM327.nb_rx_state == ELM_SUCCESS) {
+          Serial.print("volt: ");
+          Serial.println(volt);
+          obd_state = FUEL;
+        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
+          myELM327.printError();
+          obd_state = FUEL;
+        }
+        break;
+      }
+
+    case FUEL:
+      {
+        fuel = myELM327.fuelLevel();
+        if (myELM327.nb_rx_state == ELM_SUCCESS) {
+          Serial.print("fuel level: ");
+          Serial.println(fuel);
+          obd_state = ENG_RPM;
+        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
+          myELM327.printError();
+          obd_state = ENG_RPM;
+        }
+        break;
+      }
+  }
   scheduler.execute();
+}
+
+void obdConfig() {
+  SerialBT.begin(115200);
+  SerialBT.begin("ESP_BLUETOOTH", true);  // Master
+  Serial.println("Attempting to connect to ELM327...");
+
+  if (!SerialBT.connect(remoteAddres)) {
+    Serial.println("Couldn't connect to OBD scanner - Phase 1");
+    //while (1) // da rimuovere 
+      ;
+  }
+  if (!myELM327.begin(SerialBT, true, 2000)) {
+    Serial.println("Couldn't connect to OBD scanner - Phase 2");
+    //while (1) // da rimuovere
+      ;
+  }
+  Serial.println("Connected to ELM327");
 }
 
 void configurationProcess() {
@@ -258,7 +379,7 @@ void accelerometriaCallback() {
   sensors_event_t a, g, temp;
   mpu.getEvent(&a, &g, &temp);
 
-  float x,y,z;
+  float x, y, z;
   x = a.acceleration.x;
   y = a.acceleration.y;
   z = a.acceleration.z;
@@ -299,6 +420,39 @@ void airMonitoringCallback() {
   }
   Serial.print("Ultima mem air quality: ");
   Serial.println(airQuality_Sensor.lastStoredTS);
+}
+
+// RPM & LOAD ENGINE
+void centralinaMonitoringCallBack() {
+  // Lettura rpm
+  float RPM = rpm;
+  if(RPM == 0) 
+    RPM = 98;
+  Serial.print("Giri motore: ");
+  Serial.println(RPM);
+
+  // Lettura carico motore 
+  float TEMP = temp;
+  if(TEMP == 0)
+    TEMP = 99;
+  Serial.print("Temperatura liquido di raffreddamento: ");
+  Serial.println(TEMP);
+
+  long long int resultRpm = parteComune(rpm_Sensor.lastStoredTS, rpm_Sensor.name, String(RPM).c_str(), "Integer", "Giri al minuto", 2);
+  long long int resultTemp = parteComune(temp_Sensor.lastStoredTS, temp_Sensor.name, String(TEMP).c_str(), "Integer", "Gradi", 2);
+
+  if (resultRpm != -1) {
+    alcool_Sensor.lastStoredTS = resultRpm;
+  }
+  Serial.print("Ultima mem rpm: ");
+  Serial.println(rpm_Sensor.lastStoredTS);
+
+  if (resultTemp != -1) {
+    airQuality_Sensor.lastStoredTS = resultTemp;
+  }
+  Serial.print("Ultima mem temperatura liquido di raffreddamento: ");
+  Serial.println(temp_Sensor.lastStoredTS);
+
 }
 
 void synchDataCallback() {
