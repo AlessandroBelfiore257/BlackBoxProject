@@ -80,14 +80,13 @@ void gspTrackerCallback();
 void accelerometriaCallback();
 void airMonitoringCallback();
 // test
+void rpmCallback();
+void engineLoadCallback();
 void loggingCallBack();
 
 void synchDataCallback();
 void cleanDataRoutineCallback();
 void cleanDataMemoryFullCallback();
-
-// FreeRTOS task per letture OBD-II
-void obdIITask(void* pvParameters);
 
 // Definizione dei task
 Task ButtonPressureTask(BUTTON_PRESSURE_DETECTION* TASK_SECOND, TASK_FOREVER, &rilevoButtonPressureCallback);
@@ -98,6 +97,8 @@ Task cleanDataMemoryFullTask(CLEANING_MEMORY_FULL* TASK_SECOND, TASK_FOREVER, &c
 Task accelerometriaTask(ACCELEROMETRIA* TASK_SECOND, TASK_FOREVER, &accelerometriaCallback);
 Task airMonitoringTask(AIR* TASK_SECOND, TASK_FOREVER, &airMonitoringCallback);
 // test
+Task letturaRpmTask(TASK_SECOND, TASK_FOREVER, &rpmCallback);
+Task letturaLoadEngineTask(TASK_SECOND, TASK_FOREVER, &engineLoadCallback);
 Task loggingTask(CENTRALINA* TASK_SECOND, TASK_FOREVER, &loggingCallBack);
 
 void setup() {
@@ -131,8 +132,6 @@ void setup() {
   // Inizializza l'accelerometro
   if (!mpu.begin(0x69)) {
     Serial.println("MPU6050 non trovato!");
-    while (1)
-      ;
   }
   Serial.println("MPU6050 trovato e inizializzato correttamente.");
 
@@ -162,6 +161,9 @@ void setup() {
   scheduler.addTask(airMonitoringTask);
   scheduler.addTask(loggingTask);
 
+  scheduler.addTask(letturaRpmTask);
+  scheduler.addTask(letturaLoadEngineTask);
+
   // cleanDataRoutineTask.enable();
   // cleanDataMemoryFullTask.enable();
   synchDataTask.enable();
@@ -171,24 +173,20 @@ void setup() {
   airMonitoringTask.enable();
   loggingTask.enable();
 
+  letturaRpmTask.enable();
+  letturaLoadEngineTask.enable();
+
   SerialBT.begin("ESP32_BT", true);  // Master
   Serial.println("Attempting to connect to ELM327...");
 
   if (!SerialBT.connect(remoteAddres)) {
     Serial.println("Couldn't connect to OBD scanner - Phase 1");
-    while (1)  // bloccante
-      ;
   }
 
   if (!myELM327.begin(SerialBT, true, 2000)) { // Problema !!! errori di timeout
     Serial.println("Couldn't connect to OBD scanner - Phase 2");
-    while (1)  // bloccante 
-      ;
   }
   Serial.println("Connected to ELM327");
-
-  // Creazione del task per OBD-II su core 0
-  xTaskCreatePinnedToCore(obdIITask, "OBDIITask", 10000, NULL, 1, &OBDIITask, 0);
 }
 
 void loop() {
@@ -358,85 +356,6 @@ void airMonitoringCallback() {
   Serial.println(airQuality_Sensor.lastStoredTS);
 }
 
-void centralinaMonitoringCallBack() {
-  switch (obd_state) {
-    case ENG_RPM:
-      {
-        float rpm = myELM327.rpm();
-        if (myELM327.nb_rx_state == ELM_SUCCESS) {
-          Serial.print("rpm: ");
-          Serial.println(rpm);
-          RPM = rpm;
-          obd_state = SPEED;
-        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
-          myELM327.printError();
-          obd_state = SPEED;
-        }
-        break;
-      }
-
-    case SPEED:
-      {
-        int32_t kph = myELM327.kph();
-        if (myELM327.nb_rx_state == ELM_SUCCESS) {
-          Serial.print("kph: ");
-          Serial.println(kph);
-          KPH = kph;
-          obd_state = TEMPERATURE;
-        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
-          myELM327.printError();
-          obd_state = TEMPERATURE;
-        }
-        break;
-      }
-
-    case TEMPERATURE:
-      {
-        float temp = myELM327.engineCoolantTemp();
-        if (myELM327.nb_rx_state == ELM_SUCCESS) {
-          Serial.print("temp: ");
-          Serial.println(temp);
-          TEMP = temp;
-          obd_state = VOLTAGE;
-        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
-          myELM327.printError();
-          obd_state = VOLTAGE;
-        }
-        break;
-      }
-
-    case VOLTAGE:
-      {
-        float volt = myELM327.batteryVoltage();
-        if (myELM327.nb_rx_state == ELM_SUCCESS) {
-          Serial.print("volt: ");
-          Serial.println(volt);
-          VOLT = volt;
-          obd_state = LOAD;
-        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
-          myELM327.printError();
-          obd_state = LOAD;
-        }
-        break;
-      }
-
-    case LOAD:
-      {
-        float e_load = myELM327.engineLoad();
-        if (myELM327.nb_rx_state == ELM_SUCCESS) {
-          Serial.print("engine load: ");
-          Serial.println(e_load);
-          E_LOAD = e_load;
-          obd_state = ENG_RPM;
-        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
-          myELM327.printError();
-          obd_state = ENG_RPM;
-        }
-        break;
-      }
-  }
-}
-
 void synchDataCallback() {
   if (WiFi.status() == WL_CONNECTED) {  // ed è passato abbastanza tempo >= 24h dall'ultima sincronizzazione
     Serial.println("Connessione WiFi attiva");
@@ -550,11 +469,26 @@ void loggingCallBack() {
 
   Serial.print("Engine load (%): ");
   Serial.println(E_LOAD, 2);  // Stampa con due decimali e termina con una nuova riga
+} 
+
+void rpmCallback() {
+  float rpm = myELM327.rpm();
+        if (myELM327.nb_rx_state == ELM_SUCCESS) {
+          Serial.print("rpm: ");
+          Serial.println(rpm);
+          RPM = rpm;
+        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
+          myELM327.printError();
+        }
 }
 
-void obdIITask(void* pvParameters) {
-  while (true) {
-    centralinaMonitoringCallBack();
-    vTaskDelay(500 / portTICK_PERIOD_MS);
-  }
+void engineLoadCallback() {
+  float e_load = myELM327.engineLoad();
+        if (myELM327.nb_rx_state == ELM_SUCCESS) {
+          Serial.print("engine load: ");
+          Serial.println(e_load);
+          E_LOAD = e_load;
+        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
+          myELM327.printError();
+        }
 }
