@@ -81,6 +81,9 @@ void accelerometriaCallback();
 void airMonitoringCallback();
 // test
 void rpmCallback();
+void speedCallback();
+void temperatureCallback();
+void voltageCallback();
 void engineLoadCallback();
 void loggingCallBack();
 
@@ -98,6 +101,9 @@ Task accelerometriaTask(ACCELEROMETRIA* TASK_SECOND, TASK_FOREVER, &accelerometr
 Task airMonitoringTask(AIR* TASK_SECOND, TASK_FOREVER, &airMonitoringCallback);
 // test
 Task letturaRpmTask(TASK_SECOND, TASK_FOREVER, &rpmCallback);
+Task letturaSpeedTask(TASK_SECOND, TASK_FOREVER, &speedCallback);
+Task letturaTempTask(TASK_SECOND, TASK_FOREVER, &temperatureCallback);
+Task letturaVoltTask(TASK_SECOND, TASK_FOREVER, &voltageCallback);
 Task letturaLoadEngineTask(TASK_SECOND, TASK_FOREVER, &engineLoadCallback);
 Task loggingTask(CENTRALINA* TASK_SECOND, TASK_FOREVER, &loggingCallBack);
 
@@ -162,6 +168,9 @@ void setup() {
   scheduler.addTask(loggingTask);
 
   scheduler.addTask(letturaRpmTask);
+  scheduler.addTask(letturaSpeedTask);
+  scheduler.addTask(letturaTempTask);
+  scheduler.addTask(letturaVoltTask);
   scheduler.addTask(letturaLoadEngineTask);
 
   // cleanDataRoutineTask.enable();
@@ -174,6 +183,9 @@ void setup() {
   loggingTask.enable();
 
   letturaRpmTask.enable();
+  letturaSpeedTask.enable();
+  letturaTempTask.enable();
+  letturaVoltTask.enable();
   letturaLoadEngineTask.enable();
 
   SerialBT.begin("ESP32_BT", true);  // Master
@@ -183,7 +195,7 @@ void setup() {
     Serial.println("Couldn't connect to OBD scanner - Phase 1");
   }
 
-  if (!myELM327.begin(SerialBT, true, 2000)) { // Problema !!! errori di timeout
+  if (!myELM327.begin(SerialBT, true, 8000)) {  // Problema !!! errori di timeout
     Serial.println("Couldn't connect to OBD scanner - Phase 2");
   }
   Serial.println("Connected to ELM327");
@@ -469,26 +481,59 @@ void loggingCallBack() {
 
   Serial.print("Engine load (%): ");
   Serial.println(E_LOAD, 2);  // Stampa con due decimali e termina con una nuova riga
-} 
+}
 
 void rpmCallback() {
   float rpm = myELM327.rpm();
-        if (myELM327.nb_rx_state == ELM_SUCCESS) {
-          Serial.print("rpm: ");
-          Serial.println(rpm);
-          RPM = rpm;
-        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
-          myELM327.printError();
-        }
+  if (myELM327.nb_rx_state == ELM_SUCCESS) {
+    Serial.print("rpm: ");
+    Serial.println(rpm);
+    RPM = rpm;
+  } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
+    myELM327.printError();
+  }
+}
+
+void speedCallback() {
+  int32_t speed = myELM327.kph();
+  if (myELM327.nb_rx_state == ELM_SUCCESS) {
+    Serial.print("speed: ");
+    Serial.println(speed);
+    KPH = speed;
+  } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
+    myELM327.printError();
+  }
+}
+
+void temperatureCallback() {
+  float temp = myELM327.engineCoolantTemp();
+  if (myELM327.nb_rx_state == ELM_SUCCESS) {
+    Serial.print("engine coolant temperature: ");
+    Serial.println(temp);
+    TEMP = temp;
+  } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
+    myELM327.printError();
+  }
+}
+
+void voltageCallback() {
+  float volt = myELM327.batteryVoltage();
+  if (myELM327.nb_rx_state == ELM_SUCCESS) {
+    Serial.print("battery voltage: ");
+    Serial.println(volt);
+    VOLT = volt;
+  } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
+    myELM327.printError();
+  }
 }
 
 void engineLoadCallback() {
   float e_load = myELM327.engineLoad();
-        if (myELM327.nb_rx_state == ELM_SUCCESS) {
-          Serial.print("engine load: ");
-          Serial.println(e_load);
-          E_LOAD = e_load;
-        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
-          myELM327.printError();
-        }
+  if (myELM327.nb_rx_state == ELM_SUCCESS) {
+    Serial.print("engine load: ");
+    Serial.println(e_load);
+    E_LOAD = e_load;
+  } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
+    myELM327.printError();
+  }
 }
