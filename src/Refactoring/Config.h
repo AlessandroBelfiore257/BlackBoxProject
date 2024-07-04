@@ -39,6 +39,12 @@
 #define OBD 200     // atrent: 1) attribuisci nomi più parlanti (es. qui sarebbe OBD_READ_INTERVAL o simile); 2) 200ms mi sa che sono troppo pochi, temo non riesca ad ottenere dati così frequentemente
 #define WEEK 7 * 86400
 
+// atrent: inoltre metti QUI le costanti moltiplicative, tipo
+// #define SYNCHRONIZATION_DATA 60*TASK_SECOND
+// se no non si capiscono i tempi
+
+
+
 #define BUFFER_SIZE 1000
 
 #define SYNCHRONIZED 1
