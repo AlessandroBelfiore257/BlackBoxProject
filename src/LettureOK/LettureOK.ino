@@ -1,200 +1,218 @@
 #include "BluetoothSerial.h"
 #include "ELMduino.h"
-#include <TinyGPSPlus.h>
-#include <HardwareSerial.h>
 
 BluetoothSerial SerialBT;
-ELM327 myELM327;
-TinyGPSPlus gps;
-HardwareSerial hs(2);  // Utilizzo Serial2 per GPS
-static const uint32_t GPSBaud = 38400;
+#define ELM_PORT SerialBT
+#define DEBUG_PORT Serial
 
-TaskHandle_t TaskScheduling;
-TaskHandle_t TaskOBDII;
+ELM327 myELM327;
+
+uint8_t remoteAddres[] = { 0x10, 0x21, 0x3E, 0x4C, 0x6F, 0x3A };
 
 typedef enum { ENG_RPM,
                SPEED,
-               TEMPERATURE,
-               VOLTAGE,
-               ELOAD } obd_pid_states;
+               THROTTLE,
+               LOAD,  
+               COOLANT_TEMP,    
+               TORQUE,         
+               BATTERY_VOLTAGE,  
+               OIL_TEMP,        
+               FUEL_LEVEL } obd_pid_states;
 obd_pid_states obd_state = ENG_RPM;
 
-float RPM = 0;
-float KPH = 0;
-float TEMP = 0;
-float VOLT = 0;
-float E_LOAD = 0;
+float rpm = 0;
+float mph = 0;
+float throttle = 0;
+float load = 0;
+float coolant_temp = 0;
+float torque = 0;
+float battery_voltage = 0;
+float oil_temp = 0;
+float fuel_level = 0;
 
-uint8_t remoteAddres[] = { 0x1C, 0xA1, 0x35, 0x69, 0x8D, 0xC5 };
+void setup()
+{
+    DEBUG_PORT.begin(115200);
+    ELM_PORT.begin("ArduHUD", true);
+    SerialBT.setPin("1234");
 
-void TaskSchedulingCode(void* pvParameters) {
-  for (;;) {
-    /*
-    Serial.println("Eseguo scheduling...");
-    double lat = -1;
-    double lon = -1;
-    while (hs.available() > 0) {
-      gps.encode(hs.read());
+    if (!ELM_PORT.connect(remoteAddres))
+    {
+        DEBUG_PORT.println("Couldn't connect to OBD scanner - Phase 1");
+        while (1)
+            ;
     }
-    if (gps.location.isValid()) {
-      lat = gps.location.lat();
-      lon = gps.location.lng();
-    } else {
-      Serial.println("Localizzazione GPS non valida");
+
+    if (!myELM327.begin(ELM_PORT, true, 2000))
+    {
+        DEBUG_PORT.println("Couldn't connect to OBD scanner - Phase 2");
+        while (1)
+            ;
     }
-    String coordinates = String(lat, 6) + ", " + String(lon, 6);
-    Serial.print("Coordinate GPS: ");
-    Serial.println(coordinates); */
-    Serial.print("RPM: ");
-    Serial.print(RPM, 2);  // Stampa con due decimali
-    Serial.print(" | ");
 
-    Serial.print("KPH: ");
-    Serial.print(KPH, 2);  // Stampa con due decimali
-    Serial.print(" | ");
-
-    Serial.print("Temperature (C): ");
-    Serial.print(TEMP, 2);  // Stampa con due decimali
-    Serial.print(" | ");
-
-    Serial.print("Voltage (V): ");
-    Serial.print(VOLT, 2);  // Stampa con due decimali
-    Serial.print(" | ");
-
-    Serial.print("Engine load (%): ");
-    Serial.println(E_LOAD, 2);  // Stampa con due decimali e termina con una nuova riga
-    vTaskDelay(10000 / portTICK_PERIOD_MS);
-  }
+    DEBUG_PORT.println("Connected to ELM327");
 }
 
-void TaskOBDIICode(void* pvParameters) {
-  for (;;) {
-    centralinaMonitoringCallBack();
-    //vTaskDelay(500 / portTICK_PERIOD_MS);  
-  }
-}
-
-void setup() {
-  Serial.begin(115200);
-  SerialBT.begin("ESP32_BT", true);  // Master
-  Serial.println("Attempting to connect to ELM327...");
-
-  if (!SerialBT.connect(remoteAddres)) {
-    Serial.println("Couldn't connect to OBD scanner - Phase 1");
-    while (1)
-      ;
-  }
-
-  if (!myELM327.begin(SerialBT, true, 2000)) {
-    Serial.println("Couldn't connect to OBD scanner - Phase 2");
-    while (1)
-      ;
-  }
-
-  Serial.println("Connected to ELM327");
-
-  hs.begin(GPSBaud);
-
-  xTaskCreatePinnedToCore(
-    TaskSchedulingCode,
-    "TaskScheduling",
-    10000,
-    NULL,
-    2,
-    &TaskScheduling,
-    0);
-  delay(500);
-
-  xTaskCreatePinnedToCore(
-    TaskOBDIICode,
-    "TaskOBDII",
-    10000,
-    NULL,
-    2,
-    &TaskOBDII,
-    1);
-  delay(500);
-}
-
-void loop() {
-  // Il loop è vuoto poiché i task gestiscono il lavoro
-}
-
-void centralinaMonitoringCallBack() {
-  switch (obd_state) {
-    case ENG_RPM:
-      {
-        float rpm = myELM327.rpm();
-        if (myELM327.nb_rx_state == ELM_SUCCESS) {
-          Serial.print("rpm: ");
-          Serial.println(rpm);
-          RPM = rpm;
-          obd_state = SPEED;
-        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
-          myELM327.printError();
-          obd_state = SPEED;
+void loop()
+{
+    switch (obd_state)
+    {
+        case ENG_RPM:
+        {
+            rpm = myELM327.rpm();
+            if (myELM327.nb_rx_state == ELM_SUCCESS)
+            {
+                DEBUG_PORT.print("RPM: ");
+                DEBUG_PORT.println(rpm);
+                obd_state = SPEED;
+            }
+            else if (myELM327.nb_rx_state != ELM_GETTING_MSG)
+            {
+                myELM327.printError();
+                obd_state = SPEED;
+            }
+            break;
         }
-        break;
-      }
 
-    case SPEED:
-      {
-        int32_t kph = myELM327.kph();
-        if (myELM327.nb_rx_state == ELM_SUCCESS) {
-          Serial.print("kph: ");
-          Serial.println(kph);
-          KPH = kph;
-          obd_state = TEMPERATURE;
-        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
-          myELM327.printError();
-          obd_state = TEMPERATURE;
+        case SPEED:
+        {
+            mph = myELM327.mph();
+            if (myELM327.nb_rx_state == ELM_SUCCESS)
+            {
+                DEBUG_PORT.print("Speed (mph): ");
+                DEBUG_PORT.println(mph);
+                obd_state = THROTTLE;
+            }
+            else if (myELM327.nb_rx_state != ELM_GETTING_MSG)
+            {
+                myELM327.printError();
+                obd_state = THROTTLE;
+            }
+            break;
         }
-        break;
-      }
 
-    case TEMPERATURE:
-      {
-        float temp = myELM327.engineCoolantTemp();
-        if (myELM327.nb_rx_state == ELM_SUCCESS) {
-          Serial.print("temp: ");
-          Serial.println(temp);
-          TEMP = temp;
-          obd_state = VOLTAGE;
-        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
-          myELM327.printError();
-          obd_state = VOLTAGE;
+        case THROTTLE:
+        {
+            throttle = myELM327.throttle();
+            if (myELM327.nb_rx_state == ELM_SUCCESS)
+            {
+                DEBUG_PORT.print("Throttle (%): ");
+                DEBUG_PORT.println(throttle);
+                obd_state = LOAD;
+            }
+            else if (myELM327.nb_rx_state != ELM_GETTING_MSG)
+            {
+                myELM327.printError();
+                obd_state = LOAD;
+            }
+            break;
         }
-        break;
-      }
 
-    case VOLTAGE:
-      {
-        float volt = myELM327.batteryVoltage();
-        if (myELM327.nb_rx_state == ELM_SUCCESS) {
-          Serial.print("volt: ");
-          Serial.println(volt);
-          VOLT = volt;
-          obd_state = ELOAD;
-        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
-          myELM327.printError();
-          obd_state = ELOAD;
+        case LOAD:
+        {
+            load = myELM327.engineLoad();
+            if (myELM327.nb_rx_state == ELM_SUCCESS)
+            {
+                DEBUG_PORT.print("Engine Load (%): ");
+                DEBUG_PORT.println(load);
+                obd_state = COOLANT_TEMP;
+            }
+            else if (myELM327.nb_rx_state != ELM_GETTING_MSG)
+            {
+                myELM327.printError();
+                obd_state = COOLANT_TEMP;
+            }
+            break;
         }
-        break;
-      }
 
-    case ELOAD:
-      {
-        float engine_load = myELM327.engineLoad();
-        if (myELM327.nb_rx_state == ELM_SUCCESS) {
-          Serial.print("engine_load: ");
-          Serial.println(engine_load);
-          E_LOAD = engine_load;
-          obd_state = ENG_RPM;
-        } else if (myELM327.nb_rx_state != ELM_GETTING_MSG) {
-          myELM327.printError();
-          obd_state = ENG_RPM;
+        case COOLANT_TEMP:
+        {
+            coolant_temp = myELM327.engineCoolantTemp();
+            if (myELM327.nb_rx_state == ELM_SUCCESS)
+            {
+                DEBUG_PORT.print("Coolant Temp (C): ");
+                DEBUG_PORT.println(coolant_temp);
+                obd_state = TORQUE;
+            }
+            else if (myELM327.nb_rx_state != ELM_GETTING_MSG)
+            {
+                myELM327.printError();
+                obd_state = TORQUE;
+            }
+            break;
         }
-        break;
-      }
-  }
-}
+
+        case TORQUE:
+        {
+            torque = myELM327.torque();
+            if (myELM327.nb_rx_state == ELM_SUCCESS)
+            {
+                DEBUG_PORT.print("Torque (Nm): ");
+                DEBUG_PORT.println(torque);
+                obd_state = BATTERY_VOLTAGE;
+            }
+            else if (myELM327.nb_rx_state != ELM_GETTING_MSG)
+            {
+                myELM327.printError();
+                obd_state = BATTERY_VOLTAGE;
+            }
+            break;
+        }
+
+        case BATTERY_VOLTAGE:
+        {
+            battery_voltage = myELM327.batteryVoltage();
+            if (myELM327.nb_rx_state == ELM_SUCCESS)
+            {
+                DEBUG_PORT.print("Battery Voltage (V): ");
+                DEBUG_PORT.println(battery_voltage);
+                obd_state = OIL_TEMP;
+            }
+            else if (myELM327.nb_rx_state != ELM_GETTING_MSG)
+            {
+                myELM327.printError();
+                obd_state = OIL_TEMP;
+            }
+            break;
+        }
+
+        case OIL_TEMP:
+        {
+            oil_temp = myELM327.oilTemp();
+            if (myELM327.nb_rx_state == ELM_SUCCESS)
+            {
+                DEBUG_PORT.print("Oil Temp (C): ");
+                DEBUG_PORT.println(oil_temp);
+                obd_state = FUEL_LEVEL;
+            }
+            else if (myELM327.nb_rx_state != ELM_GETTING_MSG)
+            {
+                myELM327.printError();
+                obd_state = FUEL_LEVEL;
+            }
+            break;
+        }
+
+        case FUEL_LEVEL:
+        {
+            fuel_level = myELM327.fuelLevel();
+            if (myELM327.nb_rx_state == ELM_SUCCESS)
+            {
+                DEBUG_PORT.print("Fuel Level (%): ");
+                DEBUG_PORT.println(fuel_level);
+                obd_state = ENG_RPM;  // Riparti dal primo stato
+            }
+            else if (myELM327.nb_rx_state != ELM_GETTING_MSG)
+            {
+                myELM327.printError();
+                obd_state = ENG_RPM;  // Riparti dal primo stato
+            }
+            break;
+        }
+
+        default:
+            DEBUG_PORT.println("Unknown state.");
+            obd_state = ENG_RPM;
+            break;
+    }
+} 
