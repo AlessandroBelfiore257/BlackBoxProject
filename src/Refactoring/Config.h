@@ -36,7 +36,7 @@
 #define CENTRALINA_LOG 8
 #define PROFILAZIONE 10
 #define ALLARMI 6
-#define OBD 200
+#define OBD 200     // atrent: 1) attribuisci nomi più parlanti (es. qui sarebbe OBD_READ_INTERVAL o simile); 2) 200ms mi sa che sono troppo pochi, temo non riesca ad ottenere dati così frequentemente
 #define WEEK 7 * 86400
 
 #define BUFFER_SIZE 1000
