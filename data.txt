@@ -1,37 +1,80 @@
-Profilazione: 0.27,2024-03-10 12:00:00
-Monitoraggio: Coordinate GPS,-1.000000 / -1.000000,String,°,2024-06-28 11:18:03,5
-Monitoraggio: Accelerometria,0.09 / 0.02 / 9.68,String,m/s^2,2024-06-28 11:18:04,6
-Monitoraggio: Alcool,1937,Integer,Assente per adesso,2024-06-28 11:18:04,2
-Monitoraggio: Qualità aria,721,Integer,Assente per adesso,2024-06-28 11:18:05,2
-Monitoraggio: Accelerometria,0.09 / 0.07 / 9.68,String,m/s^2,2024-06-28 11:18:20,6
-Monitoraggio: Alcool,1926,Integer,Assente per adesso,2024-06-28 11:18:25,2
-Monitoraggio: Qualità aria,719,Integer,Assente per adesso,2024-06-28 11:18:26,2
-Monitoraggio: Coordinate GPS,-1.000000 / -1.000000,String,°,2024-06-28 11:18:31,5
-Monitoraggio: Accelerometria,0.09 / 0.03 / 9.71,String,m/s^2,2024-06-28 11:18:40,6
-Monitoraggio: Alcool,1925,Integer,Assente per adesso,2024-06-28 11:18:50,2
-Monitoraggio: Qualità aria,714,Integer,Assente per adesso,2024-06-28 11:18:51,2
-Profilazione: 0.70,2024-06-28 11:18:21
-Profilazione: 0.84,2024-06-28 11:18:52
-Monitoraggio: Coordinate GPS,-1.000000 / -1.000000,String,°,2024-06-28 11:19:07,5
-Monitoraggio: Accelerometria,0.11 / 0.05 / 9.71,String,m/s^2,2024-06-28 11:19:08,6
-Monitoraggio: Alcool,1910,Integer,Assente per adesso,2024-06-28 11:19:15,2
-Monitoraggio: Qualità aria,703,Integer,Assente per adesso,2024-06-28 11:19:16,2
-Monitoraggio: Accelerometria,0.06 / 0.07 / 9.67,String,m/s^2,2024-06-28 11:19:20,6
-Monitoraggio: Coordinate GPS,-1.000000 / -1.000000,String,°,2024-06-28 11:19:30,5
-Monitoraggio: Accelerometria,0.06 / -0.01 / 9.69,String,m/s^2,2024-06-28 11:19:40,6
-Monitoraggio: Alcool,1934,Integer,Assente per adesso,2024-06-28 11:19:41,2
-Monitoraggio: Qualità aria,708,Integer,Assente per adesso,2024-06-28 11:19:42,2
-Monitoraggio: Coordinate GPS,-1.000000 / -1.000000,String,°,2024-06-28 11:20:00,5
-Monitoraggio: Accelerometria,0.06 / 0.04 / 9.69,String,m/s^2,2024-06-28 11:20:01,6
-Profilazione: 0.52,2024-06-28 11:19:21
-Profilazione: 0.42,2024-06-28 11:19:50
+Monitoraggio: Accelerometria,-0.30 / -0.42 / 9.87,String,m/s^2,2024-07-05 17:07:17,6
+Monitoraggio: Alcool,1831,Integer,Assente per adesso,2024-07-05 17:07:17,2
+Monitoraggio: Qualità aria,322,Integer,Assente per adesso,2024-07-05 17:07:17,2
+Monitoraggio: Coordinate GPS,45.839388 / 8.805593,String,°,2024-07-05 17:07:18,5
+Profilazione: 0.99,2024-03-10 12:00:00
+Monitoraggio: Accelerometria,-0.33 / -0.44 / 9.84,String,m/s^2,2024-07-05 17:07:32,6
+Monitoraggio: Alcool,1805,Integer,Assente per adesso,2024-07-05 17:07:37,2
+Monitoraggio: Qualità aria,322,Integer,Assente per adesso,2024-07-05 17:07:38,2
+Monitoraggio: Coordinate GPS,45.839388 / 8.805598,String,°,2024-07-05 17:07:47,5
+Monitoraggio: Accelerometria,-0.52 / -0.37 / 9.74,String,m/s^2,2024-07-05 17:07:48,6
+Monitoraggio: Alcool,1821,Integer,Assente per adesso,2024-07-05 17:07:57,2
+Monitoraggio: Accelerometria,-0.37 / -0.44 / 9.80,String,m/s^2,2024-07-05 17:08:02,6
+Monitoraggio: Accelerometria,-0.41 / -0.44 / 9.79,String,m/s^2,2024-07-05 17:08:17,6
+Monitoraggio: Alcool,1718,Integer,Assente per adesso,2024-07-05 17:08:17,2
+Monitoraggio: Qualità aria,326,Integer,Assente per adesso,2024-07-05 17:08:18,2
+Monitoraggio: Coordinate GPS,45.839381 / 8.805604,String,°,2024-07-05 17:08:19,5
+Profilazione: 0.39,2024-07-05 17:07:37
+Profilazione: 0.05,2024-07-05 17:08:07
+Monitoraggio: Accelerometria,-0.40 / -0.46 / 9.83,String,m/s^2,2024-07-05 17:08:32,6
+Monitoraggio: Alcool,1675,Integer,Assente per adesso,2024-07-05 17:08:37,2
+Monitoraggio: Accelerometria,-0.42 / -0.43 / 9.84,String,m/s^2,2024-07-05 17:08:47,6
+Monitoraggio: Coordinate GPS,45.839385 / 8.805511,String,°,2024-07-05 17:08:48,5
+Monitoraggio: Alcool,1614,Integer,Assente per adesso,2024-07-05 17:08:57,2
+Monitoraggio: Qualità aria,303,Integer,Assente per adesso,2024-07-05 17:08:58,2
+Monitoraggio: Accelerometria,-0.38 / -0.41 / 9.83,String,m/s^2,2024-07-05 17:09:02,6
+Monitoraggio: Accelerometria,-0.39 / -0.50 / 9.93,String,m/s^2,2024-07-05 17:09:17,6
+Monitoraggio: Alcool,1521,Integer,Assente per adesso,2024-07-05 17:09:18,2
+Monitoraggio: Qualità aria,308,Integer,Assente per adesso,2024-07-05 17:09:18,2
+Monitoraggio: Coordinate GPS,45.839376 / 8.805503,String,°,2024-07-05 17:09:19,5
+Profilazione: 0.18,2024-07-05 17:08:38
+Profilazione: 0.77,2024-07-05 17:09:07
 Allarmi (giallo): Fumo,3,3
-Monitoraggio: Alcool,1933,Integer,Assente per adesso,2024-06-28 11:20:12,2
-Monitoraggio: Qualità aria,706,Integer,Assente per adesso,2024-06-28 11:20:13,2
-Monitoraggio: Accelerometria,0.04 / 0.04 / 9.64,String,m/s^2,2024-06-28 11:20:21,6
-Monitoraggio: Coordinate GPS,-1.000000 / -1.000000,String,°,2024-06-28 11:20:30,5
-Monitoraggio: Accelerometria,0.09 / 0.06 / 9.70,String,m/s^2,2024-06-28 11:20:40,6
-Monitoraggio: Alcool,1927,Integer,Assente per adesso,2024-06-28 11:20:55,2
-Monitoraggio: Qualità aria,691,Integer,Assente per adesso,2024-06-28 11:20:56,2
-Profilazione: 0.72,2024-06-28 11:20:20
-Profilazione: 0.44,2024-06-28 11:20:50
+Monitoraggio: Accelerometria,-0.39 / -0.36 / 9.84,String,m/s^2,2024-07-05 17:09:32,6
+Monitoraggio: Accelerometria,-0.51 / -0.33 / 9.72,String,m/s^2,2024-07-05 17:09:47,6
+Monitoraggio: Coordinate GPS,45.839388 / 8.805589,String,°,2024-07-05 17:09:48,5
+Monitoraggio: Alcool,1458,Integer,Assente per adesso,2024-07-05 17:09:57,2
+Monitoraggio: Qualità aria,314,Integer,Assente per adesso,2024-07-05 17:09:58,2
+Monitoraggio: Accelerometria,-0.38 / -0.43 / 9.84,String,m/s^2,2024-07-05 17:10:02,6
+Monitoraggio: Accelerometria,-0.33 / -0.44 / 9.97,String,m/s^2,2024-07-05 17:10:17,6
+Monitoraggio: Alcool,1473,Integer,Assente per adesso,2024-07-05 17:10:18,2
+Monitoraggio: Qualità aria,307,Integer,Assente per adesso,2024-07-05 17:10:19,2
+Monitoraggio: Coordinate GPS,45.839385 / 8.805643,String,°,2024-07-05 17:10:20,5
+Profilazione: 0.20,2024-07-05 17:09:37
+Profilazione: 0.42,2024-07-05 17:10:07
+Monitoraggio: Accelerometria,-0.42 / -0.38 / 9.85,String,m/s^2,2024-07-05 17:10:32,6
+Monitoraggio: Accelerometria,-0.38 / -0.44 / 9.81,String,m/s^2,2024-07-05 17:10:47,6
+Monitoraggio: Coordinate GPS,45.839369 / 8.805699,String,°,2024-07-05 17:10:48,5
+Monitoraggio: Alcool,1535,Integer,Assente per adesso,2024-07-05 17:10:57,2
+Monitoraggio: Qualità aria,320,Integer,Assente per adesso,2024-07-05 17:10:58,2
+Monitoraggio: Accelerometria,-0.45 / -0.42 / 9.84,String,m/s^2,2024-07-05 17:11:02,6
+Profilazione: 0.12,2024-07-05 17:10:37
+Profilazione: 0.86,2024-07-05 17:11:07
+Monitoraggio: Accelerometria,-0.26 / -0.29 / 9.86,String,m/s^2,2024-07-05 17:11:22,6
+Monitoraggio: Alcool,1557,Integer,Assente per adesso,2024-07-05 17:11:23,2
+Monitoraggio: Qualità aria,311,Integer,Assente per adesso,2024-07-05 17:11:24,2
+Monitoraggio: Coordinate GPS,45.839345 / 8.805685,String,°,2024-07-05 17:11:25,5
+Monitoraggio: Accelerometria,-0.35 / -0.48 / 9.90,String,m/s^2,2024-07-05 17:11:32,6
+Monitoraggio: Accelerometria,-0.29 / -0.47 / 9.90,String,m/s^2,2024-07-05 17:11:47,6
+Monitoraggio: Coordinate GPS,45.839343 / 8.805613,String,°,2024-07-05 17:11:48,5
+Monitoraggio: Alcool,1477,Integer,Assente per adesso,2024-07-05 17:11:57,2
+Monitoraggio: Qualità aria,306,Integer,Assente per adesso,2024-07-05 17:11:58,2
+Monitoraggio: Accelerometria,-0.36 / -0.42 / 9.84,String,m/s^2,2024-07-05 17:12:02,6
+Monitoraggio: Accelerometria,-0.36 / -0.40 / 9.81,String,m/s^2,2024-07-05 17:12:17,6
+Monitoraggio: Alcool,1520,Integer,Assente per adesso,2024-07-05 17:12:18,2
+Monitoraggio: Qualità aria,315,Integer,Assente per adesso,2024-07-05 17:12:19,2
+Monitoraggio: Coordinate GPS,45.839339 / 8.805610,String,°,2024-07-05 17:12:21,5
+Profilazione: 0.18,2024-07-05 17:11:37
+Profilazione: 0.24,2024-07-05 17:12:07
+Monitoraggio: Accelerometria,-0.37 / -0.42 / 9.81,String,m/s^2,2024-07-05 17:12:32,6
+Monitoraggio: Accelerometria,-0.41 / -0.31 / 9.77,String,m/s^2,2024-07-05 17:12:47,6
+Monitoraggio: Coordinate GPS,45.839341 / 8.805640,String,°,2024-07-05 17:12:48,5
+Monitoraggio: Alcool,1461,Integer,Assente per adesso,2024-07-05 17:12:57,2
+Monitoraggio: Qualità aria,301,Integer,Assente per adesso,2024-07-05 17:12:58,2
+Monitoraggio: Accelerometria,-0.36 / -0.41 / 9.93,String,m/s^2,2024-07-05 17:13:02,6
+Monitoraggio: Accelerometria,-0.39 / -0.45 / 9.75,String,m/s^2,2024-07-05 17:13:17,6
+Monitoraggio: Alcool,1470,Integer,Assente per adesso,2024-07-05 17:13:18,2
+Monitoraggio: Qualità aria,306,Integer,Assente per adesso,2024-07-05 17:13:20,2
+Monitoraggio: Coordinate GPS,45.839330 / 8.805631,String,°,2024-07-05 17:13:21,5
+Profilazione: 0.88,2024-07-05 17:12:37
+Profilazione: 0.64,2024-07-05 17:13:07
