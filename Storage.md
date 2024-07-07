@@ -39,8 +39,8 @@ _Numeri alti indicano priorità alta_
 ## Meccanismo cambio tempo di storage
 ```mermaid
 graph TD
-  A[Sensor data] -->|Receiving data| B[Calculation of average and standard deviation]
-  B -->|After n readings| C{Is std low? (std < soglia)}
+  A[Sensor data] -->|Receiving data| B(Calculation of average and standard deviation)
+  B -->|After n readings, changeTimeStorage function| C{Is std low?}
   C -->|YES| D[Increase time storage in DB by: fattore_incr_decr]
   C -->|NO| E[Decrease time storage in DB by: fattore_incr_decr]
 ```
