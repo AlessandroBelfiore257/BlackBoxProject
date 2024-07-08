@@ -39,7 +39,7 @@ _Inventario dei sensori utili e stima delle componenti che mi serviranno_
 1 collegamento a grd
 1 collegamento a Vcc (5V)
 1 pin digitale
-- Modulo RTC utile per monitoraggio orarario in assenza di connessione
+- Modulo RTC utile per monitoraggio orario in assenza di connessione
 1 collegamento a grd
 1 collegamento a Vcc (5V)
 2 pin analogici (SDA/SCL)
