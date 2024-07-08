@@ -33,11 +33,7 @@ __Situazioni azionamento led rosso:__
 __Di seguito alcune situazioni meno interessanti, ma comunque rilevanti per la sicurezza:__
 - Temperatura anomala del motore: il motore non lavora nel suo range di temperatura e potrebbe guastarsi. Sensoristica: CAN-BUS.
 - Temperatura refrigerante: la temperatura del liquido di raffreddamento del motore, solitamente espressa in gradi Celsius può essere critica. Sensoristica: CAN-BUS.
-- Pressione collettore di entrata: la pressione del collettore di aspirazione del motore, solitamente espressa in kPa o PSI può portare a mancanza di potenza del veicolo, mancato avvio, rallentamenti irregolari, aumento dei consumi di carburante...
-Sensoristica: CAN-BUS.
-- Temperatura aria di entrata del collettore: ovvero la temperatura dell'aria aspirata nel collettore d'aspirazione se errata può provare riduzioni di potenza del motore, detonazione, aumento dei consumi di carburante, riduzione dell'affidabilità, prestazioni ridotte in condizioni estreme...
-Sensoristica: CAN-BUS.
-- Rilevamento della pressione dell'olio: monitorare la pressione dell'olio del motore per individuare situazioni in cui il motore è sovra-sforzo o con una bassa lubrificazione, potenzialmente causando danni al motore.
+- Coppia motore "torque": mantenere la coppia del motore entro limiti ottimali è essenziale per garantire prestazioni efficienti e sicure del veicolo, prevenendo l'usura prematura del motore e della trasmissione. Se la coppia è troppo bassa, si rischia una scarsa accelerazione; se troppo alta, si può verificare un eccessivo consumo di carburante e possibili danni meccanici.
 Sensoristica: CAN-BUS.
 
 ## Configurazione
