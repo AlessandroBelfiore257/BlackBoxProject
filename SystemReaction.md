@@ -23,13 +23,13 @@ _*LED GIALLO:*_
 
 _*LED ROSSO:*_  
 
-1) A seguito di più rilevamenti di una frenata anomala, viene immediatamente segnalato alla centrale il guasto, inoltre il led rosso viene acceso.
+1) A seguito di più rilevamenti di una frenata anomala, viene immediatamente segnalato alla centrale il guasto, inoltre il led rosso viene acceso. 
 
 2) Il consumo anomalo di carburante viene rilevato a seguito del trasferimento dei dati ad un server remoto e a seguito di un'accurata analisi di essi, lo stato del led risulta essere rosso.
 
-3) La qualità dell'aria e l'alcool possono essere simulate con la relativa presenza di scarsa Co2 o presenza di alcool, per verificarne il corretto funzionamento è necessario che il led assumo lo stato rosso e che venga segnalata la situazione con un opportuno messaggio al cliente e alla centrale.
+3) La qualità dell'aria e l'alcool possono essere simulate con la relativa presenza di scarsa Co2 o presenza di alcool, per verificarne il corretto funzionamento è necessario che il led assuma lo stato rosso e che venga segnalata la situazione con un opportuno messaggio al cliente e alla centrale.
 
-4) Modificando i dati della rete can bus i valori di temperatura del motore possono essere modificati, il sistema deve reagire inviando un opportuno segnale al conducente e alla centrale operativa e con l'azionamento del led rosso, lo stesso vale per la temperatura refrigerante, la pressione del collettore di entrata, la sua temperatura d'aria di entrata e il rilevamento della pressione dell'olio.
+4) Modificando i dati della rete can bus: temperatura del liquido di raffreddamento, temperatura dell'olio motore e la coppia del motore con opportuni valori critici, il sistema deve reagire inviando un opportuno segnale al conducente e alla centrale operativa e con l'azionamento del led rosso.
 
 #### Profilazione guida
 Si propone di eseguire ripetutamente lo stesso percorso in automobile, affrontandolo con tre distinti stili di guida: tranquillo, moderato e brusco, al fine di valutare e confrontare gli effetti di tali stili sulla dinamica di guida. Si osserverà un diverso score ottenuto dalla board nei tre casi distinti.
