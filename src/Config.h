@@ -75,8 +75,8 @@
 #define TORQUE_THRESHOLD 200 // Nm di coppia considerato alto
 #define THROTTLE_THRESHOLD 60 // Percentuale di apertura della valvola a farfalla considerato alto
 
-#define SOGLIA_ALCOOL 500
-#define SOGLIA_QUAL_ARIA 600
+#define SOGLIA_ALCOOL 500 // Soglia reale: 2000 dato che in assenza di alcool ci si aggira interno ai 1600/1700
+#define SOGLIA_QUAL_ARIA 700 // Soglia reale: 700 dato che in assenza di gas nocivi ci si aggira intorno ai 450/500
 #define MAX_COOLANT_TEMP 120
 #define MAX_OIL_TEMP 230
 #define MIN_TORQUE_THRESHOLD 100
