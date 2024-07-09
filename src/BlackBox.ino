@@ -521,7 +521,7 @@ void segnalazioneAllarmiYellowCallback() {
   sensors_event_t a, g, temp;
   mpu.getEvent(&a, &g, &temp);
   float z = a.acceleration.z;
-  if (z < (ACCELERAZIONE_G - TOLLERANZA_OFF_ROAD) || z > (ACCELERAZIONE_G + TOLLERANZA_OFF_ROAD)) {
+  if (z < (FORZA_G - TOLLERANZA_OFF_ROAD) || z > (FORZA_G + TOLLERANZA_OFF_ROAD)) {
     nRilevamentiFuoriStrada++;
   }
   // Range GPS
@@ -839,7 +839,7 @@ void GPSTrackingCallback() {
     Serial.println("INVALID LOCATION");
   }
   String res = "Posizione GPS: " + String(lat, 6) + " / " + String(lon, 6);
-  // Invia posizione GPS alla centrale via GSM
+  // Invia posizione GPS alla centrale via GSM con le seguenti informazione... Posizione GPS: lat, long - data 
 }
 
 // INCIDENTE E ASSISTENZA TASK
@@ -853,12 +853,12 @@ void accidentAndAssistanceCallback() {
   z = a.acceleration.z;
   float forzaG = calcolaForzaG(x,y,z) / FORZA_G;
   if(forzaG >= SOGLIA_RILEVAMENTO_INCIDENTE) {
-      // -> Invio rilevamento "incidente" via GSM alla centrale operativa 
+      // -> Invio rilevamento "incidente" via GSM alla centrale operativa con le seguenti informazioni... Incidente rilevato: data - accelerazione asse x - kph
   }
   // RILEVAMENTO RICHIESTA DI ASSISTENZA
   int buttonPressure = digitalRead(BUTTON_PIN);
   if((buttonPressure == 1) && (numberOfOne(arrayButton,LEN_BUTTON_ARRAY) == LEN_BUTTON_ARRAY - 1)) {
-    // -> Invio rilevamento "richiesta di assistenza" alla centrale operativa
+    // -> Invio rilevamento "richiesta di assistenza" alla centrale operativa col le seguenti informazioni... Assistenza cliente x: contattare il cliente x per richiesta di assistenza
     nRilevamentiButton = 1;
     for (int i = 0; i < LEN_BUTTON_ARRAY; i++) {
       arrayButton[i] = (i == 0) ? 1 : 0;
