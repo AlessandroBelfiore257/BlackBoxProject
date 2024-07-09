@@ -23,13 +23,12 @@ __Situazioni azionamento led giallo:__
 - Rilevamento guida su terreni non adatti: fuoristrada o percorsi non asfaltati sono vietati al conducente per evitare danni al veicolo. La presenza di terreni disconnessi può essere rilevata con l'accelerometro utilizzando l'asse verticale (z).
 - Rilevamento guida su aree geografiche non percorribili: non posso recarmi ovunque con il veicolo della compagnia. La segnalazione di aree non percorribili può essere rilevata grazie al GPS.
 - Rilevamento attività di trasporto/rimorchio: non posso trainare nulla con il veicolo a noleggio. E' possibile rilevare l'attività con alcuni parametri provenienti dalla rete CAN-BUS ad esempio carico motore e velocità.
-- (?) Se la black box viene alimentata da una pila è necessario monitorarne la sua durata, se viene alimentata con la corrente della macchina non esiste alcun tipo di problema e può essere omessa questa casistica.
 
 __Situazioni azionamento led rosso:__
 - Distanza di frenata anomala: analizzando i dati di accelerazione e velocità del veicolo è possibile rilevare situazioni in cui la distanza di frenata è SIGNIFICATIVAMENTE più lunga, ciò può indicare un problema al sistema frenante o all'aderenza dei pneumatici. Si può rilevare tale situazione utilizzando i dati della rete CAN-BUS.
 - Consumo anomalo di carburante: monitorando il consumo di carburante del veicolo e confrontandolo con i modelli di consumo attesi per determinate condizioni di guida (città, autostrada...) è possibile rilevare anomalie che potrebbero indicare perdite di carburante o problemi al motore, anche questa situazione può essere rilevata considerando i dati della rete CAN-BUS.
 - Monitoraggio della qualità dell'aria nell'abitacolo: utilizzando sensori di qualità dell'aria il veicolo può rilevare la presenza di gas nocivi. Attività che può essere rilevata con lo stesso sensore utilizzato per rilevare i fumi.
-- Rilevamento presenza di alcohol: non è consentito al conducente mettersi alla guida in stato di ebrezza. Questa attività può essere monitorata attraverso un sensore che rileva la presenza di etanolo/alcohol nell'ambiente. Punto debole: non è possibile trasportare sul sedile del passeggero qualcuno che abbia bevuto. Ho pensato che se si potesse leggere in qualche modo il valore di pressione esercitata sul sedile del passeggero (True/False) si potrebbe ovviare al problema sopra citato chiedendo al guidatore se è coscente di trasportare un passeggero in stato di ebrezza, utilizzando quindi una modalità di conferma.
+- Rilevamento presenza di alcool: non è consentito al conducente mettersi alla guida in stato di ebrezza. Questa attività può essere monitorata attraverso un sensore che rileva la presenza di etanolo/alcohol nell'ambiente. Punto debole: non è possibile trasportare sul sedile del passeggero qualcuno che abbia bevuto. Ho pensato che se si potesse leggere in qualche modo il valore di pressione esercitata sul sedile del passeggero (True/False) si potrebbe ovviare al problema sopra citato chiedendo al guidatore se è coscente di trasportare un passeggero in stato di ebrezza, utilizzando quindi una modalità di conferma.
 __Di seguito alcune situazioni meno interessanti, ma comunque rilevanti per la sicurezza:__
 - Temperatura anomala del motore: il motore non lavora nel suo range di temperatura e potrebbe guastarsi. Sensoristica: CAN-BUS.
 - Temperatura refrigerante: la temperatura del liquido di raffreddamento del motore, solitamente espressa in gradi Celsius può essere critica. Sensoristica: CAN-BUS.
@@ -92,11 +91,9 @@ comportamento/problema : sensore di rilevamento
 - Consumo anomalo di carburante : dati CAN-BUS
 - Monitoraggio qualità aria abitacolo : rilevatore gas
 - Rilevamento presenza di alcohol nell'abitacolo : rilevatore etanolo/alcohol
-- Temperatura motore : dati CAN-BUS
-- Temperatura refrigerante : dati CAN-BUS
-- Pressione collettore di entrata : dati CAN-BUS
-- Temperatura aria di entrata del collettore : dati CAN-BUS
-- Rilevamento pressione olio motore : dati CAN-BUS
+- Temperatura olio motore : dati CAN-BUS
+- Temperatura liquido refrigerante : dati CAN-BUS
+- Coppia motore : dati CAN-BUS
 
 ## Feedback del corretto funzionamento
 Per verificare il corretto funzionamento delle casistiche che coinvolgono i dati provvenienti dalla rete CAN-BUS è necessario modificarne i valori degli attributi coinvolti, simulando così tutti i possibili scenari e verificare che il sistema reagisca in modo appropriato. Per quanto riguarga il coinvolgimento dei vari sensori è opportuno simulare tutte le varie situazioni possibili e verificare anche in questo caso che il sistema reagisca coerentemente con il funzionamento atteso.
