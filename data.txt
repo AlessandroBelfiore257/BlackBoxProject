@@ -1,96 +1,92 @@
-Monitoraggio: Accelerometria,-0.32 / 0.00 / 9.76,String,m/s^2,2024-07-09 10:59:16,6
-Monitoraggio: Alcool,2412,Integer,Assente per adesso,2024-07-09 10:59:16,2
-Monitoraggio: Qualità aria,400,Integer,Assente per adesso,2024-07-09 10:59:16,2
-Monitoraggio: Coordinate GPS,45.755877 / 8.869924,String,°,2024-07-09 10:59:17,5
-Monitoraggio: Liquido raffreddamento,0.00,Integer,°C,2024-07-09 10:59:17,1
-Monitoraggio: Voltaggio batteria,0.00,Float,Volt (V),2024-07-09 10:59:18,3
-Monitoraggio: Coppia motore,0.00,Integer,Newton metri (Nm),2024-07-09 10:59:18,2
-Monitoraggio: Olio motore temp,0.00,Integer,°C,2024-07-09 10:59:18,1
-Monitoraggio: Livello carburante,0.00,Float,%,2024-07-09 10:59:19,4
+Monitoraggio: Accelerometria,-0.27 / -0.03 / 9.84,String,m/s^2,2024-07-09 15:51:08,6
+Monitoraggio: Alcool,1429,Integer,Assente per adesso,2024-07-09 15:51:09,2
+Monitoraggio: Qualità aria,368,Integer,Assente per adesso,2024-07-09 15:51:09,2
+Monitoraggio: Coordinate GPS,45.755941 / 8.870023,String,°,2024-07-09 15:51:10,5
+Monitoraggio: Liquido raffreddamento,108.00,Integer,°C,2024-07-09 15:51:10,1
+Monitoraggio: Voltaggio batteria,11.00,Float,Volt (V),2024-07-09 15:51:11,3
+Monitoraggio: Coppia motore,136.00,Integer,Newton metri (Nm),2024-07-09 15:51:11,2
+Monitoraggio: Olio motore temp,96.00,Integer,°C,2024-07-09 15:51:11,1
+Monitoraggio: Livello carburante,47.00,Float,%,2024-07-09 15:51:12,4
 Profilazione: 0.99,2024-03-10 12:00:00
-Monitoraggio: Accelerometria,-0.30 / -0.03 / 9.70,String,m/s^2,2024-07-09 10:59:31,6
-Monitoraggio: Alcool,2389,Integer,Assente per adesso,2024-07-09 10:59:36,2
-Monitoraggio: Qualità aria,391,Integer,Assente per adesso,2024-07-09 10:59:37,2
-Monitoraggio: Coordinate GPS,45.755808 / 8.869896,String,°,2024-07-09 10:59:46,5
-Monitoraggio: Accelerometria,-0.38 / 0.00 / 9.74,String,m/s^2,2024-07-09 10:59:47,6
-Monitoraggio: Alcool,2371,Integer,Assente per adesso,2024-07-09 10:59:56,2
-Monitoraggio: Accelerometria,-0.37 / -0.01 / 9.71,String,m/s^2,2024-07-09 11:00:01,6
-Monitoraggio: Coppia motore,0.00,Integer,Newton metri (Nm),2024-07-09 11:00:01,2
-Monitoraggio: Voltaggio batteria,0.00,Float,Volt (V),2024-07-09 11:00:02,3
-Monitoraggio: Livello carburante,0.00,Float,%,2024-07-09 11:00:03,4
-Monitoraggio: Accelerometria,-0.31 / 0.00 / 9.68,String,m/s^2,2024-07-09 11:00:16,6
-Monitoraggio: Alcool,2348,Integer,Assente per adesso,2024-07-09 11:00:16,2
-Monitoraggio: Qualità aria,384,Integer,Assente per adesso,2024-07-09 11:00:17,2
-Monitoraggio: Coordinate GPS,45.756006 / 8.869991,String,°,2024-07-09 11:00:18,5
-Profilazione: 0.30,2024-07-09 10:59:36
-Profilazione: 0.46,2024-07-09 11:00:06
-Monitoraggio: Accelerometria,-0.30 / 0.02 / 9.76,String,m/s^2,2024-07-09 11:00:31,6
-Monitoraggio: Alcool,2313,Integer,Assente per adesso,2024-07-09 11:00:36,2
-Monitoraggio: Qualità aria,393,Integer,Assente per adesso,2024-07-09 11:00:37,2
-Monitoraggio: Liquido raffreddamento,0.00,Integer,°C,2024-07-09 11:00:46,1
-Monitoraggio: Olio motore temp,0.00,Integer,°C,2024-07-09 11:00:46,1
-Monitoraggio: Coppia motore,0.00,Integer,Newton metri (Nm),2024-07-09 11:00:47,2
-Monitoraggio: Voltaggio batteria,0.00,Float,Volt (V),2024-07-09 11:00:48,3
-Monitoraggio: Livello carburante,0.00,Float,%,2024-07-09 11:00:49,4
-Monitoraggio: Accelerometria,-0.30 / -0.01 / 9.71,String,m/s^2,2024-07-09 11:00:50,6
-Monitoraggio: Coordinate GPS,45.756112 / 8.869857,String,°,2024-07-09 11:00:51,5
-Monitoraggio: Alcool,2288,Integer,Assente per adesso,2024-07-09 11:00:56,2
-Monitoraggio: Qualità aria,382,Integer,Assente per adesso,2024-07-09 11:00:57,2
-Monitoraggio: Accelerometria,-0.29 / 0.00 / 9.70,String,m/s^2,2024-07-09 11:01:01,6
-Profilazione: 0.86,2024-07-09 11:00:36
-Profilazione: 0.77,2024-07-09 11:01:06
+Monitoraggio: Accelerometria,-0.31 / -0.05 / 9.82,String,m/s^2,2024-07-09 15:51:23,6
+Monitoraggio: Qualità aria,366,Integer,Assente per adesso,2024-07-09 15:51:29,2
+Monitoraggio: Accelerometria,-0.32 / -0.06 / 9.90,String,m/s^2,2024-07-09 15:51:38,6
+Monitoraggio: Coordinate GPS,45.755924 / 8.870030,String,°,2024-07-09 15:51:39,5
+Monitoraggio: Alcool,1489,Integer,Assente per adesso,2024-07-09 15:51:48,2
+Monitoraggio: Qualità aria,367,Integer,Assente per adesso,2024-07-09 15:51:49,2
+Monitoraggio: Accelerometria,-0.34 / -0.07 / 9.88,String,m/s^2,2024-07-09 15:51:53,6
+Monitoraggio: Coppia motore,220.00,Integer,Newton metri (Nm),2024-07-09 15:51:54,2
+Monitoraggio: Voltaggio batteria,11.00,Float,Volt (V),2024-07-09 15:51:55,3
+Monitoraggio: Livello carburante,73.00,Float,%,2024-07-09 15:51:56,4
+Monitoraggio: Accelerometria,-0.34 / -0.08 / 9.78,String,m/s^2,2024-07-09 15:52:08,6
+Monitoraggio: Alcool,1502,Integer,Assente per adesso,2024-07-09 15:52:09,2
+Monitoraggio: Qualità aria,366,Integer,Assente per adesso,2024-07-09 15:52:10,2
+Monitoraggio: Coordinate GPS,45.755902 / 8.869942,String,°,2024-07-09 15:52:11,5
+Profilazione: 0.47,2024-07-09 15:51:29
+Profilazione: 0.40,2024-07-09 15:51:58
+Monitoraggio: Accelerometria,-0.37 / -0.09 / 9.86,String,m/s^2,2024-07-09 15:52:23,6
+Monitoraggio: Alcool,1471,Integer,Assente per adesso,2024-07-09 15:52:29,2
+Monitoraggio: Qualità aria,364,Integer,Assente per adesso,2024-07-09 15:52:30,2
+Monitoraggio: Accelerometria,-0.37 / 0.01 / 9.77,String,m/s^2,2024-07-09 15:52:38,6
+Monitoraggio: Coordinate GPS,45.755898 / 8.869927,String,°,2024-07-09 15:52:40,5
+Monitoraggio: Liquido raffreddamento,22.00,Integer,°C,2024-07-09 15:52:40,1
+Monitoraggio: Olio motore temp,87.00,Integer,°C,2024-07-09 15:52:41,1
+Monitoraggio: Coppia motore,131.00,Integer,Newton metri (Nm),2024-07-09 15:52:42,2
+Monitoraggio: Voltaggio batteria,11.00,Float,Volt (V),2024-07-09 15:52:43,3
+Monitoraggio: Livello carburante,24.00,Float,%,2024-07-09 15:52:44,4
+Monitoraggio: Accelerometria,-0.32 / -0.07 / 9.86,String,m/s^2,2024-07-09 15:52:53,6
+Profilazione: 0.47,2024-07-09 15:52:28
+Profilazione: 0.40,2024-07-09 15:52:58
 Allarmi (giallo): Fumo,3,3
-Monitoraggio: Accelerometria,-0.33 / 0.00 / 9.73,String,m/s^2,2024-07-09 11:01:24,6
-Monitoraggio: Alcool,2293,Integer,Assente per adesso,2024-07-09 11:01:25,2
-Monitoraggio: Qualità aria,389,Integer,Assente per adesso,2024-07-09 11:01:26,2
-Monitoraggio: Coordinate GPS,45.756135 / 8.869814,String,°,2024-07-09 11:01:27,5
-Monitoraggio: Liquido raffreddamento,0.00,Integer,°C,2024-07-09 11:01:31,1
-Monitoraggio: Olio motore temp,0.00,Integer,°C,2024-07-09 11:01:32,1
-Monitoraggio: Coppia motore,0.00,Integer,Newton metri (Nm),2024-07-09 11:01:33,2
-Monitoraggio: Voltaggio batteria,0.00,Float,Volt (V),2024-07-09 11:01:34,3
-Monitoraggio: Livello carburante,0.00,Float,%,2024-07-09 11:01:35,4
-Monitoraggio: Accelerometria,-0.34 / -0.01 / 9.74,String,m/s^2,2024-07-09 11:01:36,6
-Monitoraggio: Accelerometria,-0.29 / -0.01 / 9.75,String,m/s^2,2024-07-09 11:01:46,6
-Monitoraggio: Coordinate GPS,45.755943 / 8.869853,String,°,2024-07-09 11:01:47,5
-Monitoraggio: Alcool,2305,Integer,Assente per adesso,2024-07-09 11:01:56,2
-Monitoraggio: Qualità aria,384,Integer,Assente per adesso,2024-07-09 11:01:57,2
-Monitoraggio: Accelerometria,-0.31 / -0.02 / 9.71,String,m/s^2,2024-07-09 11:02:01,6
-Profilazione: 0.23,2024-07-09 11:01:36
-Profilazione: 0.04,2024-07-09 11:02:06
-Monitoraggio: Accelerometria,-0.35 / 0.04 / 9.74,String,m/s^2,2024-07-09 11:02:26,6
-Monitoraggio: Alcool,2267,Integer,Assente per adesso,2024-07-09 11:02:27,2
-Monitoraggio: Qualità aria,384,Integer,Assente per adesso,2024-07-09 11:02:28,2
-Monitoraggio: Coordinate GPS,45.755915 / 8.869869,String,°,2024-07-09 11:02:29,5
-Monitoraggio: Liquido raffreddamento,0.00,Integer,°C,2024-07-09 11:02:31,1
-Monitoraggio: Olio motore temp,0.00,Integer,°C,2024-07-09 11:02:32,1
-Monitoraggio: Coppia motore,0.00,Integer,Newton metri (Nm),2024-07-09 11:02:33,2
-Monitoraggio: Voltaggio batteria,0.00,Float,Volt (V),2024-07-09 11:02:35,3
-Monitoraggio: Livello carburante,0.00,Float,%,2024-07-09 11:02:36,4
-Monitoraggio: Accelerometria,-0.29 / -0.05 / 9.76,String,m/s^2,2024-07-09 11:02:37,6
-Monitoraggio: Accelerometria,-0.30 / -0.06 / 9.84,String,m/s^2,2024-07-09 11:02:46,6
-Monitoraggio: Coordinate GPS,45.755891 / 8.869898,String,°,2024-07-09 11:02:47,5
-Monitoraggio: Alcool,2270,Integer,Assente per adesso,2024-07-09 11:02:56,2
-Monitoraggio: Qualità aria,381,Integer,Assente per adesso,2024-07-09 11:02:57,2
-Monitoraggio: Accelerometria,-0.34 / 0.01 / 9.80,String,m/s^2,2024-07-09 11:03:01,6
-Monitoraggio: Coppia motore,0.00,Integer,Newton metri (Nm),2024-07-09 11:03:02,2
-Monitoraggio: Voltaggio batteria,0.00,Float,Volt (V),2024-07-09 11:03:04,3
-Monitoraggio: Livello carburante,0.00,Float,%,2024-07-09 11:03:05,4
-Monitoraggio: Accelerometria,-0.36 / -0.03 / 9.76,String,m/s^2,2024-07-09 11:03:16,6
-Monitoraggio: Alcool,2273,Integer,Assente per adesso,2024-07-09 11:03:17,2
-Monitoraggio: Qualità aria,377,Integer,Assente per adesso,2024-07-09 11:03:19,2
-Monitoraggio: Coordinate GPS,45.755905 / 8.869931,String,°,2024-07-09 11:03:20,5
-Profilazione: 0.10,2024-07-09 11:02:39
-Profilazione: 0.08,2024-07-09 11:03:07
-Monitoraggio: Accelerometria,-0.39 / -0.02 / 9.72,String,m/s^2,2024-07-09 11:03:34,6
-Monitoraggio: Accelerometria,-0.38 / -0.02 / 9.78,String,m/s^2,2024-07-09 11:03:46,6
-Monitoraggio: Coordinate GPS,45.755848 / 8.869928,String,°,2024-07-09 11:03:47,5
-Monitoraggio: Liquido raffreddamento,0.00,Integer,°C,2024-07-09 11:03:49,1
-Monitoraggio: Olio motore temp,0.00,Integer,°C,2024-07-09 11:03:51,1
-Monitoraggio: Coppia motore,0.00,Integer,Newton metri (Nm),2024-07-09 11:03:52,2
-Monitoraggio: Voltaggio batteria,0.00,Float,Volt (V),2024-07-09 11:03:54,3
-Monitoraggio: Livello carburante,0.00,Float,%,2024-07-09 11:03:56,4
-Monitoraggio: Alcool,2231,Integer,Assente per adesso,2024-07-09 11:03:57,2
-Monitoraggio: Qualità aria,373,Integer,Assente per adesso,2024-07-09 11:03:59,2
-Monitoraggio: Accelerometria,-0.30 / 0.03 / 9.73,String,m/s^2,2024-07-09 11:04:01,6
-Profilazione: 0.77,2024-07-09 11:03:36
-Profilazione: 0.58,2024-07-09 11:04:06
+Monitoraggio: Accelerometria,-0.31 / -0.04 / 9.82,String,m/s^2,2024-07-09 15:53:15,6
+Monitoraggio: Alcool,1517,Integer,Assente per adesso,2024-07-09 15:53:15,2
+Monitoraggio: Qualità aria,367,Integer,Assente per adesso,2024-07-09 15:53:16,2
+Monitoraggio: Coordinate GPS,45.755881 / 8.869904,String,°,2024-07-09 15:53:18,5
+Monitoraggio: Coppia motore,160.00,Integer,Newton metri (Nm),2024-07-09 15:53:24,2
+Monitoraggio: Voltaggio batteria,12.00,Float,Volt (V),2024-07-09 15:53:25,3
+Monitoraggio: Livello carburante,34.00,Float,%,2024-07-09 15:53:26,4
+Monitoraggio: Accelerometria,-0.33 / -0.07 / 9.81,String,m/s^2,2024-07-09 15:53:27,6
+Monitoraggio: Accelerometria,-0.35 / -0.03 / 9.87,String,m/s^2,2024-07-09 15:53:38,6
+Monitoraggio: Coordinate GPS,45.755846 / 8.869897,String,°,2024-07-09 15:53:40,5
+Monitoraggio: Alcool,1473,Integer,Assente per adesso,2024-07-09 15:53:48,2
+Monitoraggio: Qualità aria,367,Integer,Assente per adesso,2024-07-09 15:53:49,2
+Monitoraggio: Accelerometria,-0.29 / -0.03 / 9.82,String,m/s^2,2024-07-09 15:53:53,6
+Monitoraggio: Accelerometria,-0.31 / -0.03 / 9.80,String,m/s^2,2024-07-09 15:54:08,6
+Monitoraggio: Alcool,1483,Integer,Assente per adesso,2024-07-09 15:54:10,2
+Monitoraggio: Qualità aria,368,Integer,Assente per adesso,2024-07-09 15:54:11,2
+Monitoraggio: Coordinate GPS,45.755847 / 8.869882,String,°,2024-07-09 15:54:12,5
+Monitoraggio: Liquido raffreddamento,50.00,Integer,°C,2024-07-09 15:54:13,1
+Monitoraggio: Olio motore temp,152.00,Integer,°C,2024-07-09 15:54:14,1
+Monitoraggio: Coppia motore,209.00,Integer,Newton metri (Nm),2024-07-09 15:54:16,2
+Monitoraggio: Voltaggio batteria,12.00,Float,Volt (V),2024-07-09 15:54:17,3
+Monitoraggio: Livello carburante,95.00,Float,%,2024-07-09 15:54:18,4
+Profilazione: 0.40,2024-07-09 15:53:29
+Profilazione: 0.53,2024-07-09 15:53:58
+Monitoraggio: Accelerometria,-0.33 / -0.08 / 9.86,String,m/s^2,2024-07-09 15:54:35,6
+Monitoraggio: Alcool,1494,Integer,Assente per adesso,2024-07-09 15:54:36,2
+Monitoraggio: Qualità aria,359,Integer,Assente per adesso,2024-07-09 15:54:38,2
+Monitoraggio: Coordinate GPS,45.755834 / 8.869875,String,°,2024-07-09 15:54:39,5
+Monitoraggio: Accelerometria,-0.30 / -0.01 / 9.87,String,m/s^2,2024-07-09 15:54:40,6
+Monitoraggio: Accelerometria,-0.25 / -0.02 / 9.82,String,m/s^2,2024-07-09 15:54:53,6
+Monitoraggio: Coppia motore,217.00,Integer,Newton metri (Nm),2024-07-09 15:54:55,2
+Monitoraggio: Voltaggio batteria,11.00,Float,Volt (V),2024-07-09 15:54:57,3
+Monitoraggio: Livello carburante,96.00,Float,%,2024-07-09 15:54:58,4
+Monitoraggio: Accelerometria,-0.34 / -0.04 / 9.84,String,m/s^2,2024-07-09 15:55:08,6
+Monitoraggio: Alcool,1501,Integer,Assente per adesso,2024-07-09 15:55:10,2
+Monitoraggio: Qualità aria,365,Integer,Assente per adesso,2024-07-09 15:55:12,2
+Monitoraggio: Coordinate GPS,45.755849 / 8.869872,String,°,2024-07-09 15:55:13,5
+Profilazione: 0.33,2024-07-09 15:54:42
+Profilazione: 0.20,2024-07-09 15:55:00
+Monitoraggio: Accelerometria,-0.32 / -0.02 / 9.82,String,m/s^2,2024-07-09 15:55:24,6
+Monitoraggio: Accelerometria,-0.29 / -0.05 / 9.74,String,m/s^2,2024-07-09 15:55:38,6
+Monitoraggio: Coordinate GPS,45.755863 / 8.869870,String,°,2024-07-09 15:55:40,5
+Monitoraggio: Liquido raffreddamento,89.00,Integer,°C,2024-07-09 15:55:42,1
+Monitoraggio: Olio motore temp,132.00,Integer,°C,2024-07-09 15:55:43,1
+Monitoraggio: Coppia motore,180.00,Integer,Newton metri (Nm),2024-07-09 15:55:45,2
+Monitoraggio: Voltaggio batteria,11.00,Float,Volt (V),2024-07-09 15:55:47,3
+Monitoraggio: Livello carburante,22.00,Float,%,2024-07-09 15:55:48,4
+Monitoraggio: Alcool,1441,Integer,Assente per adesso,2024-07-09 15:55:50,2
+Monitoraggio: Qualità aria,366,Integer,Assente per adesso,2024-07-09 15:55:51,2
+Monitoraggio: Accelerometria,-0.31 / 0.00 / 9.85,String,m/s^2,2024-07-09 15:55:53,6
+Profilazione: 0.27,2024-07-09 15:55:29
+Profilazione: 0.53,2024-07-09 15:55:58
