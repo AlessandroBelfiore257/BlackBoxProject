@@ -101,6 +101,7 @@ int arrayButton[LEN_BUTTON_ARRAY] = {1, 0, 0, 0, 0, 0};
 void accelerometriaCallback();
 void airMonitoringCallback();
 void gspTrackerCallback();
+void obdComunicationCallback();
 void carParametersCallback();
 
 void profilazioneCallback();
@@ -112,7 +113,6 @@ void cleanDataRoutineCallback();
 void cleanDataMemoryFullCallback();
 void cleanAllarmCallback();
 
-void obdComunicationCallback();
 void loggingCallback();
 
 void GPSTrackingCallback();
@@ -121,6 +121,7 @@ void accidentAndAssistanceCallback();
 Task accelerometriaTask(ACCELEROMETRIA_READ_INTERVAL, TASK_FOREVER, &accelerometriaCallback);
 Task airMonitoringTask(AIR_READ_INTERVAL, TASK_FOREVER, &airMonitoringCallback);
 Task gpsTrackerTask(GPS_READ_INTERVAL, TASK_FOREVER, &gspTrackerCallback);
+Task obdTask(OBD_READ_INTERVAL, TASK_FOREVER, &obdComunicationCallback);
 Task carParametersTask(CAR_OBD_STORAGE_INTERVAL, TASK_FOREVER, &carParametersCallback);
 
 Task profilazioneTask(PROFILAZIONE_INTERVAL, TASK_FOREVER, &profilazioneCallback);
@@ -132,7 +133,6 @@ Task cleanDataRoutineTask(CLEANING_ROUTINE, TASK_FOREVER, &cleanDataRoutineCallb
 Task cleanDataMemoryFullTask(CLEANING_MEMORY_FULL, TASK_FOREVER, &cleanDataMemoryFullCallback);
 Task cleanAllarmTask(WEEK, TASK_FOREVER, &cleanAllarmCallback);
 
-Task obdTask(OBD_READ_INTERVAL, TASK_FOREVER, &obdComunicationCallback);
 Task loggingTask(CENTRALINA_LOG, TASK_FOREVER, &loggingCallback);
 
 Task GPSTrackingTask(GPS_TRACKING_SECURITY, TASK_FOREVER, &GPSTrackingCallback);
@@ -190,6 +190,7 @@ void setup() {
   scheduler.addTask(accelerometriaTask);
   scheduler.addTask(airMonitoringTask);
   scheduler.addTask(gpsTrackerTask);
+  scheduler.addTask(obdTask);
   scheduler.addTask(carParametersTask);
 
   scheduler.addTask(profilazioneTask);
@@ -201,7 +202,6 @@ void setup() {
   scheduler.addTask(cleanDataMemoryFullTask);
   scheduler.addTask(cleanAllarmTask);
 
-  scheduler.addTask(obdTask);
   scheduler.addTask(loggingTask);
 
   scheduler.addTask(GPSTrackingTask);
@@ -210,6 +210,7 @@ void setup() {
   accelerometriaTask.enable();
   airMonitoringTask.enable();
   gpsTrackerTask.enable();
+  obdTask.enable();
   carParametersTask.enable();
 
   profilazioneTask.enable();
@@ -221,7 +222,6 @@ void setup() {
   // cleanDataMemoryFullTask.enable();
   // cleanAllarmTask.enable();
 
-  //obdTask.enable();
   loggingTask.enable();
 
   // GPSTrackingTask.enable();
@@ -326,6 +326,19 @@ void gspTrackerCallback() {
   Serial.println(gps_Sensor.lastStoredTS);
 }
 
+// SIMULAZIONE
+void obdComunicationCallback() {
+  rpm = random(750,MAX_RPM_CAR);
+  kph = random(0,MAX_SPEED_CAR);
+  throttle = random(10,101);
+  load = random(10,101);
+  coolant_temp = random(20, MAX_COOLANT_TEMP+1);
+  torque = random(MIN_TORQUE_THRESHOLD, MAX_TORQUE_THRESHOLD);
+  battery_voltage = random(110, 130) / 10;
+  oil_temp = random(25,MAX_OIL_TEMP+1);
+  fuel_level = random(0,101);
+} 
+
 // PARAMETRI PROVENIENTI DAL VEICOLO TASK
 void carParametersCallback() {
   String str1 = String(coolant_temp, 2);
@@ -378,24 +391,29 @@ void profilazioneCallback() {
   // Accelerazioni / decelerazioni brusche
   if ( (x/FORZA_G) > (ACCELERAZIONE_BRUSCA) || (x/FORZA_G) < (DECELERAZIONE_BRUSCA) ) {
     nRilevamentiAccDecBrusche++;
+    Serial.println("Acc/Dec!!!");
   }
   // Sterzate sinistra e destra brusche
   if ( (y/FORZA_G) > (STERZATA_DX_BRUSCA) || (y/FORZA_G) < (STERZATA_SX_BRUSCA) ) {
     nRilevamentiSterzateBrusche++;
+    Serial.println("Sterzata!!!");
   }
   // Fattore 1
   float fatt1 = ((kph/MAX_SPEED_CAR) / (rpm/MAX_RPM_CAR));
   if ( (fatt1 < RANGE_INF) || (fatt1 > RANGE_SUP) ) {
     nRilevamentiFatt1++;
+    Serial.println("Fatt1!!!");
   }
   // Fattore 2
   float fatt2 = ((throttle/100) / (rpm/MAX_RPM_CAR));
   if ( (fatt2 < RANGE_INF) || (fatt2 > RANGE_SUP) ) {
     nRilevamentiFatt2++;
+    Serial.println("Fatt2!!!");
   }
   // Carico motore
   if ( (load < LOAD_MIN) || (load > LOAD_MAX) ) {
     nRilevamentiCaricoMotore++;
+    Serial.println("Carico!!!");
   }
   if (campionamento_Profilazione == MAX_CAMPIONAMENTI_PROFILAZIONE) {  // (3 fa riferimento al numero di campionamenti che si desidera) && è trascorso un giorno dall'ultima storage (if seguente)
     DateTime now = rtc.now();
@@ -405,18 +423,20 @@ void profilazioneCallback() {
       campionamento_Profilazione = 0;
       Serial.println("--------------------------------------- PROFILAZIONE ---------------------------------------");
       // Il voto, randomico adesso, deve essere calcolasto in base ai parametri citati sulla descrizione del progetto
-      float voto = ((nRilevamentiAccDecBrusche) + (nRilevamentiSterzateBrusche) + (nRilevamentiFatt1) + (nRilevamentiFatt2) + (nRilevamentiCaricoMotore)) / (N_CLASSIFICATORI * MAX_CAMPIONAMENTI_PROFILAZIONE);
+      float voto = float((nRilevamentiAccDecBrusche) + (nRilevamentiSterzateBrusche) + (nRilevamentiFatt1) + (nRilevamentiFatt2) + (nRilevamentiCaricoMotore)) / (N_CLASSIFICATORI * MAX_CAMPIONAMENTI_PROFILAZIONE);
+      Serial.print("Numeratore: ");
+      Serial.println(float((nRilevamentiAccDecBrusche) + (nRilevamentiSterzateBrusche) + (nRilevamentiFatt1) + (nRilevamentiFatt2) + (nRilevamentiCaricoMotore)));
+      Serial.print("Denominatore: ");
+      Serial.println(N_CLASSIFICATORI * MAX_CAMPIONAMENTI_PROFILAZIONE);
       Serial.print("Voto: ");
       Serial.println(voto);
-      long randNumber = random(0, 100);
-      float normalizedNumber = (float)randNumber / 100.0;
-      char normalizedNumberStr[10];
-      snprintf(normalizedNumberStr, sizeof(normalizedNumberStr), "%.2f", normalizedNumber);
+      char votoStr[10];
+      snprintf(votoStr, sizeof(votoStr), "%.2f", voto);
       char dateTimeStr[20];
       sprintf(dateTimeStr, "%04d-%02d-%02d %02d:%02d:%02d",
               now.year(), now.month(), now.day(),
               now.hour(), now.minute(), now.second());
-      createRecordToInsertIntoT3(dateTimeStr, normalizedNumberStr, timestamp, NO_SYNCHRONIZED);
+      createRecordToInsertIntoT3(dateTimeStr, votoStr, timestamp, NO_SYNCHRONIZED);
       nRilevamentiAccDecBrusche = 0;
       nRilevamentiSterzateBrusche = 0;
       nRilevamentiFatt1 = 0;
@@ -654,8 +674,8 @@ void cleanAllarmCallback() {
   cleanAllarmiRed(db);
 }
 
-// COMUNICAZIONE OBD TASK
-void obdComunicationCallback() {
+// COMUNICAZIONE OBD TASK 
+/* void obdComunicationCallback() {
     switch (obd_state)
     {
         case ENG_RPM:
@@ -793,7 +813,7 @@ void obdComunicationCallback() {
             break;
         }
     }
-} 
+} */
 
 // LOGGING DATI CENTRALINA TASK
 void loggingCallback() {
