@@ -500,6 +500,7 @@ void synchDataCallback() {
     Serial.println("Nessuna connessione WiFi");
     #endif
   }
+  bluetoothConnection();
   obdTask.enable();
 }
 
@@ -1117,4 +1118,16 @@ void storeYellowProblem(int nRilevamenti, bool &superata_soglia_rilevamenti, Str
     updateColumnValueIntoT5(problema.c_str(), "rilevamenti", rilevamenti_precedenti + 1);
     visualizzaYellowProblem(firstLine, secondLine);
   }
+}
+
+void bluetoothConnection() {
+    #ifdef DEBUG
+    Serial.print("Bluetooth connection before: ");
+    Serial.println(SerialBT.connected());
+    #endif
+    SerialBT.connect(remoteAddress);
+    #ifdef DEBUG
+    Serial.print("Bluetooth connection after: ");
+    Serial.println(SerialBT.connected());
+    #endif
 }
