@@ -1,0 +1,133 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt,a4paper]{report}
+% o article, book, ...
+
+% TODO inserire vari packages (todonotes, ecc.)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% packages...
+\usepackage[utf8]{inputenc}
+\usepackage[english,italian]{babel}
+\usepackage[hyphens]{url}
+
+% Per generare il file PDF aderente alle specifiche PDF/A-1b. Verificarne poi la validità.
+%\usepackage[a-1b]{pdfx}
+
+\usepackage{hyperref}
+
+\usepackage{graphicx}
+
+\usepackage{lipsum}% Per inserire testo a caso in attesa di realizzare i capitoli
+
+\usepackage{listings}
+\lstset{
+	% 	language=bash
+	frame=single,
+	breaklines=true,
+	postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}},
+	basicstyle=\ttfamily\footnotesize
+}
+
+\usepackage[style=alphabetic,
+%citestyle=authoryear
+]{biblatex}
+\addbibresource{Biblio.bib}
+
+\usepackage{epigraph} % per le frasi inizio capitolo
+
+\usepackage{fancyhdr}
+
+\usepackage[colorinlistoftodos]{todonotes}
+%\usepackage[disable]{todonotes}
+
+\usepackage{refcheck}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% Frontespizio
+\begin{titlepage}
+\begin{center}
+\includegraphics[width=\textwidth]{Logo.jpg}\\
+{\large{\bf Corso di Laurea in Informatica}}
+\end{center}
+\vspace{12mm}
+\begin{center}
+{\huge{\bf Black-box per flotte a noleggio: monitoraggio/tracking veicoli, segnalazione allarmi e profilazione guida}}\\
+\end{center}
+\vspace{12mm}
+\begin{flushleft}
+{\large{\bf Relatore: Prof. Andrea Trentini}}
+{\large{}}\\
+\vspace{4mm}
+{\large{\bf Correlatore: Dott. Alexjan Carraturo}}
+{\large{}}\\
+\end{flushleft}
+\vspace{12mm}
+\begin{flushright}
+{\large{\bf Tesi di Laurea di:}}
+{\large{Alessandro Belfiore}}\\
+{\large{\bf Matr. 975826}}\\
+\end{flushright}
+\vspace{4mm}
+\begin{center}
+{\large{\bf Anno Accademico 2023/2024}}
+\end{center}
+\end{titlepage}
+
+
+\tableofcontents
+
+
+% o sections (dipende dal documentclass)
+\chapter{Introduzione}
+\section{Cos'è una scatola nera?}
+\subsection{Utilità}
+\subsection{Importanza}
+\section{Obiettivi del progetto}
+
+TCP/IP over Avian Carriers\cite{waitzman1990standard}
+
+\chapter{Stato dell'arte}
+\section{Tecnologie attuali di monitoraggio e tracking per veicoli}
+\section{Gestione delle emergenze e sistemi di allarmi in uso}
+\section{Soluzioni esistenti per la profilazione guidatori}
+
+\chapter{Funzionalità del sistema}
+\section{Monitoraggio}
+\section{Tracking}
+\section{Segnalazione di allarmi}
+\subsection{Incidente}
+\subsection{Assistenza}
+\subsection{Rilevamento allarmi}
+\subsubsection{Critici}
+\subsubsection{Non critici}
+\section{Profilazione del comportamento del guidatore}
+
+\chapter{Implementazione del sistema}
+\section{Architettura}
+\section{Schema di connessione dei componenti}
+\section{Componenti hardware utilizzati}
+\section{Software e librerie utilizzate}
+\section{Scelte progettuali}
+\subsection{Filesystem}
+\subsection{Sincronizzazione}
+\section{Comunicazioni e trasmissione dati}
+\subsection{OBD - esp32}
+\subsection{esp32 - server remoto}
+
+\chapter{Risultati ottenuti}
+\section{Analisi dei risultati}
+\section{Comportamenti non implementati}
+\chapter{Conclusioni}
+\section{Problemi aperti}
+\section{Sviluppi futuri}
+
+
+\hrule
+%\bibliographystyle{plain}
+\printbibliography[title={Bibliografia}]
+%\addcontentsline{toc}{chapter}{Bibliografia}
+
+\end{document}
