@@ -489,9 +489,72 @@ Il campo \textbf{lastStorage} indica il momento in cui è stato memorizzato il v
 Il campo \textbf{soglia} indica il numero massimo di rilevamenti per ciascun tipo di problema, se il sistema black box continua a rilevare il problema e la soglia viene superata, allora viene aggiornato il campo \textbf{daMandare}, indicante che l'informazione deve arrivare al server remoto.
 
 \subsection{Sincronizzazione}
+La black box è progettata per registrare dati in assenza di connessione WiFi, appena viene rilevata la presenza di una rete, il WiFi di casa ad esempio, essi vengono sincronizzati con il server remoto e vengono aggiornati i campi \textbf{synchronised} delle tabelle in modo tale da non inviare al server remoto dati duplicati e per poter gestire al meglio l'uso dello spazio di memoria all'interno del filesystem, eliminando i dati già sincronizzati. 
+L'unica tabella che non presenta il campo synchronised è quella relativa al tempo di campionamento, utilizzata come tabella di configurazione per la gestione dei tempi di storage relativi ai dati di monitoraggio
+
 \section{Comunicazioni e trasmissione dati}
+\subsection{CAN BUS (Control Area Network)}
+I protocolli di bus governano il \textbf{trasferimento dei pacchetti} lungo la rete del veicolo. Varie sottoreti e centinaia di sensori comunicano su questi sistemi a bus, inviando messaggi che controllano il comportamento del veicolo e le informazioni che la rete "conosce" in ogni dato momento.
+Il bus CAN si trova in una posizione standard su tutti i veicoli, cioè sul connettore OBD-II. I pacchetti che viaggiano sul bus di un veicolo, invece, non sono standardizzati. Le comunicazioni critiche per il veicolo, come la gestione dei giri del motore (RPM) e dei freni, viaggiano su linee di bus ad alta velocità, mentre quelle non critiche, come il blocco delle porte e il controllo A/C, viaggiano su linee di bus a media o bassa velocità.
+\paragraph{Protocollo CAN BUS} CAN (Control Area Network) è un protocollo semplice utilizzato nel settore manifatturiero e automobilistico. I veicoli più recenti sono pieni di piccoli sistemi embedded e di unità di controllo elettronico (ECU) che comunicano tra di loro utilizzando il protocollo CAN. Questo protocollo è stato uno standard delle vetture e dei piccoli autocarri statunitensi dal 1996, ma è stato reso obbligatorio solo nel 2008 (nel 2001 per i veicoli europei). CAN utilizza due cavi a doppino intrecciato: \textbf{CAN high} e \textbf{CAN low} e usa il \textbf{segnale differenziale}, il che significa che, quando arriva un segnale, CAN aumenta la tensione su una linea e riduce quella dell'altra in misura uguale. I sensori e le ECU hanno un ricetrasmettitore che verifica che entrambi i segnali siano innescati; se non lo sono, rifiuta i apcchetti come rumore. 
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=8cm]{CAN_auto.png}
+  \caption{Protocollo CAN BUS all'interno di un'autovettura}
+  \label{fig:Protocallo CAN-BUS}
+\end{figure}
+\footnotetext{Presa da: \url{https://farelettronica.it/web/app/uploads/2022/04/02-controller-area-network-ecu-evoque-adam-ali-small.png}}
+
+\paragraph{Il connettore OBD} Molti veicoli sono dotati di un connettore \textbf{OBD-II}, detto anche connettore del collegamento diagnostico (DLC, Diagnostic Link Connector), che comunica con la rete interna del veicolo. Solitamente questo connettore si trova sotto il piantone dello sterzo o nascosto da qualche parte nel cruscotto in una posizione comunque relativamente accessibile.
+La tensione a riposo dei cavi CAN è di 2.5V, quando arriva un segnale, sommerà o sottrarrà 1V (3.5V o 1.5V). I fili CAN attraversano il veicolo e collegano le ECU e altri sensori e sono sempre in coppia. Le connessioni CAN high e CAN low sono presenti sui pin 6 e 14 del connettore OBD-II, come illustrato nella figura sottostante (metti riferimento).
+
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=8cm]{Connettore_OBD-II.png}
+  \caption{Pin dei cavi CAN sul connettore OBD-II}
+  \label{fig:Connettore OBD}
+\end{figure}
+\footnotetext{Presa da: \url{https://www.flexihub.com/images/upload/flexihub/articles/diagnostics/pinout_explanation.jpg}}
+
+\paragraph{Struttura dei pacchetti del bus CAN}
+Vi sono due tipi di pacchetti CAN: 
+\textbf{standard} ed \textbf{estesi}. I pacchetti sono come quelli standard, semplicemente hanno uno spazio maggiore per conservare ID. \textbf{Pacchetti standard:} Ogni pacchetto di bus CAN contiene quattro elementi findamentali:
+\begin{itemize}
+    \item \textbf{L'ID di arbitraggio} (arbitration ID) è un messaggio broadcast che indica l'ID del dispositivo che cerca di comunicare, anche se ogni dispositivo può inviare più ID di arbitraggio. Se sul bus vengono inviati due pacchetti CAN contemporaneamente, vince quello con l'ID di arbitraggio più basso.
+    \item \textbf{IDE}, estensione dell'identificatore (Identifier Extension) Questo bit è sempre 0 per i pacchetti CAN standard.
+    \item \textbf{DLC}, codice della lunghezza dei dati (Data Length Code) Questa è la dimensione dei dati che varia da 0 a 8 byte.
+    \item \textbf{Dati} Questi sono i dati in senso stretto. Le dimensioni massime dei dati veicolati da un pacchetto standard del bus CAN è di 8 byte, ma alcuni sistemi forzano le dimensioni sempre a 8 byte, "imbottendo" il pacchetto.
+\end{itemize}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=10cm]{FrameCAN.png}
+  \caption{Formato dei pacchetti CAN standard}
+  \label{fig:pacchettoCAN}
+\end{figure}
+\footnotetext{Presa da: \url{https://upload.wikimedia.org/wikipedia/commons/5/54/CAN-bus-frame-with-stuff-bit-and-correct-CRC.png}}
+
+Poiché i pacchetti del bus CAN sono di tipo broadcast, tutti i controller sulla stessa rete vedono tutti i pacchetti. I pacchetti non portano con sè informazioni sul controller che li abbia inviati. Poiché qualsiasi dispositivo può vedere e trasmettere pacchetti.
+
+\textbf{Pacchetti estesi:}
+I pacchetti estesi sono come quelli standard, tranne che possono essere concatenati fra loro per creare ID più lunghi. I pacchetti estesi sono fatti in modo da adattarsi alla formattazione CAN standard per mantenere la compatibilità a ritroso. Così se un sensore non ha il supporto per i pacchetti estesi, non si guasterà se un altro dispositivo trasmette pacchetti CAN estesi sulla stessa rete. I pacchetti standard e quelli estesi si differenziano anche per l'uso dei flag. Se esaminati i pacchetti estesi in un dump di rete, vedrete che, a differenza di quelli standard, usano un flag \textbf{SSR} (Substitute remote request) anzichè \textbf{RTR} (Remote transmission request), con SSR impostato al valore 1. Avranno anche il campo IDE impostato al valore 1 ed i pacchetti avranno identificatori a 18 bit, che è la seconda parte dell'identificatore standard a 11 bit.
+
 \subsection{OBD scanner - esp32}
+Per leggere i messaggi presenti all'interno della rete CAN BUS è necessario di un lettore OBD-II in grado di connettersi con il corrispettivo connettore OBD presente all'interno del veicolo e di trasmettere dati via \textbf{Bluetooth} ad un apparecchio esterno, nel nostro caso l'ESP32. Per leggere e decifrare i messaggi provenienti dalla rete CAN, è stata utilizzata una libreria ELMduino; utile per interfacciare facilmente l'ESP32 con uno scanner OBD-II. Tramite questa libreria è possibile interrogare tutti i PID supportati da OBD-II per raccogliere un'ampia varietà di dati, ad esempio velocità, giri al minuto, temperatura del motore...
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=6cm]{LettoreScannerOBD-II.png}
+  \caption{Esempio di scanner OBD-II utilizzato per il progetto}
+  \label{fig:scannerOBD-II}
+\end{figure}
+\footnotetext{Presa da: \url{https://m.media-amazon.com/images/I/51crnV3RTbL._AC_SX679_.jpg}}
+
 \subsection{esp32 - server remoto}
+Quando la black box rileva la presenza di una connessione Internet, si collega ad un server remoto, il quale è sempre in ascolto, per trasmettere dati relativi al monitoraggio, alla segnalazione di allarmi e sulla profilazione del conducente. 
+Nel progetto viene adoperato Netcat, un programma open source a riga di comando di comunicazione remota, utilizzabile sia col protocollo TCP sia col protocollo UDP. Lato server è necessario mettersi in ascolto per ricevere dati al momento di sincronizzazione, dopodichè è possibile redirigere l'output su di un file utilizzato appositamente per la raccolta dati.
 
 \chapter{Risultati ottenuti}
 \section{Analisi dei risultati}
