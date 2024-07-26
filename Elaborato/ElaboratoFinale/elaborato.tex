@@ -6,7 +6,12 @@
 %\usepackage[disable]{todonotes}  % questo alla fine
 
 \usepackage{tikz}
+\usepackage{tocloft}
 \usepackage{adjustbox}
+\usepackage{amsmath}
+\numberwithin{figure}{chapter}
+\numberwithin{table}{chapter}
+
 \usetikzlibrary{shapes.geometric, arrows, positioning, calc}
 
 \tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=red!30]
@@ -33,7 +38,7 @@
 % Citazioni e bibliografia
 \usepackage[style=italian]{csquotes}
 \usepackage[backend=biber,style=numeric,sorting=none]{biblatex}
-\addbibresource{jab-bib.bib}
+\addbibresource{bibliografia.bib}
 \usepackage[toc]{appendix}
 \usepackage{epigraph}
 
@@ -91,13 +96,59 @@
 
 \tableofcontents
 
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Elenco delle figure}
+\listoffigures
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Elenco delle tabelle}
+\listoftables
+
 
 % o sections (dipende dal documentclass)
 \chapter{Introduzione}
+Il settore assicurativo `e stato uno dei primi a intuire le potenzialit`a di un tracciamento GPS in grado di registrare gli spostamenti di un determinato automobilista
+e di aiutarlo in caso di incidente segnalando ai soccorsi la posizione esatta dell’accaduto, o in caso di furto segnalando alle forze dell’ordine la posizione dell’auto in
+tempo reale. Tutto questo `e stato possibile grazie all’introduzione della cosiddetta
+“scatola nera” (o black-box), un piccolo apparecchio da installare sull’auto di un
+assicurato, in grado di registrare tutti gli spostamenti di un’automobile, nonchè il
+comportamento alla guida del conducente. Può essere utilizzato dalla compagnia
+assicuratrice anche per profilare ulteriormente i clienti e offrire quindi delle polizze
+ulteriormente personalizzate e fatte su misura per il tipo di utilizzo.
 \section{Cos'è una scatola nera?}
+La "scatola nera" (o black-box) è un dispositivo elettronico utilizzato principalmente per monitorare e registrare vari parametri di funzionamento e comportamento. Sebbene il termine sia spesso associato alle registrazioni di volo degli aerei, nel contesto automobilistico e assicurativo, la scatola nera ha una funzione leggermente diversa ma altrettanto cruciale. Ecco una descrizione dettagliata nei due paragrafi che seguono.
+
+\begin{figure}[h] \centering
+\includegraphics[width=8cm]{BlackBoxP.png}
+\caption{Esempio di scatola nera\protect\footnotemark}
+\label{fig:scatolaNera}
+\end{figure}
+\footnotetext{Presa da: \url{https://www.drivingtesttips.biz/wp-content/uploads/2016/01/car-insurance-black-box.jpg}}
+
 \subsection{Utilità}
+\begin{itemize}
+    \item \textbf{Tracciamento GPS}: registra i movimenti del veicolo, inclusi i percorsi effettuati, le velocità raggiunte e le soste. Questo aiuta a localizzare il veicolo in caso di furto e a fornire assistenza immediata in caso di emergenza.
+    \item \textbf{Monitoraggio del comportamento di guida}: registra il comportamento del conducente, come accelerazioni brusche, frenate improvvise, velocità eccessive e svolte pericolose. Questi dati aiutano a valutare lo stile di guida e possono essere utilizzati per migliorare la sicurezza.
+    \item \textbf{Supporto in caso di incidenti}: fornisce dati cruciali sugli incidenti, come la velocità al momento dell'impatto e la posizione esatta dell'incidente. Queste informazioni possono essere vitali per le indagini post-incidente e per la richiesta di soccorsi.
+\end{itemize}
 \subsection{Importanza}
+L'importanza di una black box è data dai benefici che si possono trarre da essa: 
+\begin{itemize}
+    \item \textbf{Assistenza rapida}: in caso di incidente, la scatola nera può inviare automaticamente la posizione ai servizi di emergenza, riducendo i tempi di risposta.
+    \item \textbf{Recupero dei veicoli rubati}: la localizzazione GPS permette di tracciare e recuperare rapidamente veicoli rubati.
+    \item \textbf{Polizze assicurative personalizzate}: le compagnie assicurative possono utilizzare i dati registrati per profilare meglio i clienti e offrire polizze personalizzate basate sul comportamento di guida e sull'uso del veicolo.
+    \item \textbf{Miglioramento della sicurezza}: i dati raccolti possono essere utilizzati per educare i conducenti su comportamenti di guida sicuri, contribuendo a ridurre il rischio di incidenti.
+\end{itemize}
 \section{Obiettivi del progetto}
+Il principale obiettivo di questo progetto è sviluppare una black box avanzata per veicoli, che si distingua dalle soluzioni tradizionali per la sua capacità di diagnosticare sia il veicolo sia il comportamento del conducente. Le tradizionali black box non solo registrano i dati di viaggio e monitorano le condizioni del veicolo, ma svolgono anche funzioni fondamentali come il monitoraggio costante del veicolo, il tracciamento degli incidenti e la richiesta automatica di assistenza in caso di emergenza. La nostra black box, oltre a queste funzionalità di base, introduce due caratteristiche innovative che ne ampliano ulteriormente le potenzialità.
+
+La \textbf{prima caratteristica distintiva} della nostra black box è la capacità di rilevare e segnalare tempestivamente sia gli allarmi critici sia quelli non critici, relativi a problemi meccanici del veicolo e comportamenti di guida inappropriati del conducente. Questo sistema avanzato di diagnostica è in grado di identificare malfunzionamenti interni dell’autovettura, come anomalie nel motore, nonché situazioni di pericolo come la presenza di gas nell'abitacolo o temperature anomale delle varie parti del veicolo. Inoltre, è capace di monitorare e segnalare comportamenti non leciti del conducente, come fumare mentre si guida, guida sotto l'influenza di alcool, utilizzo del veicolo su strade non asfaltate, guida fuori dal territorio nazionale o trasporto di un rimorchio senza autorizzazione.
+
+La \textbf{seconda caratteristica innovativa} è la generazione automatica di un punteggio di guida per il conducente. Questo voto è calcolato sulla base dei dati raccolti durante la guida, valutando la sicurezza e l’efficienza del comportamento al volante. Il punteggio serve non solo come feedback per il conducente, aiutandolo a migliorare le proprie abitudini di guida, ma può anche essere utilizzato dalle compagnie assicurative per offrire polizze più personalizzate e vantaggiose. È importante sottolineare che questa profilazione del conducente non richiede l'intervento di un esperto lato server remoto, poiché è la stessa black box a elaborare e generare automaticamente il punteggio di guida.
+
+Il nostro progetto mira a creare una black box che non solo registra e monitora i dati di viaggio e le condizioni del veicolo, ma offre anche un sistema di diagnostica integrato e una valutazione del conducente, migliorando la sicurezza e l’efficienza del veicolo e contribuendo a una guida più responsabile e consapevole.
 
 \chapter{Stato dell'arte}
 \section{Tecnologie attuali di monitoraggio e tracking per veicoli}
@@ -264,6 +315,8 @@ Nel quadro del progetto dell'analisi della profilazione guida, sfruttiamo tecnol
 
 I principali parametri che vengono catturati per l'analisi del guidatore sono: \textbf{rpm} ovvero i giri motore al minuto, la \textbf{velocità dell'auto}, il \textbf{carico del motore} e la \textbf{valvola farfalla} provenienti dalla rete CAN-BUS presente all'interno del veicolo, \textbf{accelerazione}, \textbf{decelerazione} e \textbf{sterzate} provengono invece dall'accelerometro. Una volta che la black box riceve i valori dei parametri, essa è in grado di analizzarli e riconoscere situazioni riconducibili ad una guida impropria. Ogni 24h tali dati vengono adoperati per calcolare un punteggio di guida compreso tra 0 e 1. Questo punteggio potrebbe essere utilizzato dalla compagnia per varie finalità, come ad esempio fornire incentivi ai guidatori che adottano comportamenti di guida più sicuri. Ecco le principali fasi del sistema proposto:
 
+\vspace{1.2cm}
+
 \begin{figure}[h!]
 \centering
 \begin{tikzpicture}
@@ -283,6 +336,8 @@ I principali parametri che vengono catturati per l'analisi del guidatore sono: \
 \caption{Diagramma di flusso dei dati}
 \label{diagramma-flusso}
 \end{figure}
+
+\vspace{0.8cm}
 
 ECU è l'unità centrale di controllo del veicolo dove sono collegati tutti i vari attuatori e sensori del veicolo: motore, aria condizionata, livello carburante... Lo scanner OBD-II trasmette i dati dalla ECU alla board via Bluetooth. La board processa i dati ed è in grado di generare uno score del guidatore. Il punteggio [0,1] viene calcolato considerando:
 
@@ -310,6 +365,7 @@ Per quanto riguarda il primo e il secondo punto è possibile utilizzare un accel
     z & su/giù & strada dissestata \\
     \hline
   \end{tabular}
+  \caption{Descrizione degli assi dell'accelerometro utilizzati nell'ambito della profilazione del guidatore}
   \label{tab:example}
 \end{table}
 
@@ -344,7 +400,7 @@ Per valutare il comportamento del guidatore di seguito vengono mostrati i vari l
      \(> 0.75\) & critical \\
     \hline
   \end{tabular}
-  \caption{Driver Evaluation Table}
+  \caption{Tabella di valutazione del conducente}
   \label{tab:example}
 \end{table}
 
@@ -671,6 +727,8 @@ Una gerarchia di cluster può essere interpretata come un albero binario standar
 \end{figure}
 \footnotetext{Presa da: \url{https://www.developersmaggioli.it/wp-content/uploads/2019/06/images.png}}
 
+\vspace{1cm}
+
 \begin{figure}[h] \centering
 \includegraphics[width=8cm]{C_Gerarchico2.png}
 \caption{Esempio di dendogramma con tagli gerarchici\protect\footnotemark}
@@ -690,6 +748,8 @@ Gli algoritmi di clustering basati sulla densità sono ideati per la creazione d
 
 Per concludere lo schema (metti riferimento immagine) indica che con la black box è possibile sfruttare la capacità valutativa della board, la quale è in grado di generare uno score del guidatore e di giudicarlo in base a questo, la possibilità di classificarlo utilizzando tecniche di machine learning o la possibilità di utilizzare entrambe le tecniche per avere un quadro completo relativo al suo stile di guida.
 
+\vspace{1cm}
+\cite{knuth1997}.
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[node distance=2cm]
@@ -712,8 +772,6 @@ Per concludere lo schema (metti riferimento immagine) indica che con la black bo
 \label{fig:flowchart}
 \end{figure}
 
-%\bibliographystyle{plain}
 \printbibliography[title={Bibliografia}]
-%\addcontentsline{toc}{chapter}{Bibliografia}
 
 \end{document}
