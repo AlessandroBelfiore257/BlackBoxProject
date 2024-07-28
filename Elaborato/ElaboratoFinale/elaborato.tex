@@ -14,6 +14,30 @@
 
 \usetikzlibrary{shapes.geometric, arrows, positioning, calc}
 
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+  language=C++,
+  basicstyle=\ttfamily\small\color{black}, % Codice in nero
+  keywordstyle=\bfseries,
+  commentstyle=\itshape,
+  stringstyle=\color{red},
+  numberstyle=\tiny\color{gray},
+  numbersep=5pt,
+  frame=single, % Bordo attorno al codice
+  rulecolor=\color{black}, % Colore del bordo
+  backgroundcolor=\color{white}, % Sfondo bianco
+  tabsize=2,
+  breaklines=true,
+  breakatwhitespace=false,
+  showspaces=false,
+  showtabs=false,
+  numbers=left,
+  showstringspaces=false
+}
+
 \tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=red!30]
 \tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
 \tikzstyle{decision} = [diamond, aspect=2, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
@@ -59,6 +83,11 @@
 
 % Path immagini
 \graphicspath{ {./images/} }
+
+\usepackage{fancyhdr}  % Per configurare intestazioni e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}  % Piè di pagina centrato con numero di pagina
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -109,14 +138,15 @@
 
 % o sections (dipende dal documentclass)
 \chapter{Introduzione}
-Il settore assicurativo `e stato uno dei primi a intuire le potenzialit`a di un tracciamento GPS in grado di registrare gli spostamenti di un determinato automobilista
+Il settore assicurativo è stato uno dei primi a intuire le potenzialità di un tracciamento GPS in grado di registrare gli spostamenti di un determinato automobilista
 e di aiutarlo in caso di incidente segnalando ai soccorsi la posizione esatta dell’accaduto, o in caso di furto segnalando alle forze dell’ordine la posizione dell’auto in
-tempo reale. Tutto questo `e stato possibile grazie all’introduzione della cosiddetta
+tempo reale. Tutto questo è stato possibile grazie all’introduzione della cosiddetta
 “scatola nera” (o black-box), un piccolo apparecchio da installare sull’auto di un
 assicurato, in grado di registrare tutti gli spostamenti di un’automobile, nonchè il
 comportamento alla guida del conducente. Può essere utilizzato dalla compagnia
 assicuratrice anche per profilare ulteriormente i clienti e offrire quindi delle polizze
 ulteriormente personalizzate e fatte su misura per il tipo di utilizzo.
+\cite{fracassi2012}.
 \section{Cos'è una scatola nera?}
 La "scatola nera" (o black-box) è un dispositivo elettronico utilizzato principalmente per monitorare e registrare vari parametri di funzionamento e comportamento. Sebbene il termine sia spesso associato alle registrazioni di volo degli aerei, nel contesto automobilistico e assicurativo, la scatola nera ha una funzione leggermente diversa ma altrettanto cruciale. Ecco una descrizione dettagliata nei due paragrafi che seguono.
 
@@ -129,9 +159,9 @@ La "scatola nera" (o black-box) è un dispositivo elettronico utilizzato princip
 
 \subsection{Utilità}
 \begin{itemize}
-    \item \textbf{Tracciamento GPS}: registra i movimenti del veicolo, inclusi i percorsi effettuati, le velocità raggiunte e le soste. Questo aiuta a localizzare il veicolo in caso di furto e a fornire assistenza immediata in caso di emergenza.
-    \item \textbf{Monitoraggio del comportamento di guida}: registra il comportamento del conducente, come accelerazioni brusche, frenate improvvise, velocità eccessive e svolte pericolose. Questi dati aiutano a valutare lo stile di guida e possono essere utilizzati per migliorare la sicurezza.
-    \item \textbf{Supporto in caso di incidenti}: fornisce dati cruciali sugli incidenti, come la velocità al momento dell'impatto e la posizione esatta dell'incidente. Queste informazioni possono essere vitali per le indagini post-incidente e per la richiesta di soccorsi.
+    \item \textbf{Tracciamento GPS}: registra i movimenti del veicolo, inclusi i percorsi effettuati, le velocità raggiunte e le soste. Questo aiuta a localizzare il veicolo in caso di furto e a fornire assistenza immediata in caso di emergenza. \cite{khin2018real}
+    \item \textbf{Monitoraggio del comportamento di guida}: registra il comportamento del conducente, come accelerazioni brusche, frenate improvvise, velocità eccessive e svolte pericolose. Questi dati aiutano a valutare lo stile di guida e possono essere utilizzati per migliorare la sicurezza. \cite{hermawan2020acquisition}
+    \item \textbf{Supporto in caso di incidenti}: fornisce dati cruciali sugli incidenti, come la velocità al momento dell'impatto e la posizione esatta dell'incidente. Queste informazioni possono essere vitali per le indagini post-incidente e per la richiesta di soccorsi. \cite{thompson2010using}
 \end{itemize}
 \subsection{Importanza}
 L'importanza di una black box è data dai benefici che si possono trarre da essa: 
@@ -161,7 +191,7 @@ Il monitoraggio consiste nella raccolta dati di alcuni parametri provenienti dal
 Il motivo per cui si è scelto di monitorare lo stato del veicolo è quello di ottenere una visione completa della sua salute. In particolare, registro l'accelerazione utilizzando il sensore di accelerometria, utile per analizzare il comportamento dinamico del veicolo. Il sensore di alcool mi permette di rilevare la presenza di vapori alcolici nell'abitacolo, garantendo un ambiente sicuro, per assicurare una qualità dell'aria adeguata all'interno del veicolo, utilizzo un sensore specifico che rileva vari inquinanti, il modulo GPS fornisce coordinate precise, fondamentali sia per la tracciabilità del veicolo in caso di furto, sia per analizzare i percorsi abituali. Viene inoltre monitorata  costantemente la temperatura del liquido di raffreddamento e dell'olio motore grazie allo scanner OBD. Inoltre, vengono registrati la coppia del motore per valutare le sue prestazioni e il voltaggio della batteria per prevenire problemi elettrici.
 Infine, il sensore del livello del carburante mi permette di tenere traccia dell'autonomia del veicolo. 
 \section{Tracking}
-Questa funzionalità del sistema viene adoperata per localizzare i veicoli della flotta. Il sistema di tracking è in grado di generare la posizione esatta del veicolo usando due parametri, latitudine e longitudine; i dati di geolocalizzazione, per ogni slot temporale di 5 minuti, vengono trasferiti al server remoto della centrale operative dell'autonoleggio; a posteriori potrebbero essere utilizzati per visualizzare i percorsi abituali del cliente o il percorso effettuato un preciso giorno. Il sistema di tracking è utile soprattutto in caso di furto del veicolo.
+Questa funzionalità del sistema viene adoperata per localizzare i veicoli della flotta \cite{al2012hybrid}. Il sistema di tracking è in grado di generare la posizione esatta del veicolo usando due parametri, latitudine e longitudine; i dati di geolocalizzazione, per ogni slot temporale di 5 minuti, vengono trasferiti al server remoto della centrale operative dell'autonoleggio; a posteriori potrebbero essere utilizzati per visualizzare i percorsi abituali del cliente o il percorso effettuato un preciso giorno. Il sistema di tracking è utile soprattutto in caso di furto del veicolo.
 L'antenna GPS e il ricevitore GPS ricevono informazioni dal satellite nel formato NMEA (National Marine Electronics Association), queste vengono processate dall'esp32 e trasmesse al server remoto via GSM, il server una volta ricevuto i dati li memorizza in locale per analisi future. 
 
 \begin{figure}[h] \centering
@@ -216,9 +246,9 @@ Sostanzialmente il meccanismo si divide in due fasi: \textbf{rilevamento} e \tex
     \label{fig:diagramma-flusso}
 \end{figure}
 
-I sensori maggiormente coinvolti sono l'accelerometro, il GPS e il dato relativo alla velocità del veicolo proveniente dalla rete can bus. Nella fase di campionamento, l'accelerometro contina ad estrarre informazioni relative alla forza G speriementata dagli occupanti. Il GPS, nella fase di notifica, è utile per inviare le coordinate alla stazione remota. Infine la velocità del veicolo, coinvolta sempre in fase di notifica, viene mandata alla stazione remota e può essere utilizzata per future ricostruzioni/analisi dell'incidente.
+I sensori maggiormente coinvolti sono l'accelerometro, il GPS e il dato relativo alla velocità del veicolo proveniente dalla rete can bus. Nella fase di campionamento, l'accelerometro contina ad estrarre informazioni relative alla forza G speriementata dagli occupanti. Il GPS, nella fase di notifica, è utile per inviare le coordinate alla stazione remota. Infine la velocità del veicolo, coinvolta sempre in fase di notifica, viene mandata alla stazione remota e può essere utilizzata per future ricostruzioni/analisi dell'incidente. \cite{shubham2021survey}
 
-Per il rilevamento di una situazione di incidente posso utilizzare un accelerometro, in un evento del genere la black box subirà la stessa accelerazione degli occupanti del veicolo. La forza G che si ricava dall'accelerazione deve essere ragionevolmente alta per un incidente, per questo non vengono considerati incidenti se tutte le accelerazioni sono inferiori a 4G. Infatti sulle auto gli airbag non vengono altro che azionati dal superamento di una certa soglia di accelerazione. Come secondo filtro viene utilizzato un sistema di conferma per evitare i falsi positivi, all'utente vengono concessi 30 secondi per annullare il rilevamento della situazione di incidente, terminato questo breve periodo, il messaggio verrà trasmetto al server remoto in automatico, in caso di annullamemto si ritornerà ad una situazione di partenza
+Per il rilevamento di una situazione di incidente posso utilizzare un accelerometro, in un evento del genere la black box subirà la stessa accelerazione degli occupanti del veicolo. La forza G che si ricava dall'accelerazione deve essere ragionevolmente alta per un incidente, per questo non vengono considerati incidenti se tutte le accelerazioni sono inferiori a 4G \cite{thompson2010using}. Infatti sulle auto gli airbag non vengono altro che azionati dal superamento di una certa soglia di accelerazione. Come secondo filtro viene utilizzato un sistema di conferma per evitare i falsi positivi, all'utente vengono concessi 30 secondi per annullare il rilevamento della situazione di incidente, terminato questo breve periodo, il messaggio verrà trasmetto al server remoto in automatico, in caso di annullamemto si ritornerà ad una situazione di partenza
 
 \begin{figure}[h]
     \centering
@@ -304,7 +334,7 @@ Di seguito verranno proposte le dinamiche delle situazioni per le quali viene at
     \item Temperatura liquido refrigerante: una temperatura troppo alta potrebbe danneggiare componenti del motore, causando gravi guasti.
     \item Coppia motore anomala: mantenere la coppia motore entro limiti ottimali è essenziale per garantire prestazioni efficienti e sicure del veicolo. prevenendo l'usura prematura del motore e della trasmissione. Se la coppia è troppo bassa, si rischia una scarsa accelerazione; se troppo alta, si può verificare un eccessivo consumo di carburante e possibili danni meccanici.
     \item Monitoraggio della qualità dell'aria nell'abitacolo: utile per prevenire qualunque perdita di gas proveniente dai vari impianti dell'automobile e prevenire così incendi.
-    \item Rilevamento presenza di alcool: non è consentito al conducente mettersi alla guida in stato di ebrezza. Questa attività può essere monitorata attraverso un sensore che rileva la presenza di etanolo nell'ambiente.
+    \item Rilevamento presenza di alcool: non è consentito al conducente mettersi alla guida in stato di ebrezza. Questa attività può essere monitorata attraverso un sensore che rileva la presenza di etanolo nell'ambiente. \cite{ahmar2021road}
     \item Distanza di frenata anomala: analizzando dati di accelerazione velocità e spazio percorso è possibile rilevare situazioni in cui la distanza di frenata è significativamente più lunga, ciò può indare un problema al sistema frenante o all'aderenza dei pneumatici.
     \item Consumo anomalo di carburante: monitorando il consumo di carburante del veicolo e confrontandolo con i modelli di consumo attesi è possibile rilevare anomalie che potrebbero indicare problemi al motore.
 \end{itemize}
@@ -342,14 +372,52 @@ I principali parametri che vengono catturati per l'analisi del guidatore sono: \
 ECU è l'unità centrale di controllo del veicolo dove sono collegati tutti i vari attuatori e sensori del veicolo: motore, aria condizionata, livello carburante... Lo scanner OBD-II trasmette i dati dalla ECU alla board via Bluetooth. La board processa i dati ed è in grado di generare uno score del guidatore. Il punteggio [0,1] viene calcolato considerando:
 
 \begin{itemize}
-    \item Le accelerazioni e decelerazioni brusche.
-    \item Le strerzate sia a sinistra che a destra brusche.
-    \item Il rapporto (relativo) di velocità del veicolo con i giri del motore che deve essere compreso tra i valori di [0.9,1.3] per una buona guida.
-    \item Il rapporto (relativo) tra la valvola a farfalla e i giri del motore che deve essere compreso tra i valori di [0.9,1.3] per una buona guida.
-    \item Il carico del motore che deve essere compreso tra il 20\% e il 50\% per una buona guida
-    \item Gli eccessi di velocità data dalla differenza tra i limiti imposti dalla legge e quelli reali del veicolo
+    \item Le accelerazioni e decelerazioni brusche. \cite{fazeen2012safe}
+    \item Le strerzate sia a sinistra che a destra brusche. \cite{fazeen2012safe}
+    \item Il rapporto (relativo) di velocità del veicolo con i giri del motore che deve essere compreso tra i valori di [0.9,1.3] per una buona guida. \cite{chen2015driving}
+    \item Il rapporto (relativo) tra la valvola a farfalla e i giri del motore che deve essere compreso tra i valori di [0.9,1.3] per una buona guida. \cite{chen2015driving}
+    \item Il carico del motore che deve essere compreso tra il 20\% e il 50\% per una buona guida. \cite{chen2015driving}
+    \item Gli eccessi di velocità data dalla differenza tra i limiti imposti dalla legge e quelli reali del veicolo.
 \end{itemize}
 
+\begin{lstlisting}
+// Implementazione task relativo alla profilazione guida
+void profilazioneCallback() {
+  campionamento_Profilazione++;
+  sensors_event_t a, g, temp;
+  mpu.getEvent(&a, &g, &temp);
+
+  float x = a.acceleration.x;
+  float y = a.acceleration.y;
+
+  // Accelerazioni / decelerazioni brusche
+  if ((x / FORZA_G) > (ACCELERAZIONE_BRUSCA) || (x / FORZA_G) < (DECELERAZIONE_BRUSCA)) {
+    nRilevamentiAccDecBrusche++;
+  }
+  // Sterzate sinistra e destra brusche
+  if ((y / FORZA_G) > (STERZATA_DX_BRUSCA) || (y / FORZA_G) < (STERZATA_SX_BRUSCA)) {
+    nRilevamentiSterzateBrusche++;
+  }
+  // Rapporto v su giri motore
+  float fatt1 = ((kph / MAX_SPEED_CAR) / (rpm / MAX_RPM_CAR));
+  if ((fatt1 < RANGE_INF) || (fatt1 > RANGE_SUP)) {
+    nRilevamentiFatt1++;
+  }
+  // Rapporto posizione della valvola a farfalla su giri motore
+  float fatt2 = ((throttle / 100) / (rpm / MAX_RPM_CAR));
+  if ((fatt2 < RANGE_INF) || (fatt2 > RANGE_SUP)) {
+    nRilevamentiFatt2++;
+  }
+  // Carico motore
+  if ((load < LOAD_MIN) || (load > LOAD_MAX)) {
+    nRilevamentiCaricoMotoreOutOfRange++;
+  }
+  if (campionamento_Profilazione == MAX_CAMPIONAMENTI_PROFILAZIONE) {  
+    updateCampionamentoProfilazione();
+  }
+}
+\end{lstlisting}
+\vspace{0.5cm}
 Per quanto riguarda il primo e il secondo punto è possibile utilizzare un accelerometro a 3 assi utile per rilevare  le accelerazioni/decelerazioni e le sterzate improvvise: 
 
 \begin{table}[h!]
@@ -435,7 +503,7 @@ Le librerie utilizzate per lo sviluppo del progetto si possono divedere in tre c
 
 \section{Scelte progettuali}
 \subsection{Filesystem}
-Nel filesystem dell'esp32 viene creato un database (dati.db) all'interno del quale sono presenti 5 tabelle, utili per la gestione di tutti gli eventi previsti per la blackbox. Per interagire con il db viene utilizzato SQLite, una libreria scritta in linguaggio C che implementa un motore di database SQL piccolo, veloce, autonomo, ad alta affidabilità e completo. SQLite è il motore di database più utilizzato al mondo. SQLite è integrato in tutti i telefoni cellulari e nella maggior parte dei computer ed è integrato in innumerevoli altre applicazioni utilizzate ogni giorno. SQLite è particolarmente adatto per l'uso in telefoni cellulari, set-top box, televisori, console di gioco, fotocamere, orologi, elettrodomestici da cucina, termostati, automobili, macchine utensili, aeroplani, sensori remoti, droni, dispositivi medici e robot: \textbf{"internet of things"}.
+Nel filesystem dell'esp32 viene creato un database (dati.db) all'interno del quale sono presenti 5 tabelle, utili per la gestione di tutti gli eventi previsti per la blackbox. Per interagire con il db viene utilizzato SQLite, una libreria scritta in linguaggio C che implementa un motore di database SQL piccolo, veloce, autonomo, ad alta affidabilità e completo. SQLite è il motore di database più utilizzato al mondo. SQLite è integrato in tutti i telefoni cellulari e nella maggior parte dei computer ed è integrato in innumerevoli altre applicazioni utilizzate ogni giorno \cite{sqliteWhentoUse}. SQLite è particolarmente adatto per l'uso in telefoni cellulari, set-top box, televisori, console di gioco, fotocamere, orologi, elettrodomestici da cucina, termostati, automobili, macchine utensili, aeroplani, sensori remoti, droni, dispositivi medici e robot: \textbf{"internet of things"}.
 Di seguito le tabelle di memorizzazione dati dell'intero sistema:
 
 \paragraph{Tabella t1}
@@ -749,7 +817,6 @@ Gli algoritmi di clustering basati sulla densità sono ideati per la creazione d
 Per concludere lo schema (metti riferimento immagine) indica che con la black box è possibile sfruttare la capacità valutativa della board, la quale è in grado di generare uno score del guidatore e di giudicarlo in base a questo, la possibilità di classificarlo utilizzando tecniche di machine learning o la possibilità di utilizzare entrambe le tecniche per avere un quadro completo relativo al suo stile di guida.
 
 \vspace{1cm}
-\cite{knuth1997}.
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[node distance=2cm]
