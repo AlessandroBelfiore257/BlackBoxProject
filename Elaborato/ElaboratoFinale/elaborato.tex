@@ -1,22 +1,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[12pt, a4paper, italian]{report}
 \usepackage{template}
-
 \usepackage[colorinlistoftodos]{todonotes}
-%\usepackage[disable]{todonotes}  % questo alla fine
-
 \usepackage{tikz}
 \usepackage{tocloft}
 \usepackage{adjustbox}
 \usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{xcolor}
+
 \numberwithin{figure}{chapter}
 \numberwithin{table}{chapter}
 
 \usetikzlibrary{shapes.geometric, arrows, positioning, calc}
-
-\usepackage[utf8]{inputenc}
-\usepackage{listings}
-\usepackage{xcolor}
 
 \lstset{
   language=C++,
@@ -42,8 +39,6 @@
 \tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
 \tikzstyle{decision} = [diamond, aspect=2, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
 \tikzstyle{arrow} = [thick,->,>=stealth]
-
-% TODO inserire vari packages (todonotes, ecc.)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % packages...
@@ -90,6 +85,7 @@
 \fancyfoot[C]{\thepage}  % Piè di pagina centrato con numero di pagina
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength {\marginparwidth }{2cm}
 \begin{document}
 
 % Frontespizio
@@ -141,17 +137,17 @@
 Il settore assicurativo è stato uno dei primi a intuire le potenzialità di un tracciamento GPS in grado di registrare gli spostamenti di un determinato automobilista
 e di aiutarlo in caso di incidente segnalando ai soccorsi la posizione esatta dell’accaduto, o in caso di furto segnalando alle forze dell’ordine la posizione dell’auto in
 tempo reale. Tutto questo è stato possibile grazie all’introduzione della cosiddetta
-“scatola nera” (o black-box), un piccolo apparecchio da installare sull’auto di un
+“scatola nera” o black-box, un piccolo apparecchio da installare sull’auto di un
 assicurato, in grado di registrare tutti gli spostamenti di un’automobile, nonchè il
-comportamento alla guida del conducente. Può essere utilizzato dalla compagnia
+comportamento alla guida del conducente. Può essere utilizzata dalla compagnia
 assicuratrice anche per profilare ulteriormente i clienti e offrire quindi delle polizze
-ulteriormente personalizzate e fatte su misura per il tipo di utilizzo.
+ulteriormente personalizzate e fatte su misura per il tipo di utilizzo
 \cite{fracassi2012}.
 \section{Cos'è una scatola nera?}
-La "scatola nera" (o black-box) è un dispositivo elettronico utilizzato principalmente per monitorare e registrare vari parametri di funzionamento e comportamento. Sebbene il termine sia spesso associato alle registrazioni di volo degli aerei, nel contesto automobilistico e assicurativo, la scatola nera ha una funzione leggermente diversa ma altrettanto cruciale. Ecco una descrizione dettagliata nei due paragrafi che seguono.
+La black-box è un dispositivo elettronico utilizzato principalmente per monitorare e registrare vari parametri di funzionamento del veicolo e comportamento del conducente. Sebbene il termine sia spesso associato alle registrazioni di volo degli aerei, nel contesto automobilistico e assicurativo, la scatola nera ha una funzione leggermente diversa ma altrettanto cruciale. Ecco una descrizione dettagliata nei due paragrafi che seguono:
 
 \begin{figure}[h] \centering
-\includegraphics[width=8cm]{BlackBoxP.png}
+\includegraphics[width=8cm]{esempioScatolaNera.png}
 \caption{Esempio di scatola nera\protect\footnotemark}
 \label{fig:scatolaNera}
 \end{figure}
@@ -159,9 +155,9 @@ La "scatola nera" (o black-box) è un dispositivo elettronico utilizzato princip
 
 \subsection{Utilità}
 \begin{itemize}
-    \item \textbf{Tracciamento GPS}: registra i movimenti del veicolo, inclusi i percorsi effettuati, le velocità raggiunte e le soste. Questo aiuta a localizzare il veicolo in caso di furto e a fornire assistenza immediata in caso di emergenza. \cite{khin2018real}
+    \item \textbf{Tracciamento GPS}: registra i movimenti del veicolo, inclusi i percorsi effettuati, le velocità raggiunte e le soste. Questo aiuta a localizzare il veicolo in caso di furto e a fornire assistenza immediata in caso di emergenza \cite{khin2018real}.
     \item \textbf{Monitoraggio del comportamento di guida}: registra il comportamento del conducente, come accelerazioni brusche, frenate improvvise, velocità eccessive e svolte pericolose. Questi dati aiutano a valutare lo stile di guida e possono essere utilizzati per migliorare la sicurezza. \cite{hermawan2020acquisition}
-    \item \textbf{Supporto in caso di incidenti}: fornisce dati cruciali sugli incidenti, come la velocità al momento dell'impatto e la posizione esatta dell'incidente. Queste informazioni possono essere vitali per le indagini post-incidente e per la richiesta di soccorsi. \cite{thompson2010using}
+    \item \textbf{Supporto in caso di incidenti}: fornisce dati cruciali sugli incidenti, come la velocità al momento dell'impatto e la posizione esatta dell'incidente. Queste informazioni possono essere molto importanti per le indagini post-incidente e per la richiesta di soccorsi. \cite{thompson2010using}
 \end{itemize}
 \subsection{Importanza}
 L'importanza di una black box è data dai benefici che si possono trarre da essa: 
@@ -172,13 +168,19 @@ L'importanza di una black box è data dai benefici che si possono trarre da essa
     \item \textbf{Miglioramento della sicurezza}: i dati raccolti possono essere utilizzati per educare i conducenti su comportamenti di guida sicuri, contribuendo a ridurre il rischio di incidenti.
 \end{itemize}
 \section{Obiettivi del progetto}
-Il principale obiettivo di questo progetto è sviluppare una black box avanzata per veicoli, che si distingua dalle soluzioni tradizionali per la sua capacità di diagnosticare sia il veicolo sia il comportamento del conducente. Le tradizionali black box non solo registrano i dati di viaggio e monitorano le condizioni del veicolo, ma svolgono anche funzioni fondamentali come il monitoraggio costante del veicolo, il tracciamento degli incidenti e la richiesta automatica di assistenza in caso di emergenza. La nostra black box, oltre a queste funzionalità di base, introduce due caratteristiche innovative che ne ampliano ulteriormente le potenzialità.
+Il principale obiettivo di questo progetto è sviluppare una black box avanzata per veicoli appartenenti ad una flotta di autonoleggio a lungo termine, che si distingua dalle soluzioni tradizionali per la sua capacità di diagnosticare sia il veicolo sia il comportamento del conducente. Le tradizionali black box non solo registrano i dati di viaggio e monitorano le condizioni del veicolo, ma svolgono anche funzioni fondamentali come il monitoraggio costante del veicolo, il tracciamento degli incidenti e la richiesta automatica di assistenza in caso di emergenza. La nostra black box, oltre a queste funzionalità di base, introduce due caratteristiche innovative che ne ampliano ulteriormente le potenzialità.
 
-La \textbf{prima caratteristica distintiva} della nostra black box è la capacità di rilevare e segnalare tempestivamente sia gli allarmi critici sia quelli non critici, relativi a problemi meccanici del veicolo e comportamenti di guida inappropriati del conducente. Questo sistema avanzato di diagnostica è in grado di identificare malfunzionamenti interni dell’autovettura, come anomalie nel motore, nonché situazioni di pericolo come la presenza di gas nell'abitacolo o temperature anomale delle varie parti del veicolo. Inoltre, è capace di monitorare e segnalare comportamenti non leciti del conducente, come fumare mentre si guida, guida sotto l'influenza di alcool, utilizzo del veicolo su strade non asfaltate, guida fuori dal territorio nazionale o trasporto di un rimorchio senza autorizzazione.
+\vspace{1cm}
 
-La \textbf{seconda caratteristica innovativa} è la generazione automatica di un punteggio di guida per il conducente. Questo voto è calcolato sulla base dei dati raccolti durante la guida, valutando la sicurezza e l’efficienza del comportamento al volante. Il punteggio serve non solo come feedback per il conducente, aiutandolo a migliorare le proprie abitudini di guida, ma può anche essere utilizzato dalle compagnie assicurative per offrire polizze più personalizzate e vantaggiose. È importante sottolineare che questa profilazione del conducente non richiede l'intervento di un esperto lato server remoto, poiché è la stessa black box a elaborare e generare automaticamente il punteggio di guida.
+La \textbf{prima caratteristica distintiva} della nostra black box è la capacità di rilevare e segnalare tempestivamente sia allarmi critici che non, relativi a problemi meccanici del veicolo e comportamenti inappropriati del conducente. Questo sistema avanzato di diagnostica è in grado di identificare malfunzionamenti interni dell’autovettura, come anomalie nel motore, nonché situazioni di pericolo come la presenza di gas nell'abitacolo. Inoltre, è capace di monitorare e segnalare comportamenti non leciti del conducente, la presenza di fumo nell'abitacolo potrebbe essere un parametro che deve essere rispettato dalla compagnia, guida sotto l'influenza di alcool, utilizzo del veicolo su strade non asfaltate, guida fuori dal territorio nazionale o trasporto di un rimorchio senza autorizzazione.
 
-Il nostro progetto mira a creare una black box che non solo registra e monitora i dati di viaggio e le condizioni del veicolo, ma offre anche un sistema di diagnostica integrato e una valutazione del conducente, migliorando la sicurezza e l’efficienza del veicolo e contribuendo a una guida più responsabile e consapevole.
+\vspace{1cm}
+
+La \textbf{seconda caratteristica innovativa} è la generazione automatica di un punteggio di guida per il conducente. Questo voto è calcolato sulla base dei dati raccolti durante la guida, valutando il comportamento al volante del conducente. Il punteggio serve non solo come feedback per il conducente, aiutandolo a migliorare le proprie abitudini di guida, ma potrebbe essere utilizzato dalle compagnie assicurative per offrire polizze più personalizzate e vantaggiose, stimolando il conducente a mantenere uno stile di guida più prudente. È importante sottolineare che questa profilazione del conducente non richiede l'intervento di un esperto lato server remoto, poiché è la stessa black box a elaborare e generare automaticamente il punteggio di guida.
+
+\vspace{1cm}
+
+Il progetto mira a creare una black box che non solo registra e monitora i dati di viaggio e le condizioni del veicolo, ma offre anche un sistema di diagnostica integrato in grado di riconoscere comportamenti inappropriati del conducente ed in grado di valutarlo in base al suo stile di guida; migliorando la sicurezza e l’efficienza del veicolo e contribuendo ad una guida più responsabile e consapevole.
 
 \chapter{Stato dell'arte}
 \section{Tecnologie attuali di monitoraggio e tracking per veicoli}
@@ -188,7 +190,7 @@ Il nostro progetto mira a creare una black box che non solo registra e monitora 
 \chapter{Funzionalità del sistema}
 \section{Monitoraggio}
 Il monitoraggio consiste nella raccolta dati di alcuni parametri provenienti dal lettore OBD e da alcuni sensori installati sulla black box. 
-Il motivo per cui si è scelto di monitorare lo stato del veicolo è quello di ottenere una visione completa della sua salute. In particolare, registro l'accelerazione utilizzando il sensore di accelerometria, utile per analizzare il comportamento dinamico del veicolo. Il sensore di alcool mi permette di rilevare la presenza di vapori alcolici nell'abitacolo, garantendo un ambiente sicuro, per assicurare una qualità dell'aria adeguata all'interno del veicolo, utilizzo un sensore specifico che rileva vari inquinanti, il modulo GPS fornisce coordinate precise, fondamentali sia per la tracciabilità del veicolo in caso di furto, sia per analizzare i percorsi abituali. Viene inoltre monitorata  costantemente la temperatura del liquido di raffreddamento e dell'olio motore grazie allo scanner OBD. Inoltre, vengono registrati la coppia del motore per valutare le sue prestazioni e il voltaggio della batteria per prevenire problemi elettrici.
+Il motivo per cui si è scelto di monitorare lo stato del veicolo è quello di ottenere una visione completa della sua salute. In particolare, i dati che vengono registrati sono l'accelerazione misurata grazie ad un accelerometro, utile per analizzare il comportamento dinamico del veicolo. Il sensore di alcool mi permette di rilevare la presenza di vapori alcolici nell'abitacolo, garantendo un ambiente sicuro; per assicurare una qualità dell'aria adeguata all'interno del veicolo, utilizzo un sensore specifico che rileva vari inquinanti, il modulo GPS fornisce coordinate precise, fondamentali sia per la tracciabilità del veicolo in caso di furto, sia per analizzare i percorsi abituali. Viene inoltre monitorata  costantemente la temperatura del liquido di raffreddamento e dell'olio motore grazie allo scanner OBD. Inoltre, vengono registrati la coppia del motore per valutare le sue prestazioni e il voltaggio della batteria per prevenire problemi elettrici.
 Infine, il sensore del livello del carburante mi permette di tenere traccia dell'autonomia del veicolo. 
 \section{Tracking}
 Questa funzionalità del sistema viene adoperata per localizzare i veicoli della flotta \cite{al2012hybrid}. Il sistema di tracking è in grado di generare la posizione esatta del veicolo usando due parametri, latitudine e longitudine; i dati di geolocalizzazione, per ogni slot temporale di 5 minuti, vengono trasferiti al server remoto della centrale operative dell'autonoleggio; a posteriori potrebbero essere utilizzati per visualizzare i percorsi abituali del cliente o il percorso effettuato un preciso giorno. Il sistema di tracking è utile soprattutto in caso di furto del veicolo.
@@ -197,7 +199,7 @@ L'antenna GPS e il ricevitore GPS ricevono informazioni dal satellite nel format
 \begin{figure}[h] \centering
 \includegraphics[width=8cm]{tracking.png}
 \caption{L'architettura del sistema: localizzazione GPS e modulo GSM\protect\footnotemark}
-\label{fig:qualcosa}
+\label{fig:trackingGPS}
 \end{figure}
 \footnotetext{Presa da: \url{https://www.researchgate.net/profile/Mohammad-Alkhedher/publication/51989090/figure/fig5/AS:668830275760151@1536472972974/The-system-architecture-GPS-tracking-and-GSM-modules.ppm}}
 
@@ -210,11 +212,11 @@ L'assistenza incidente tratta la dinamica relativa ad un incidente stradale, inv
 \begin{figure}[h] \centering
 \includegraphics[width=8cm]{incidente.png}
 \caption{Schema situazione di emergenza dovuta ad un incidente\protect\footnotemark}
-\label{fig:qualcosa}
+\label{fig:emergenzaIncidente}
 \end{figure}
 \footnotetext{Presa da: \url{https://www.researchgate.net/publication/51989090_Hybrid_GPS-GSM_localization_of_automobile_tracking_system}}
 
-Sostanzialmente il meccanismo si divide in due fasi: \textbf{rilevamento} e \textbf{notifica}
+Sostanzialmente il meccanismo si divide in due fasi: \textbf{rilevamento} e \textbf{notifica} vedi figura \ref{fig:rilevamentoInvioIncidente}.
 
 \begin{figure}[h]
     \centering
@@ -243,7 +245,7 @@ Sostanzialmente il meccanismo si divide in due fasi: \textbf{rilevamento} e \tex
 
     \end{tikzpicture}
     \caption{Diagramma di flusso per il monitoraggio dell'accelerometro ed eventuale invio SMS}
-    \label{fig:diagramma-flusso}
+    \label{fig:rilevamentoInvioIncidente}
 \end{figure}
 
 I sensori maggiormente coinvolti sono l'accelerometro, il GPS e il dato relativo alla velocità del veicolo proveniente dalla rete can bus. Nella fase di campionamento, l'accelerometro contina ad estrarre informazioni relative alla forza G speriementata dagli occupanti. Il GPS, nella fase di notifica, è utile per inviare le coordinate alla stazione remota. Infine la velocità del veicolo, coinvolta sempre in fase di notifica, viene mandata alla stazione remota e può essere utilizzata per future ricostruzioni/analisi dell'incidente. \cite{shubham2021survey}
@@ -307,9 +309,9 @@ Per il rilevamento di una situazione di incidente posso utilizzare un accelerome
 A seguito dell'incidente le informazioni che possono essere trasmesse sono la \textbf{forza G} per capire quanto effettivamente è stato forte l'impatto, la \textbf{velocità del veicolo} per capire a quanto stava andando, le \textbf{coordinate GPS} per individuare il luogo in cui è avvenuto l'incidente e in che \textbf{momento} è avvenuto.
 
 \subsection{Assistenza}
-Il sistema prevede l'utilizzo di un bottone per comunicare direttamente con il server remoto, inviando un opportuno messaggio via GSM, di nessità da parte del conducente.
+Il sistema include un pulsante che permette al conducente di comunicare direttamente con il server remoto (la centrale dell'autonoleggio), inviando un messaggio tramite GSM in caso di necessità.
 \subsection{Rilevamento allarmi}
-Il rilevamento di allarmi consiste nell'avvertire il conducente e la centrale dell'autonoleggio di alcuni sistemi del veicolo non funzionanti e di alcuni comportamenti non corretti da parte del conducente. Per gestire le situazioni relative all'ultima dinamica, la black box viene dotata di 3 led per indicare diversi tipi di situazioni e per suggerire al cliente il corretto comportamento da intraprendere nel caso dell'accensione di una spia (led) indicante una situazione di avvertimento. 
+Il rilevamento di allarmi consiste nell'avvertire il conducente e la centrale dell'autonoleggio di alcuni sistemi del veicolo non funzionanti e di alcuni comportamenti non corretti da parte del conducente. Per gestire tale situazione, la black box viene dotata di 3 led per indicare diversi tipi di situazioni e per suggerire al cliente il corretto comportamento da intraprendere nel caso dell'accensione di una spia (led) indicante una situazione di avvertimento. 
 \begin{itemize}
     \item Il led \textbf{verde} indica che il veicolo \textbf{funziona correttamente} e il \textbf{comportamento} del conducente è \textbf{corretto}.
     \item Il led \textbf{giallo} indica un \textbf{avvertimento}, se vengono rilevati problemi di poca rilevanza o eseguite azioni non lecite viene azionato il led, dopo aver superato una certa soglia di tolleranza indicante il numero di volte in cui è stato rilevato il problema o eseguita l'azione non lecita, viene avvertita la centrale operativa. Il motto di questa spia è: se un problema di poca rilevanza o un'azione non lecita persistono, avverto la centrale.
@@ -318,7 +320,7 @@ Il rilevamento di allarmi consiste nell'avvertire il conducente e la centrale de
 
 Di seguito verranno proposte le dinamiche delle situazioni per le quali viene attivata una spia gialla piuttosto che una rossa.
 
-\subsubsection{Non critici}
+\subsubsection{Non critici (led giallo)}
 
 \begin{itemize}
     \item Divieto di fumo all'interno dell'abitacolo per il mantenimento di un ambiente pulito e privo di odori sgradevoli per i successivi clienti.
@@ -327,23 +329,24 @@ Di seguito verranno proposte le dinamiche delle situazioni per le quali viene at
     \item Rilevamento attività di trasporto/rimorchio: non è possibile trainare qualsiasi tipo di rimorchio con il veicolo a noleggio.
 \end{itemize}
 
-\subsubsection{Critici}
+\subsubsection{Critici (led rosso)}
 
 \begin{itemize}
     \item Temperatura anomala olio motore: il motore non lavora nel suo range di    temperatura e potrebbe guastarsi.
     \item Temperatura liquido refrigerante: una temperatura troppo alta potrebbe danneggiare componenti del motore, causando gravi guasti.
     \item Coppia motore anomala: mantenere la coppia motore entro limiti ottimali è essenziale per garantire prestazioni efficienti e sicure del veicolo. prevenendo l'usura prematura del motore e della trasmissione. Se la coppia è troppo bassa, si rischia una scarsa accelerazione; se troppo alta, si può verificare un eccessivo consumo di carburante e possibili danni meccanici.
-    \item Monitoraggio della qualità dell'aria nell'abitacolo: utile per prevenire qualunque perdita di gas proveniente dai vari impianti dell'automobile e prevenire così incendi.
+    \item Monitoraggio della qualità dell'aria nell'abitacolo: utile per prevenire qualunque perdita di gas proveniente dai vari impianti dell'automobile, prevenendo così incendi.
     \item Rilevamento presenza di alcool: non è consentito al conducente mettersi alla guida in stato di ebrezza. Questa attività può essere monitorata attraverso un sensore che rileva la presenza di etanolo nell'ambiente. \cite{ahmar2021road}
-    \item Distanza di frenata anomala: analizzando dati di accelerazione velocità e spazio percorso è possibile rilevare situazioni in cui la distanza di frenata è significativamente più lunga, ciò può indare un problema al sistema frenante o all'aderenza dei pneumatici.
+    \item Distanza di frenata anomala: analizzando dati di accelerazione, velocità e spazio percorso è possibile rilevare situazioni in cui la distanza di frenata è significativamente più lunga, ciò può indare un problema al sistema frenante o all'aderenza dei pneumatici.
     \item Consumo anomalo di carburante: monitorando il consumo di carburante del veicolo e confrontandolo con i modelli di consumo attesi è possibile rilevare anomalie che potrebbero indicare problemi al motore.
 \end{itemize}
 
 \section{Profilazione del comportamento del guidatore}
-Nel quadro del progetto dell'analisi della profilazione guida, sfruttiamo tecnologie di acquisizione dati per ottenere una comprensione dettagliata del comportamento del guidatore. A tale scopo, viene fatto uso di due principali fonti di informazioni: i \textbf{dati provenienti dal sistemna diagnostico di bordo OBD-II} e quelli registarti da un \textbf{accelerometro}. Questi dispositivi forniscono una vasta gamma di dati in tempo reale, quali ad esempio velocità, accelerazione, decelerazione (frenata) e angoli di sterzata, consentendo di valutare numerosi aspetti relativi alla guida. Attraverso l'analisi approfondita di tali dati, siamo in grado di creare profili individuali dei guidatori e identificare modelli di comportamento distintivi che influenzano la sicurezza, l'efficienza e l'affidabilità del veicolo. Nel corso di questo paragrafo esploreremo comne l'integrazione di queste tecnologie ci permetta di ottenere informazioni preziose per migliorare l'esperienza di guida e ottimizzare le operazioni di gestione della flotta.
-\vspace{1cm} % Aggiunge uno spazio verticale di 1 cm
+Nel quadro del progetto dell'analisi della profilazione guida, sfruttiamo tecnologie di acquisizione dati per ottenere una comprensione dettagliata del comportamento del guidatore. A tale scopo, viene fatto uso di due principali fonti di informazioni: i \textbf{dati provenienti dal sistemna diagnostico di bordo OBD-II} e quelli registarti da un \textbf{accelerometro}. Questi dispositivi forniscono una vasta gamma di dati in tempo reale, quali ad esempio velocità, accelerazione, decelerazione (frenata) e angoli di sterzata, consentendo di valutare numerosi aspetti relativi alla guida. Attraverso l'analisi approfondita di tali dati, siamo in grado di creare profili individuali dei guidatori e identificare modelli di comportamento distintivi che influenzano la sicurezza, l'efficienza e l'affidabilità del veicolo. Nel corso di questo paragrafo esploreremo come l'integrazione di queste tecnologie ci permetta di ottenere informazioni preziose per migliorare l'esperienza di guida e ottimizzare le operazioni di gestione della flotta.
 
-I principali parametri che vengono catturati per l'analisi del guidatore sono: \textbf{rpm} ovvero i giri motore al minuto, la \textbf{velocità dell'auto}, il \textbf{carico del motore} e la \textbf{valvola farfalla} provenienti dalla rete CAN-BUS presente all'interno del veicolo, \textbf{accelerazione}, \textbf{decelerazione} e \textbf{sterzate} provengono invece dall'accelerometro. Una volta che la black box riceve i valori dei parametri, essa è in grado di analizzarli e riconoscere situazioni riconducibili ad una guida impropria. Ogni 24h tali dati vengono adoperati per calcolare un punteggio di guida compreso tra 0 e 1. Questo punteggio potrebbe essere utilizzato dalla compagnia per varie finalità, come ad esempio fornire incentivi ai guidatori che adottano comportamenti di guida più sicuri. Ecco le principali fasi del sistema proposto:
+\vspace{1cm} 
+
+I principali parametri che vengono catturati per l'analisi del guidatore sono: \textbf{rpm} ovvero i giri motore al minuto, la \textbf{velocità dell'auto}, il \textbf{carico del motore} e la \textbf{posizione della valvola farfalla}, provenienti dalla rete CAN-BUS presente all'interno del veicolo, \textbf{accelerazione}, \textbf{decelerazione} e \textbf{sterzate} provengono invece dall'accelerometro. Una volta che la black box riceve i valori dei parametri, essa è in grado di analizzarli e riconoscere situazioni riconducibili ad una guida impropria. Ogni 24h tali dati vengono adoperati per calcolare un punteggio di guida compreso tra 0 e 1. Questo punteggio potrebbe essere utilizzato dalla compagnia per varie finalità, come ad esempio fornire incentivi ai guidatori che adottano comportamenti di guida più sicuri. Ecco le principali fasi del sistema proposto \ref{diagrammaFlussoProfilazione}:
 
 \vspace{1.2cm}
 
@@ -355,7 +358,7 @@ I principali parametri che vengono catturati per l'analisi del guidatore sono: \
 \node (data_sensing) [process] {Data sensing};
 \node (data_acquisition) [process, right=1cm of data_sensing] {Data acquisition};
 \node (data_processing) [process, right=1cm of data_acquisition] {Data processing};
-\node (data_storage) [process, right=1cm of data_processing] {Data storage};
+\node (data_storage) [process, right=1cm of data_processing] {Storage vote};
 
 % Connessione tra i nodi
 \draw [arrow] (data_sensing) -- (data_acquisition);
@@ -364,7 +367,7 @@ I principali parametri che vengono catturati per l'analisi del guidatore sono: \
 
 \end{tikzpicture}
 \caption{Diagramma di flusso dei dati}
-\label{diagramma-flusso}
+\label{diagrammaFlussoProfilazione}
 \end{figure}
 
 \vspace{0.8cm}
@@ -434,7 +437,7 @@ Per quanto riguarda il primo e il secondo punto è possibile utilizzare un accel
     \hline
   \end{tabular}
   \caption{Descrizione degli assi dell'accelerometro utilizzati nell'ambito della profilazione del guidatore}
-  \label{tab:example}
+  \label{tab:tabellaAccelerometro}
 \end{table}
 
 \begin{figure}[h]
@@ -469,7 +472,7 @@ Per valutare il comportamento del guidatore di seguito vengono mostrati i vari l
     \hline
   \end{tabular}
   \caption{Tabella di valutazione del conducente}
-  \label{tab:example}
+  \label{tab:tabellaValutativa}
 \end{table}
 
 Il punteggio del guidatore è inteso come la probabilità di rischio di procurare un incidente a seguito del viaggio osservato, pertanto sarà compreso tra 0 e 1.
@@ -480,18 +483,18 @@ Il punteggio del guidatore è inteso come la probabilità di rischio di procurar
 \subsection{Componenti hardware utilizzati}
 
 Il microcontrollore principale utilizzato per l'elaborazione dei dati e la comunicazione con le periferiche è un \textbf{ESP-WROOM-32}, un chip di basso costo e bassa potenza con integrati i moduli WiFi e Bluetooth. 
-Viene utilizzato un \textbf{Display LCD 16X2} utile per interagire con l'utente e avvisarlo in caso sia presente qualche problema al veicolo o viene rilevato qualche comportamento anomalo. \textbf{MQ-2} e \textbf{MQ-3} vengono adoperati come sensori per il rilevamento di gas e alcool, un \textbf{bottone} viene adoperato per la richiesta di assistenza alla centrale operativa, dei \textbf{led}, presenti in 3 colorazioni: rosso, giallo e verde, vengono adoperati come spie per richiamare, con un effetto visivo, all'attenzione dei possibili scenari che si potrebbero verificare. 
+Viene utilizzato un \textbf{Display LCD 16x2} utile per interagire con l'utente e avvisarlo in caso sia presente qualche problema al veicolo o viene rilevato qualche comportamento anomalo. \textbf{MQ-2} e \textbf{MQ-3} vengono adoperati come sensori per il rilevamento di gas e alcool, un \textbf{bottone} viene adoperato per la richiesta di assistenza alla centrale operativa, dei \textbf{led}, presenti in 3 colorazioni: rosso, giallo e verde, vengono adoperati come spie per richiamare, con un effetto visivo, all'attenzione dei possibili scenari che si potrebbero verificare. 
 Un modulo \textbf{GPS GY-NEO-6M NEO6MV2} utile per le funzionalità di tracking e monitoraggio, un \textbf{accelerometro GY-521 MPU6050} utile per la profilazione del guidatore, o per segnalare un incidente e per concludere un modulo \textbf{RTC real-time-clock} utile per mantenere un orario anche quando il sistema non è sotto connessione WiFi e/o è spento.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=12cm]{circuito_logo.png}
   \caption{Schema di connessione dei vari componenti hardware della black box}
-  \label{fig:schema_circuito}
+  \label{fig:schemaCircuito}
 \end{figure}
 
 \subsection{Software e librerie utilizzate}
-Il codice è stato sviluppato sull'Arduino IDE, una piattaforma open-source che rende semplice scrivere codice e caricarlo direttamente nelle varie board scelte all'interno di una sezione apposita. Il linguaggio di programmazione utilizzato all'interno dell'IDE si chiama "Arduino programming language", la sintassi è molto simile ai linguaggi C/C++, ma i costrutti puù complessi come puntatori o la programmazione orientata agli oggetti vengono messi in secondo piano. (metti riferimento al libro del prof). Oltre a fornire i costrutti standard di un linguaggio imperativo, dato il contesto applicativo dei sistemi di controllo (sensoristica e attuatoristica), offre funzionalità legate alla gestione dei segnali: I/O digitale e analogico, interrupt su eventi hardware e accesso al clock (inteso proprio come tempo trascorso dall'accensione).
+Il codice è stato sviluppato sull'Arduino IDE, una piattaforma open-source che rende semplice scrivere codice e caricarlo direttamente nelle varie board scelte all'interno di una sezione apposita. Il linguaggio di programmazione utilizzato all'interno dell'IDE si chiama "Arduino programming language", la sintassi è molto simile ai linguaggi C/C++, ma i costrutti puù complessi come puntatori o la programmazione orientata agli oggetti vengono messi in secondo piano \cite{sistemiEmbeddedAtrent}. Oltre a fornire i costrutti standard di un linguaggio imperativo, dato il contesto applicativo dei sistemi di controllo (sensoristica e attuatoristica), offre funzionalità legate alla gestione dei segnali: I/O digitale e analogico, interrupt su eventi hardware e accesso al clock (inteso proprio come tempo trascorso dall'accensione).
 
 Le librerie utilizzate per lo sviluppo del progetto si possono divedere in tre categorie:
 
@@ -503,8 +506,8 @@ Le librerie utilizzate per lo sviluppo del progetto si possono divedere in tre c
 
 \section{Scelte progettuali}
 \subsection{Filesystem}
-Nel filesystem dell'esp32 viene creato un database (dati.db) all'interno del quale sono presenti 5 tabelle, utili per la gestione di tutti gli eventi previsti per la blackbox. Per interagire con il db viene utilizzato SQLite, una libreria scritta in linguaggio C che implementa un motore di database SQL piccolo, veloce, autonomo, ad alta affidabilità e completo. SQLite è il motore di database più utilizzato al mondo. SQLite è integrato in tutti i telefoni cellulari e nella maggior parte dei computer ed è integrato in innumerevoli altre applicazioni utilizzate ogni giorno \cite{sqliteWhentoUse}. SQLite è particolarmente adatto per l'uso in telefoni cellulari, set-top box, televisori, console di gioco, fotocamere, orologi, elettrodomestici da cucina, termostati, automobili, macchine utensili, aeroplani, sensori remoti, droni, dispositivi medici e robot: \textbf{"internet of things"}.
-Di seguito le tabelle di memorizzazione dati dell'intero sistema:
+Nel filesystem dell'esp32 viene creato un database (dati.db) all'interno del quale sono presenti 5 tabelle, utili per la gestione di tutti gli eventi previsti dalla black-box. Per interagire con il db viene utilizzato SQLite, una libreria scritta in linguaggio C che implementa un motore di database SQL piccolo, veloce, autonomo, ad alta affidabilità e completo. SQLite è il motore di database più utilizzato al mondo. SQLite è integrato in tutti i telefoni cellulari e nella maggior parte dei computer ed è integrato in innumerevoli altre applicazioni utilizzate ogni giorno \cite{sqliteWhentoUse}. SQLite è particolarmente adatto per l'uso in telefoni cellulari, set-top box, televisori, console di gioco, fotocamere, orologi, elettrodomestici da cucina, termostati, automobili, macchine utensili, aeroplani, sensori remoti, droni, dispositivi medici e robot: \textbf{"internet of things"}.
+Di seguito le tabelle di memorizzazione dati dell'intero sistema con qualche esempio di dato memorizzato:
 
 \paragraph{Tabella t1}
 \begin{table}[h!]
@@ -522,7 +525,7 @@ Di seguito le tabelle di memorizzazione dati dell'intero sistema:
       \hline
     \end{tabular}
   \end{adjustbox}
-  \caption{Tabella t1 dati relativi al monitoraggio del veicolo}
+  \caption{Tabella "t1" dati relativi al monitoraggio del veicolo}
   \label{tab:t1 monitoraggio}
 \end{table}
 Il campo \textbf{timestamp} indica il numero di secondi trascorsi dall'epoc (01/01/1970).
@@ -543,10 +546,10 @@ Il campo \textbf{timestamp} indica il numero di secondi trascorsi dall'epoc (01/
       \hline
     \end{tabular}
   \end{adjustbox}
-  \caption{Tabella t2 tempo di campionamento}
+  \caption{Tabella "t2" tempo di campionamento}
   \label{tab:t2 campionamento}
 \end{table}
-Il campo \textbf{tempoStorage} indica ogni quanto memorizzare il valore, \textbf{variabile} indica se il tempo di storage può cambiare, \textbf{fattIncr} ci dice di quanto aumentare o diminuire il tempoStorage, \textbf{soglia} delitita se i dati campionati sono omogenei, ovvero minori di essa, oppure eterogenei, maggiori di essa (fai approfondimento statistico), infine \textbf{tMin} e \textbf{tMax} sono i corrispettivi upper e lower bound per il tempo di storage.
+Il campo \textbf{tempoStorage} indica ogni quanto memorizzare il valore, \textbf{variabile} indica se il tempo di storage può cambiare, \textbf{fattIncr} ci dice di quanto aumentare o diminuire il tempoStorage, \textbf{soglia} delimita se i dati campionati sono omogenei, ovvero minori di essa, oppure eterogenei, maggiori di essa (fai approfondimento statistico), infine \textbf{tMin} e \textbf{tMax} sono i corrispettivi upper e lower bound per il tempo di storage.
 
 \textbf{Logica del tempo di campionamento:} se dopo una serie di letture (n ad esempio) i dati hanno una bassa deviazione standard, ovvero sono molto simili tra di loro, memorizzo i dati del veicolo con una frequenza minore, aumentando il tempo di storage di un certo fattore, presente nella tabella di campionamento (\textbf{fattIncr}); se la deviazione standard è alta, significa che i dati sono abbastanza differenti tra di loro e li monitoro con una frequenza maggiore. Naturalmente vengono posti dei lower e upper bound per il tempo di memorizzazione entro i quali il tempo stesso può variare.
 
@@ -566,7 +569,7 @@ Il campo \textbf{tempoStorage} indica ogni quanto memorizzare il valore, \textbf
       \hline
     \end{tabular}
   \end{adjustbox}
-  \caption{Tabella t3 profilazione guida}
+  \caption{Tabella "t3" profilazione guida}
   \label{tab:t3 profilazione}
 \end{table}
 Il campo \textbf{lastStorage} indica il momento in cui è stato memorizzato il voto inteso come numero di secondi trascorsi dall'epoc.
@@ -587,7 +590,7 @@ Il campo \textbf{lastStorage} indica il momento in cui è stato memorizzato il v
       \hline
     \end{tabular}
   \end{adjustbox}
-  \caption{Tabella t4 allarmi critici}
+  \caption{Tabella "t4" allarmi critici}
   \label{tab:t4 allarmi critici}
 \end{table}
 
@@ -607,20 +610,20 @@ Il campo \textbf{lastStorage} indica il momento in cui è stato memorizzato il v
       \hline
     \end{tabular}
   \end{adjustbox}
-  \caption{Tabella t5 allarmi meno critici}
+  \caption{Tabella "t5" allarmi meno critici}
   \label{tab:t5 allarmi meno critici}
 \end{table}
-Il campo \textbf{soglia} indica il numero massimo di rilevamenti per ciascun tipo di problema, se il sistema black box continua a rilevare il problema e la soglia viene superata, allora viene aggiornato il campo \textbf{daMandare}, indicante che l'informazione deve arrivare al server remoto.
+Il campo \textbf{soglia} indica il numero massimo di rilevamenti per ciascun tipo di problema, se il sistema black-box continua a rilevare il problema e la soglia viene superata, allora viene aggiornato il campo \textbf{daMandare}, indicante che l'informazione deve arrivare al server remoto.
 
 \subsection{Sincronizzazione}
-La black box è progettata per registrare dati in assenza di connessione WiFi, appena viene rilevata la presenza di una rete, il WiFi di casa ad esempio, essi vengono sincronizzati con il server remoto e vengono aggiornati i campi \textbf{synchronised} delle tabelle in modo tale da non inviare al server remoto dati duplicati e per poter gestire al meglio l'uso dello spazio di memoria all'interno del filesystem, eliminando i dati già sincronizzati. 
+La black-box è progettata per registrare dati in assenza di connessione WiFi, appena viene rilevata la presenza di una rete, il WiFi di casa ad esempio, essi vengono sincronizzati con il server remoto e vengono aggiornati i campi \textbf{synchronised} delle tabelle in modo tale da non inviare al server remoto dati duplicati e per poter gestire al meglio l'uso dello spazio di memoria all'interno del filesystem, eliminando i dati già sincronizzati. 
 L'unica tabella che non presenta il campo synchronised è quella relativa al tempo di campionamento, utilizzata come tabella di configurazione per la gestione dei tempi di storage relativi ai dati di monitoraggio
 
 \section{Comunicazioni e trasmissione dati}
 \subsection{CAN BUS (Control Area Network)}
 I protocolli di bus governano il \textbf{trasferimento dei pacchetti} lungo la rete del veicolo. Varie sottoreti e centinaia di sensori comunicano su questi sistemi a bus, inviando messaggi che controllano il comportamento del veicolo e le informazioni che la rete "conosce" in ogni dato momento.
 Il bus CAN si trova in una posizione standard su tutti i veicoli, cioè sul connettore OBD-II. I pacchetti che viaggiano sul bus di un veicolo, invece, non sono standardizzati. Le comunicazioni critiche per il veicolo, come la gestione dei giri del motore (RPM) e dei freni, viaggiano su linee di bus ad alta velocità, mentre quelle non critiche, come il blocco delle porte e il controllo A/C, viaggiano su linee di bus a media o bassa velocità.
-\paragraph{Protocollo CAN BUS} CAN (Control Area Network) è un protocollo semplice utilizzato nel settore manifatturiero e automobilistico. I veicoli più recenti sono pieni di piccoli sistemi embedded e di unità di controllo elettronico (ECU) che comunicano tra di loro utilizzando il protocollo CAN. Questo protocollo è stato uno standard delle vetture e dei piccoli autocarri statunitensi dal 1996, ma è stato reso obbligatorio solo nel 2008 (nel 2001 per i veicoli europei). CAN utilizza due cavi a doppino intrecciato: \textbf{CAN high} e \textbf{CAN low} e usa il \textbf{segnale differenziale}, il che significa che, quando arriva un segnale, CAN aumenta la tensione su una linea e riduce quella dell'altra in misura uguale. I sensori e le ECU hanno un ricetrasmettitore che verifica che entrambi i segnali siano innescati; se non lo sono, rifiuta i apcchetti come rumore. 
+\paragraph{Protocollo CAN BUS} CAN (Control Area Network) è un protocollo semplice utilizzato nel settore manifatturiero e automobilistico. I veicoli più recenti sono pieni di piccoli sistemi embedded e di unità di controllo elettronico (ECU) che comunicano tra di loro utilizzando il protocollo CAN. Questo protocollo è stato uno standard delle vetture e dei piccoli autocarri statunitensi dal 1996, ma è stato reso obbligatorio solo nel 2008 (nel 2001 per i veicoli europei) \cite{manualeHacker}. CAN utilizza due cavi a doppino intrecciato: \textbf{CAN high} e \textbf{CAN low} e usa il \textbf{segnale differenziale}, il che significa che, quando arriva un segnale, CAN aumenta la tensione su una linea e riduce quella dell'altra in misura uguale. I sensori e le ECU hanno un ricetrasmettitore che verifica che entrambi i segnali siano innescati; se non lo sono, rifiuta i apcchetti come rumore. 
 
 \begin{figure}[h]
   \centering
@@ -631,7 +634,7 @@ Il bus CAN si trova in una posizione standard su tutti i veicoli, cioè sul conn
 \footnotetext{Presa da: \url{https://farelettronica.it/web/app/uploads/2022/04/02-controller-area-network-ecu-evoque-adam-ali-small.png}}
 
 \paragraph{Il connettore OBD} Molti veicoli sono dotati di un connettore \textbf{OBD-II}, detto anche connettore del collegamento diagnostico (DLC, Diagnostic Link Connector), che comunica con la rete interna del veicolo. Solitamente questo connettore si trova sotto il piantone dello sterzo o nascosto da qualche parte nel cruscotto in una posizione comunque relativamente accessibile.
-La tensione a riposo dei cavi CAN è di 2.5V, quando arriva un segnale, sommerà o sottrarrà 1V (3.5V o 1.5V). I fili CAN attraversano il veicolo e collegano le ECU e altri sensori e sono sempre in coppia. Le connessioni CAN high e CAN low sono presenti sui pin 6 e 14 del connettore OBD-II, come illustrato nella figura sottostante (metti riferimento).
+La tensione a riposo dei cavi CAN è di 2.5V, quando arriva un segnale, sommerà o sottrarrà 1V (3.5V o 1.5V). I fili CAN attraversano il veicolo e collegano le ECU e altri sensori e sono sempre in coppia. Le connessioni CAN high e CAN low sono presenti sui pin 6 e 14 del connettore OBD-II, come illustrato nella figura sottostante \ref{fig:Connettore OBD}. \cite{manualeHacker}
 
 
 \begin{figure}[h]
@@ -678,7 +681,7 @@ Per leggere i messaggi presenti all'interno della rete CAN BUS è necessario di 
 
 \subsection{esp32 - server remoto}
 Quando la black box rileva la presenza di una connessione Internet, si collega ad un server remoto, il quale è sempre in ascolto, per trasmettere dati relativi al monitoraggio, alla segnalazione di allarmi e sulla profilazione del conducente. 
-Nel progetto viene adoperato Netcat, un programma open source a riga di comando di comunicazione remota, utilizzabile sia col protocollo TCP sia col protocollo UDP. Lato server è necessario mettersi in ascolto per ricevere dati al momento di sincronizzazione, dopodichè è possibile redirigere l'output su di un file utilizzato appositamente per la raccolta dati.
+Nel progetto viene adoperato Netcat, un programma open source a riga di comando di comunicazione remota, utilizzabile sia col protocollo TCP sia col protocollo UDP. Lato server è necessario mettersi in ascolto per ricevere dati al momento di sincronizzazione, dopodichè è possibile redirigere l'output su di un file utilizzato appositamente per la raccolta dati. \cite{Netcat}
 
 \chapter{Risultati ottenuti}
 \section{Analisi dei risultati}
@@ -743,26 +746,26 @@ Un'altra funzionalità utile per la profilazione che potrebbe essere implementat
     \item \textbf{Sicurezza stradale}: aumentare la sicurezza stradale, informando il conducente in caso di superamento dei limiti di velocità. 
 \end{itemize}
 
-\subsection{Profilazione conducente lato server remoto}
-Per concludere il nostro studio possiamo affiancare alla capacità della board di valutazione del guidatore, tecniche di Machine Learning relative sia all'apprendimento supervisionato che non supervisionato, consentendoci di esaminare più approfonditamente la natura della nostra flotta. In questo contesto, ci concentreremo su due principali tecniche di Machine Learning: la \textbf{classificazione} e il \textbf{clustering}. La classificazioneci permette di assegnare ai guidatori delle etichette, come ad esempio 'prudente' piuttosto che 'negligente', in base ai loro comportamenti al volante, mentre il clustering ci consente di raggruppare i guidatori in base a similitudini nel comportamento di guida. Esploreremo queste tecniche nel dettaglio, evidenziando le loro applicazioni specifiche e i benefici che possono apportare all'analisi e alla gestione dell'autonoleggio.
+\subsection{Profilazione conducente lato server remoto} 
+Per concludere il nostro studio possiamo affiancare alla capacità della board di valutazione del guidatore, tecniche di Machine Learning relative sia all'apprendimento supervisionato che non supervisionato, consentendoci di esaminare più approfonditamente la natura della nostra flotta. In questo contesto, ci concentreremo su due principali tecniche di Machine Learning: la \textbf{classificazione} e il \textbf{clustering}. La classificazioneci permette di assegnare ai guidatori delle etichette, come ad esempio 'prudente' piuttosto che 'negligente', in base ai loro comportamenti al volante, mentre il clustering ci consente di raggruppare i guidatori in base a similitudini nel comportamento di guida. Esploreremo queste tecniche nel dettaglio, evidenziando le loro applicazioni specifiche e i benefici che possono apportare all'analisi e alla gestione dell'autonoleggio. \cite{wiki:Apprendimento_automatico}
 
 \vspace{0.5cm}
 \paragraph{Machine Learning nell'analisi dei guidatori: applicazioni nel nostro contesto}
 Una volta processati i dati relativi all'analisi di profilazione del guidatore, essi possono essere inviati ad un server remoto. Dopodichè è possibile usare varie tecniche di machine learning di apprendimento supervisionato ad esempio la \textbf{classificazione} o di apprendimento non supervisionato ad esempio il \textbf{clustering}, per assegnare ai clienti dell'autonoleggio una certa etichetta di classificazione o raggrupparli in cluster in modo tale da poter osservare un generale comportamento della flotta.
 
 \paragraph{Apprendimento supervisionato}
-La \textbf{classificazione} è una tecnica di apprendimento supervisionato, l'obiettivo è quello di predire la classe di appartenenza di un'istanza di input in un insieme discreto di classi; ad esempio, classificare se una mail è spam o non, se un paziente è soggetto a diabete o meno e molti altri esempi. Nel nostro caso di studio vorremmo poter classificare i clienti come guidatori prudenti o negligenti in base ai valori di valutazione studiati durante l'analisi di profilazione fatta precedentemente. Questa tecnica di ML prevede la suddivisione dei dati in due insiemi distinti: un insieme di addestramento e un insieme di test. L'insieme di addestramento viene adoperato per addestrare il modello, mentre l'insieme di test viene utilizzato per valutarne le prestazioni su dati non visti. Per addestrare un modello di apprendimento supervisionato, vengono utilizzati diversi algoritmi che si differenziano per tipo di problema e per tipo di dati. Alcuni esempi di algoritmi comuni includono Support Vector Machine (SVM), Random Forest, Decision Tree, Neural Networks e Regressione Lineare. Dopo l'addestramento, il modello viene valutato utilizzando l'insieme di test. Una volta soddisfatti delle prestazioni del modello, esso può essere pubblicato, implementato in un'applicazione o integrato in un sistema più ampio per fare previsioni su nuovi dati. Di seguito un esempio di classificazione binaria: 
+La \textbf{classificazione} è una tecnica di apprendimento supervisionato, l'obiettivo è quello di predire la classe di appartenenza di un'istanza di input in un insieme discreto di classi; ad esempio, classificare se una mail è spam o non, se un paziente è soggetto a diabete o meno e molti altri esempi. Nel nostro caso di studio vorremmo poter classificare i clienti come guidatori prudenti o negligenti in base ai valori di valutazione studiati durante l'analisi di profilazione fatta precedentemente. Questa tecnica di ML prevede la suddivisione dei dati in due insiemi distinti: un insieme di addestramento e un insieme di test. L'insieme di addestramento viene adoperato per addestrare il modello, mentre l'insieme di test viene utilizzato per valutarne le prestazioni su dati non visti. Per addestrare un modello di apprendimento supervisionato, vengono utilizzati diversi algoritmi che si differenziano per tipo di problema e per tipo di dati. Alcuni esempi di algoritmi comuni includono Support Vector Machine (SVM), Random Forest, Decision Tree, Neural Networks e Regressione Lineare. Dopo l'addestramento, il modello viene valutato utilizzando l'insieme di test. Una volta soddisfatti delle prestazioni del modello, esso può essere pubblicato, implementato in un'applicazione o integrato in un sistema più ampio per fare previsioni su nuovi dati \cite{muhammad2015supervised}. Di seguito un esempio di classificazione binaria: 
 
 \begin{figure}[h] \centering
 \includegraphics[width=10cm]{Classificazione.png}
 \caption{Esempio di classificazione binaria che stabilisce se una email è spam o no\protect\footnotemark}
-\label{fig:qualcosa}
+\label{fig:Classificazione binaria}
 \end{figure}
 \footnotetext{Presa da: \url{https://www.andreaminini.com/data/andreaminini/apprendimento-supervisionato-esempio-1.gif}}
 Se nel nostro studio si volesse classificare il guidatore in più classi, prudente, moderato, negligente ad esempio, con lo scopo di stipulare un contratto assicurativo in base allo stile di guida, esiste la classificazione multiclasse dove sono presenti più di due classi possibili tra cui scegliere e dove ogni istanza da classificare può appartenere ad una sola classe tra le possibili.
 
 \paragraph{Apprendimento non supervisionato}
-Il \textbf{clustering} è una tecnica di apprendimento non supervisionato il cui scopo è quello di raggruppare un insieme di oggetti in cluster; gli oggetti dovranno avere un'alta similarità intra-cluster e una bassa inter-cluster. E' una tecnica molto complessa dato che i vari algoritmi imparano osservando i dati e non tramite degli esempi. Grazie a questa tecnica è possibile visualizzare il comportamento dei guidatori della flotta. L'ideale utopico sarebbe quello di avere cluster il cui valore medio che li rappresenta contenga valori di valutazione (quelli citati nella sezione profilazione) ragionevoli o che non si discostino troppo dai valori attesi del guidatore prudente.
+Il \textbf{clustering} è una tecnica di apprendimento non supervisionato il cui scopo è quello di raggruppare un insieme di oggetti in cluster; gli oggetti dovranno avere un'alta similarità intra-cluster e una bassa inter-cluster. E' una tecnica molto complessa dato che i vari algoritmi imparano osservando i dati e non tramite degli esempi. Grazie a questa tecnica è possibile visualizzare il comportamento dei guidatori della flotta. L'ideale utopico sarebbe quello di avere cluster il cui valore medio che li rappresenta contenga valori di valutazione (quelli citati nella sezione profilazione) ragionevoli o che non si discostino troppo dai valori attesi del guidatore prudente \cite{popat2014review}.
 
 \vspace{0.5cm}
 Di seguito vengono suggerite alcune tecniche che potrebbero essere utilizzate per clusterizzare i propri clienti: 
@@ -779,7 +782,7 @@ Il clustering partizionale è la tecnica più comunemente utilizzata tra gli alg
 \begin{figure}[h] \centering
 \includegraphics[width=8cm]{C_Partizionale.png}
 \caption{K-means usato per la classificazione di 3 partizioni\protect\footnotemark}
-\label{fig:qualcosa}
+\label{fig:esempio k-means}
 \end{figure}
 \footnotetext{Presa da: \url{https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/KMeans-Gaussian-data.svg/1280px-KMeans-Gaussian-data.svg.png}}
 
@@ -791,7 +794,7 @@ Una gerarchia di cluster può essere interpretata come un albero binario standar
 \begin{figure}[h] \centering
 \includegraphics[width=8cm]{C_Gerarchico1.png}
 \caption{Esempio di dendogramma\protect\footnotemark}
-\label{fig:qualcosa}
+\label{fig:esempio di clustering gerarchico}
 \end{figure}
 \footnotetext{Presa da: \url{https://www.developersmaggioli.it/wp-content/uploads/2019/06/images.png}}
 
@@ -800,7 +803,7 @@ Una gerarchia di cluster può essere interpretata come un albero binario standar
 \begin{figure}[h] \centering
 \includegraphics[width=8cm]{C_Gerarchico2.png}
 \caption{Esempio di dendogramma con tagli gerarchici\protect\footnotemark}
-\label{fig:qualcosa}
+\label{fig:esempio dendogramma}
 \end{figure}
 \footnotetext{Presa da: \url{https://www.researchgate.net/profile/Emanuele-Lo-Biundo/publication/344452675/figure/fig7/AS:942183599325184@1601645483382/Figura-23-Esempio-di-clustering-gerarchico-su-8-osservazioni.ppm}}
 
@@ -810,7 +813,7 @@ Gli algoritmi di clustering basati sulla densità sono ideati per la creazione d
 \begin{figure}[h] \centering
 \includegraphics[width=8cm]{C_Density.png}
 \caption{Esempio DBSCAN\protect\footnotemark}
-\label{fig:qualcosa}
+\label{fig:density clustering}
 \end{figure}
 \footnotetext{Presa da: \url{https://www.researchgate.net/profile/Emanuele-Lo-Biundo/publication/344452675/figure/fig7/AS:942183599325184@1601645483382/Figura-23-Esempio-di-clustering-gerarchico-su-8-osservazioni.ppm}}
 
