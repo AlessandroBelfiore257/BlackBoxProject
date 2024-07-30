@@ -1,6 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[12pt, a4paper, italian]{report}
-\usepackage{template}
+\usepackage{template}  % Assicurati che questo pacchetto esista e non crei conflitti
+
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{tikz}
 \usepackage{tocloft}
@@ -45,7 +46,6 @@
 % Package di formato
 \usepackage[a4paper]{geometry}		% Formato del foglio
 \usepackage[italian]{babel}			% Supporto per l'italiano
-\usepackage[utf8]{inputenc}			% Supporto per UTF-8
 \usepackage{lscape}
 %\usepackage[a-1b]{pdfx}			% File conforme allo standard PDF-A (obbligatorio per la consegna)
 
@@ -64,26 +64,25 @@
 % Package tipografici
 \usepackage{lmodern,textcomp}		% Latin Modern font
 \usepackage{amssymb,amsmath,amsthm} % Simboli matematici
-\usepackage{listings}				% Scrittura di codice
-\usepackage{minted}                 % Scrittura di codice
 
-% Sistema note a pié di pagina nelle tabelle
+% Sistema note a pié di pagina nelle tabelle e nelle figure
 \usepackage{footnote}
 \makesavenoteenv{tabular}
 \makesavenoteenv{table}
+\makesavenoteenv{figure}
 
 % Package ipertesto
-\usepackage{url}					% Visualizza e rendere interattii gli URL
+\usepackage{url}					% Visualizza e rende interattivi gli URL
 \usepackage{hyperref}				% Rende interattivi i collegamenti interni
 
 % Path immagini
 \graphicspath{ {./images/} }
 
+% Configurazione dei piè di pagina
 \usepackage{fancyhdr}  % Per configurare intestazioni e piè di pagina
 \pagestyle{fancy}
 \fancyhf{}
 \fancyfoot[C]{\thepage}  % Piè di pagina centrato con numero di pagina
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setlength {\marginparwidth }{2cm}
 \begin{document}
@@ -342,6 +341,7 @@ Di seguito verranno proposte le dinamiche delle situazioni per le quali viene at
 \end{itemize}
 
 \section{Profilazione del comportamento del guidatore}
+\label{sec:AnalisiProfilazione}
 Nel quadro del progetto dell'analisi della profilazione guida, sfruttiamo tecnologie di acquisizione dati per ottenere una comprensione dettagliata del comportamento del guidatore. A tale scopo, viene fatto uso di due principali fonti di informazioni: i \textbf{dati provenienti dal sistemna diagnostico di bordo OBD-II} e quelli registarti da un \textbf{accelerometro}. Questi dispositivi forniscono una vasta gamma di dati in tempo reale, quali ad esempio velocità, accelerazione, decelerazione (frenata) e angoli di sterzata, consentendo di valutare numerosi aspetti relativi alla guida. Attraverso l'analisi approfondita di tali dati, siamo in grado di creare profili individuali dei guidatori e identificare modelli di comportamento distintivi che influenzano la sicurezza, l'efficienza e l'affidabilità del veicolo. Nel corso di questo paragrafo esploreremo come l'integrazione di queste tecnologie ci permetta di ottenere informazioni preziose per migliorare l'esperienza di guida e ottimizzare le operazioni di gestione della flotta.
 
 \vspace{1cm} 
@@ -616,6 +616,7 @@ Il campo \textbf{lastStorage} indica il momento in cui è stato memorizzato il v
 Il campo \textbf{soglia} indica il numero massimo di rilevamenti per ciascun tipo di problema, se il sistema black-box continua a rilevare il problema e la soglia viene superata, allora viene aggiornato il campo \textbf{daMandare}, indicante che l'informazione deve arrivare al server remoto.
 
 \subsection{Sincronizzazione}
+\label{sec:Sincronizzazione}
 La black-box è progettata per registrare dati in assenza di connessione WiFi, appena viene rilevata la presenza di una rete, il WiFi di casa ad esempio, essi vengono sincronizzati con il server remoto e vengono aggiornati i campi \textbf{synchronised} delle tabelle in modo tale da non inviare al server remoto dati duplicati e per poter gestire al meglio l'uso dello spazio di memoria all'interno del filesystem, eliminando i dati già sincronizzati. 
 L'unica tabella che non presenta il campo synchronised è quella relativa al tempo di campionamento, utilizzata come tabella di configurazione per la gestione dei tempi di storage relativi ai dati di monitoraggio
 
@@ -692,8 +693,8 @@ Un altro componente non installato nel sistema attuale è il \textbf{modulo GSM 
 L'installazione del modulo GSM può essere facilmente eseguito seguendo due approcci: 
 
 \begin{itemize}
-    \item \textbf{Modulo separato}: un modulo GSM con relativa antenna può essere facilmente aggiunto al sistema esistente. Questi moduli sono ampiamente disponibili e possono essere integrati con l'ESP32 attraverso interfacce standard (metti riferimento alla figura sotto).
-    \item \textbf{Modulo integrato}: esistono versioni dell'ESP32 che includono un modulo GSM integrato, semplificando ulteriormente l'implementazione di questa funzionalità senza la necessità di componenti aggiuntivi (metti riferimento alla figura sotto).
+    \item \textbf{Modulo separato}: un modulo GSM con relativa antenna può essere facilmente aggiunto al sistema esistente. Questi moduli sono ampiamente disponibili e possono essere integrati con l'ESP32 attraverso interfacce standard, vedi figura  \ref{fig:modulo_gsm}.
+    \item \textbf{Modulo integrato}: esistono versioni dell'ESP32 che includono un modulo GSM integrato, semplificando ulteriormente l'implementazione di questa funzionalità senza la necessità di componenti aggiuntivi, vedi figura \ref{fig:esp32_gsm}.
 \end{itemize}
 
 \begin{figure}[h]
@@ -715,8 +716,8 @@ L'installazione del modulo GSM può essere facilmente eseguito seguendo due appr
 \chapter{Conclusioni}
 \section{Problemi aperti}
 \paragraph{Problema di decremento dello spazio di storage}
-Nel sistema black box sono presenti due task di pulizia della memoria (fai riferimento a testo precedente), uno di routine che pulisce i record già sincronizzati ed uno che pulisce i record sincronizzati e non se viene superata una soglia massima di occupazione del filesystem (90\%) che elimina la metà dei record di monitoraggio più datati. Il problema riscontrato risale a quest'ultimo task. Lo spazio di storage man mano che vengono memorizzati record aumenta in modo corretto, tuttavia a seguito delle operazioni di pulizia dei record effettuate dal task di routin che rimuove dalla tabella di monitoraggio i record già sincronizzati, lo spazio di storage non si decrementa come previsto. Tale problema persiste anche dopo aver tentato di utilizzare un particolare comendo \textbf{VACUUM}, che solitamente dovrebbe riorganizzare il database e liberare lo spazio inutilizzato. 
-Il secondo task di pulizia, che riguarda il monitoraggio della capacità di memoria del filesystem e l'eliminazione dei record meno recenti, non è stato implementato nel codice.
+Nel sistema black-box sono presenti due task che hanno il compito di ripulire la memoria del microcontrollore, vedi paragrafo \ref{sec:Sincronizzazione}, uno di routine che elimina i record già sincronizzati ed uno che elimina i record se viene superata una soglia massima di occupazione del filesystem (90\%), eliminando la metà dei record di monitoraggio meno recenti. Il problema riscontrato risale a quest'ultimo task. Lo spazio di storage man mano che vengono memorizzati record aumenta in modo corretto, tuttavia a seguito delle operazioni di pulizia dei record effettuate dal task di routine che rimuove dalla tabella di monitoraggio i record già sincronizzati, lo spazio di storage non diminuisce come previsto. Tale problema persiste anche dopo aver tentato di utilizzare un particolare comando \textbf{VACUUM}, che solitamente dovrebbe riorganizzare il database e liberare lo spazio inutilizzato. 
+Tale task di pulizia, che riguarda il monitoraggio della capacità di memoria del filesystem e l'eliminazione dei record meno recenti, non è stato implementato nel codice.
 
 \section{Sviluppi futuri}
 \subsection{Memoria}
@@ -731,11 +732,11 @@ Negli sviluppi futuri del progretto, un'area di miglioramento fondamentale è l'
 \footnotetext{Presa da: \url{https://www.electronicwings.com/storage/PlatformSection/TopicContent/452/description/MicroSD.jpg}}
 
 \paragraph{Maggiore spazio di storage per il monitoraggio del veicolo} 
-Uno dei limiti attuali dell'ESP32 è la sua capacità di storage relativamente limitata, che può rappresentare un ostacolo nel contesto del monitoraggio continuo dei dati del veicolo. L'integrazione di una memoria esterna, come una scheda microSD o modulo di memoria flash, può aumentare notevolmente la quantità di dati che possono essere registrati e memorizzati. Questo incremento di capacità di storage consente di:
+Uno dei limiti attuali dell'ESP32 è la sua capacità di storage relativamente limitata (4MB), che può rappresentare un ostacolo nel contesto del monitoraggio continuo dei dati del veicolo. L'integrazione di una memoria esterna, come una scheda microSD o modulo di memoria flash, può aumentare notevolmente la quantità di dati che possono essere registrati e memorizzati. Questo incremento di capacità di storage consente di:
 
 \begin{itemize}
     \item \textbf{Monitoraggio continuo}: registrare dati continuamente per periodi più estesi senza preoccuparsi di esaurire lo spazio disponibile.
-    \item \textbf{Sincronizzazione rara con il server remoto}: ridurre la necessità di sincronizzare frequentemente i dati raccolti con un server centrale. I dati possono essere raccolti e conservati localmente per lunghi periodi e sincronizzati solo quando una rete WiFi stabile è disponibile.
+    \item \textbf{Sincronizzazione rara con il server remoto}: ridurre la necessità di sincronizzare frequentemente i dati raccolti con un server centrale. I dati possono essere raccolti e conservati localmente per lunghi periodi e sincronizzati solo quando una rete WiFi stabile è disponibile. Attualmente il sistema prevede la sincronizzazione una volta al giorno, anche se è possibile sincronizzare più raramente.
 \end{itemize}
 
 \paragraph{Caricamento di mappe per il rispetto dei limiti di velocità} 
@@ -754,7 +755,7 @@ Per concludere il nostro studio possiamo affiancare alla capacità della board d
 Una volta processati i dati relativi all'analisi di profilazione del guidatore, essi possono essere inviati ad un server remoto. Dopodichè è possibile usare varie tecniche di machine learning di apprendimento supervisionato ad esempio la \textbf{classificazione} o di apprendimento non supervisionato ad esempio il \textbf{clustering}, per assegnare ai clienti dell'autonoleggio una certa etichetta di classificazione o raggrupparli in cluster in modo tale da poter osservare un generale comportamento della flotta.
 
 \paragraph{Apprendimento supervisionato}
-La \textbf{classificazione} è una tecnica di apprendimento supervisionato, l'obiettivo è quello di predire la classe di appartenenza di un'istanza di input in un insieme discreto di classi; ad esempio, classificare se una mail è spam o non, se un paziente è soggetto a diabete o meno e molti altri esempi. Nel nostro caso di studio vorremmo poter classificare i clienti come guidatori prudenti o negligenti in base ai valori di valutazione studiati durante l'analisi di profilazione fatta precedentemente. Questa tecnica di ML prevede la suddivisione dei dati in due insiemi distinti: un insieme di addestramento e un insieme di test. L'insieme di addestramento viene adoperato per addestrare il modello, mentre l'insieme di test viene utilizzato per valutarne le prestazioni su dati non visti. Per addestrare un modello di apprendimento supervisionato, vengono utilizzati diversi algoritmi che si differenziano per tipo di problema e per tipo di dati. Alcuni esempi di algoritmi comuni includono Support Vector Machine (SVM), Random Forest, Decision Tree, Neural Networks e Regressione Lineare. Dopo l'addestramento, il modello viene valutato utilizzando l'insieme di test. Una volta soddisfatti delle prestazioni del modello, esso può essere pubblicato, implementato in un'applicazione o integrato in un sistema più ampio per fare previsioni su nuovi dati \cite{muhammad2015supervised}. Di seguito un esempio di classificazione binaria: 
+La \textbf{classificazione} è una tecnica di apprendimento supervisionato, l'obiettivo è quello di predire la classe di appartenenza di un'istanza di input in un insieme discreto di classi; ad esempio, classificare se una mail è spam o non, se un paziente è soggetto a diabete o meno e molti altri esempi. Nel nostro caso di studio vorremmo poter classificare i clienti come guidatori prudenti o negligenti in base ai valori di valutazione studiati durante l'analisi di profilazione fatta precedentemente \ref{sec:AnalisiProfilazione}. Questa tecnica di ML prevede la suddivisione dei dati in due insiemi distinti: un insieme di addestramento e un insieme di test. L'insieme di addestramento viene adoperato per addestrare il modello, mentre l'insieme di test viene utilizzato per valutarne le prestazioni su dati non visti. Per addestrare un modello di apprendimento supervisionato, vengono utilizzati diversi algoritmi che si differenziano per tipo di problema e per tipo di dati. Alcuni esempi di algoritmi comuni includono Support Vector Machine (SVM), Random Forest, Decision Tree, Neural Networks e Regressione Lineare. Dopo l'addestramento, il modello viene valutato utilizzando l'insieme di test. Una volta soddisfatti delle prestazioni del modello, esso può essere pubblicato, implementato in un'applicazione o integrato in un sistema più ampio per fare previsioni su nuovi dati \cite{muhammad2015supervised}. Di seguito un esempio di classificazione binaria: 
 
 \begin{figure}[h] \centering
 \includegraphics[width=10cm]{Classificazione.png}
@@ -765,10 +766,10 @@ La \textbf{classificazione} è una tecnica di apprendimento supervisionato, l'ob
 Se nel nostro studio si volesse classificare il guidatore in più classi, prudente, moderato, negligente ad esempio, con lo scopo di stipulare un contratto assicurativo in base allo stile di guida, esiste la classificazione multiclasse dove sono presenti più di due classi possibili tra cui scegliere e dove ogni istanza da classificare può appartenere ad una sola classe tra le possibili.
 
 \paragraph{Apprendimento non supervisionato}
-Il \textbf{clustering} è una tecnica di apprendimento non supervisionato il cui scopo è quello di raggruppare un insieme di oggetti in cluster; gli oggetti dovranno avere un'alta similarità intra-cluster e una bassa inter-cluster. E' una tecnica molto complessa dato che i vari algoritmi imparano osservando i dati e non tramite degli esempi. Grazie a questa tecnica è possibile visualizzare il comportamento dei guidatori della flotta. L'ideale utopico sarebbe quello di avere cluster il cui valore medio che li rappresenta contenga valori di valutazione (quelli citati nella sezione profilazione) ragionevoli o che non si discostino troppo dai valori attesi del guidatore prudente \cite{popat2014review}.
+Il \textbf{clustering} è una tecnica di apprendimento non supervisionato il cui scopo è quello di raggruppare un insieme di oggetti in cluster; gli oggetti dovranno avere un'alta similarità intra-cluster e una bassa inter-cluster. E' una tecnica molto complessa dato che i vari algoritmi imparano osservando i dati e non tramite degli esempi. Grazie a questa tecnica è possibile visualizzare il comportamento dei guidatori della flotta. L'ideale utopico sarebbe quello di avere cluster il cui valore medio che li rappresenta contenga valori di valutazione, quelli citati nella sezione relativa alla profilazione, ragionevoli o che non si discostino troppo dai valori attesi del guidatore prudente.
 
 \vspace{0.5cm}
-Di seguito vengono suggerite alcune tecniche che potrebbero essere utilizzate per clusterizzare i propri clienti: 
+Di seguito vengono suggerite alcune tecniche che potrebbero essere utilizzate per clusterizzare i propri clienti \cite{popat2014review}: 
 
 \begin{itemize}
     \item Clustering partizionale
@@ -777,7 +778,7 @@ Di seguito vengono suggerite alcune tecniche che potrebbero essere utilizzate pe
 \end{itemize}
 
 \paragraph{Clustering partizionale} 
-Il clustering partizionale è la tecnica più comunemente utilizzata tra gli algoritmi di clusterizzazione. Questi algoritmi lavorano per minimizzare un determinato criterio di clustering, spostando iterativamente i punti dati tra i cluster fino a raggiungere una partizione ottimale. Questo approccio suddivide gli oggetti in K partizioni, ognuna delle quali rappresenta un cluster. La suddivisione avviene in base ad una specifica funzione obiettivo. I cluster vengono formati per ottimizzare un criterio di partizionamento definito, come una funzione di dissimilarità basata sulla distanza, in modo che gli oggetti all'interno di un cluster siano considerati "simili", mentre quelli in cluster diversi siano considerati "dissimili". I metodi di clustering partizionale sono particolarmente adatti per applicazioni in cui è richiesto un numero predefinito di cluster, alcuni esempi di algoritmi di clusterin g includono K-means, PAM (Partition Around Medoids) e Clara.
+Il clustering partizionale è la tecnica più comunemente utilizzata tra gli algoritmi di clusterizzazione. Questi algoritmi lavorano per minimizzare un determinato criterio di clustering, spostando iterativamente i punti dati tra i cluster fino a raggiungere una partizione ottimale. Questo approccio suddivide gli oggetti in K partizioni, ognuna delle quali rappresenta un cluster. La suddivisione avviene in base ad una specifica funzione obiettivo. I cluster vengono formati per ottimizzare un criterio di partizionamento definito, come una funzione di dissimilarità basata sulla distanza, in modo che gli oggetti all'interno di un cluster siano considerati "simili", mentre quelli in cluster diversi siano considerati "dissimili". I metodi di clustering partizionale sono particolarmente adatti per applicazioni in cui è richiesto un numero predefinito di cluster, alcuni esempi di algoritmi di clustering includono K-means, PAM (Partition Around Medoids) e Clara.
 
 \begin{figure}[h] \centering
 \includegraphics[width=8cm]{C_Partizionale.png}
@@ -787,7 +788,7 @@ Il clustering partizionale è la tecnica più comunemente utilizzata tra gli alg
 \footnotetext{Presa da: \url{https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/KMeans-Gaussian-data.svg/1280px-KMeans-Gaussian-data.svg.png}}
 
 \paragraph{Clustering gerarchico} 
-Gli algoritmi di clustering gerarchico dividono o uniscono un dataset in una sequenza di partizioni nidificate. La gerarchia delle partizioni nidificate può essere agglomerativa (bottum-up) o divisiva (top-down). Nel metodo agglomerativa, il clustering inizia con ogni singolo oggetto in un singolo cluster e continua a raggruppare le coppie di cluster più vicine fino a quando tutti gli oggetti sono insieme in un unico cluster. Il clustering gerarchico divisivo, d'altra parte, inizia con tutti gli oggetti in un singolo cluster e continua a dividere i cluster più grandi in cluster più piccoli fino a quando tutti gli oggetti sono separati in cluste unitari. Entrambi i metodi grarchici mostrano il modo naturale di rappresentare i cluster, chiamato dendogramma. Esempi di questi algoritmi sono Rock, Birch (Balance Iterative Reducing and Clustering using Hierarchies), Cure (Cluster Using Representatives)
+Gli algoritmi di clustering gerarchico dividono o uniscono un dataset in una sequenza di partizioni nidificate. La gerarchia delle partizioni nidificate può essere agglomerativa (bottum-up) o divisiva (top-down). Nella metodologia agglomerativa, il clustering inizia con ogni singolo oggetto in un singolo cluster e continua a raggruppare le coppie di cluster più vicine fino a quando tutti gli oggetti sono insieme in un unico cluster. Il clustering gerarchico divisivo, d'altra parte, inizia con tutti gli oggetti in un singolo cluster e continua a dividere i cluster più grandi in cluster più piccoli fino a quando tutti gli oggetti sono separati in cluste unitari. Entrambi i metodi gerarchici possono essere rappresentati naturalmente da un dendogramma, che illustra la struttura dei cluster. Esempi di questi algoritmi sono Rock, Birch (Balance Iterative Reducing and Clustering using Hierarchies), Cure (Cluster Using Representatives)
 
 Una gerarchia di cluster può essere interpretata come un albero binario standard in cui la radice rappresenta tutti gli insiemi di oggetti dati da clusterizzare che formano il livello più alto della gerarchia (livello 0). Ad ogni livello, i nodi che sono il sottoinsieme dell'intero dataset corrispondono al cluster. Gli elementi in ciascuno di questi cluster possono essere determinati attraverso l'attraversamento dell'albero dal nodo del cluster corrente alla base singleton, rappresentata dalle foglie dell'albero. Questa gerarchia di cluster è chiamata dendogramma. Il vantaggio fondamentale di avere un metodo di clustering gerarchico è che consente di tagliare la gerarchia al livello desiderato e questa caratteristica lo rende diversamente diverso dagli altri algoritmi di clustrering. Esistono diversi algoritmi di clustering gerarchico agglomerativo che utilizzano misure di similarità diverse e quindi, basati su questo, sono presenti differenti algoritmi di clustering agglomerativo: linkage singolo, linkage completo, linkage medio di gruppo, linkage del centroide, criterio di Ward.
 
@@ -817,18 +818,19 @@ Gli algoritmi di clustering basati sulla densità sono ideati per la creazione d
 \end{figure}
 \footnotetext{Presa da: \url{https://www.researchgate.net/profile/Emanuele-Lo-Biundo/publication/344452675/figure/fig7/AS:942183599325184@1601645483382/Figura-23-Esempio-di-clustering-gerarchico-su-8-osservazioni.ppm}}
 
-Per concludere lo schema (metti riferimento immagine) indica che con la black box è possibile sfruttare la capacità valutativa della board, la quale è in grado di generare uno score del guidatore e di giudicarlo in base a questo, la possibilità di classificarlo utilizzando tecniche di machine learning o la possibilità di utilizzare entrambe le tecniche per avere un quadro completo relativo al suo stile di guida.
+\vspace{2cm}
+Per concludere lo schema rappresentato a figura \ref{fig:ProfilazioneML} indica che con la black-box è possibile sfruttare la capacità valutativa della board, la quale è in grado di generare uno score del guidatore e di giudicarlo in base a questo, la possibilità di classificarlo utilizzando tecniche di machine learning o la possibilità di utilizzare entrambe le tecniche per avere un quadro completo relativo al suo stile di guida.
 
-\vspace{1cm}
+\vspace{0.5cm}
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[node distance=2cm]
 
 % Definizione dei nodi
 \node (ecu) [process] {ECU};
-\node (obd) [process, below of=ecu] {OBD-II Adapter};
-\node (profiling) [process, below of=obd] {Driver Profiling};
-\node (score) [process, below of=profiling, xshift=-3.5cm] {Score obtained by Board};
+\node (obd) [process, below of=ecu] {OBD-II adapter};
+\node (profiling) [process, below of=obd] {Driver profiling};
+\node (score) [process, below of=profiling, xshift=-3.5cm] {Score obtained by board};
 \node (ml) [process, below of=profiling, xshift=3.5cm] {Machine Learning technique};
 
 % Connessione tra i nodi
@@ -838,8 +840,8 @@ Per concludere lo schema (metti riferimento immagine) indica che con la black bo
 \draw [arrow] (profiling) -- (ml);
 
 \end{tikzpicture}
-\caption{Diagramma di flusso del sistema di profilazione conducente}
-\label{fig:flowchart}
+\caption{Diagramma di flusso del sistema di profilazione conducente: la board è in grado di attribuire un voto al conducente, è inoltre possibile affiancare a questa capacità delle tecniche di machine learning adoperate per classificare lo stile di guida dei diversi clienti della flotta}
+\label{fig:ProfilazioneML}
 \end{figure}
 
 \printbibliography[title={Bibliografia}]
