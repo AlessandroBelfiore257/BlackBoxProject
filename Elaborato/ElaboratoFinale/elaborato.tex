@@ -164,7 +164,7 @@ L'importanza di una black box è data dai benefici che si possono trarre da essa
     \item \textbf{Assistenza rapida}: in caso di incidente, la scatola nera può inviare automaticamente la posizione ai servizi di emergenza, riducendo i tempi di risposta.
     \item \textbf{Recupero dei veicoli rubati}: la localizzazione GPS permette di tracciare e recuperare rapidamente veicoli rubati.
     \item \textbf{Polizze assicurative personalizzate}: le compagnie assicurative possono utilizzare i dati registrati per profilare meglio i clienti e offrire polizze personalizzate basate sul comportamento di guida e sull'uso del veicolo.
-    \item \textbf{Miglioramento della sicurezza}: i dati raccolti possono essere utilizzati per educare i conducenti su comportamenti di guida sicuri, contribuendo a ridurre il rischio di incidenti.
+    \item \textbf{Miglioramento della sicurezza}: i dati raccolti possono essere utilizzati per educare i conducenti su comportamenti di guida sicuri, contribuendo a ridurre il rischio di incidenti. Un’indagine dell’ANIA (Associazione Nazionale delle Imprese Assicurative) ha stabilito che chi installa la black box ha una condotta di guida più responsabile \cite{diminuzioneIncidenti}, un comportamento che quindi fa diminuire la probabilità di provocare sinistri. Lo studio ha rilevato una riduzione della sinistrosità per i veicoli controllati dal congegno quasi doppia rispetto a quella delle auto che non montano il sistema di sorveglianza. 
 \end{itemize}
 \section{Obiettivi del progetto}
 Il principale obiettivo di questo progetto è sviluppare una black box avanzata per veicoli appartenenti ad una flotta di autonoleggio a lungo termine, che si distingua dalle soluzioni tradizionali per la sua capacità di diagnosticare sia il veicolo sia il comportamento del conducente. Le tradizionali black box non solo registrano i dati di viaggio e monitorano le condizioni del veicolo, ma svolgono anche funzioni fondamentali come il monitoraggio costante del veicolo, il tracciamento degli incidenti e la richiesta automatica di assistenza in caso di emergenza. La nostra black box, oltre a queste funzionalità di base, introduce due caratteristiche innovative che ne ampliano ulteriormente le potenzialità.
@@ -182,9 +182,37 @@ La \textbf{seconda caratteristica innovativa} è la generazione automatica di un
 Il progetto mira a creare una black box che non solo registra e monitora i dati di viaggio e le condizioni del veicolo, ma offre anche un sistema di diagnostica integrato in grado di riconoscere comportamenti inappropriati del conducente ed in grado di valutarlo in base al suo stile di guida; migliorando la sicurezza e l’efficienza del veicolo e contribuendo ad una guida più responsabile e consapevole.
 
 \chapter{Stato dell'arte}
-\section{Tecnologie attuali di monitoraggio e tracking per veicoli}
-\section{Gestione delle emergenze e sistemi di allarmi in uso}
+La \textbf{scatola nera}, chiamata anche black-box o EDR, acronimo per Event Data Recorder o, in italiano, registratore di dati di evento, è un dispositivo che registra e trasmette la propria posizione ai satelliti a cui è collegata e altre informazioni come la velocità, le accelerazioni, le decelerazioni, le frenate e la frequenza di attivazione dei sistemi di sicurezza a una centrale operativa.
+Quelle che sono comunemente indicate come "scatole nere" sono localizzatori satellitari GPS installati a bordo dell'auto, nate come strumento, ideato dalle assicurazioni, per ridurre le \textbf{frodi assicurative}.
+\section{Gestioni attuali di tracking per veicoli}
+Unico beneficio del tracking del veicolo è che, grazie al localizzatore GPS, risulta utile in caso di furto: il sistema satellitare facilita il rintracciamento del veicolo qualora venga rubato. Naturalmente il localizzatore GPS gioca un ruolo importante anche nella gestione di un incidente, infatti ne verrà parlato nel prossimo paragrafo.
+\section{Gestioni attuali delle emergenze e dei sistemi di allarmi in uso}
+\subsection{Vantaggi e Svantaggi nella gestione delle emergenze}
+\subsubsection{Vantaggi}
+Grazie all'installazione di una black-box sul proprio veicolo e al monitoraggio continuo e tracking di esso, è possibile, in caso di incidente, visualizzare il luogo dell'accaduto immediatamente e ricostruire con precisione la dinamica degli incidenti stradali. Tramite questo strumento le compagnie assicurative sono in grado di ricostruire più facilmente la dinamica di un sinistro stradale. Questo non solo avvantaggia la compagnia, ma anche il guidatore, che vedrà diminuire il tempo per ottenere il risarcimento del danno dato che grazie alla black-box è possibile evitare le lunghe procedure per l'accertamento delle responsabilità in un incidente.
+\subsubsection{Svantaggi}
+Le black-box attuali sono in grado di registrare anche la velocità del veicolo: in un ipotetico incidente, senza alcun tipo di colpa, se fosse stata registrata una velocità anche poco sopra al limite, si potrebbe riconoscere al guidatore una piccola parte di responsabilità nel sinistro.
+
+\vspace{1cm}
+
+Nei vari contratti di noleggio \cite{hertz_pdf} vengono proposti dei termini e delle condizioni sull'utilizzo dell'autovettura, quali ad esempio non utilizzare il veicolo: 
+\begin{itemize}
+    \item  sotto l'influsso di alcool.
+    \item da persone sprovviste di patente o con validità scaduta.
+    \item fuori strada o su strade inadatte.
+    \item per recarsi all'estero salva preventiva autorizzazione concessa dal noleggiante.
+    \item per trainare o spingere qualsiasi altro veicolo, rimorchio o altro oggetto senza consenso del noleggiatore.
+\end{itemize}
+Tutti questi obblighi vengono citati all'interno del contratto assicurativo, non è possibile però stabilire se uno tra questi divieti non dovesse essere rispettato.
+
 \section{Soluzioni esistenti per la profilazione guidatori}
+Alcune grandi compagnie di assicurazioni, quali ad esempio \textbf{Generali}, propongono il \textbf{servizio stile di guida} che permette di ottenere ulteriori sconti sulla polizza negli anni a seguire \cite{Generali}. Tengo a precisare la parola "ulteriori" dato che già l'installazione di una black-box prevede uno sconto, compreso tra il 15/20\%, sul totale dell'assicurazione.
+
+\section{Trattamento dei dati personali registrati}
+Il Regolamento europeo vieta espressamente che la scatola nera registri conversazioni o usi i dati sensibili del guidatore, consentendo così l’anonimato del conducente e l’accesso ai dati solo in caso di collisione \cite{RegolamentoEU}.
+
+\section{Quanto è comune la scatola nera in Italia?}
+L'uso della scatola nera in Italia inizia ad essere rilevante. Il trend di crescita non si è mai interrotto negli ultimi 10 anni e la percentuale di auto dotate di black-box sono passate dal 6\% del 2013 al 23,2\% del 2020 (primo semestre)  \cite{Telepass}. Uno dei principali motivi di tale gradimento sono gli sconti sulle teriffe delle varie assicurazioni. I dati del 2021 del report IVASS confermano una diffusione più alta nei centri urbani del Sud Italia, come Caserta (65,5\%), Napoli (52,5\%) e Reggio Calabria (38,6\%). Le percentuali calano sotto il 10\% nelle città e nelle province del Nord come Udine (9\%), Trento (8\%), Belluno (7,3\%) e Bolzano (4,4\%).
 
 \chapter{Funzionalità del sistema}
 \section{Monitoraggio}
