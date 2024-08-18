@@ -714,6 +714,52 @@ Nel progetto viene adoperato Netcat, un programma open source a riga di comando 
 
 \chapter{Risultati ottenuti}
 \section{Analisi dei risultati}
+Sono state condotte analisi relative alla segnalazione di allarmi e alla profilazione guida. Le prime sono state verificate in modo tale da far sollecitare il task relativo al rilevamento della situazione anomala e verificare che venga esibito sul display lcd il relativo avviso di pericolo, o la relativa notofica di comportamento errato, e verificato ulteriormente che al server fossero arrivate le opportune notifiche. 
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=8cm]{fumoLCD.png}
+  \caption{Display presente sulla black box che notifica al guidatore il fatto di aver rilevato una presenza di fumo nell'abitacolo}
+  \label{fig:fumoLCD}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=14cm]{fumoServer.jpg}
+  \caption{Esempio di notifica ricevuta dal server remoto a seguito aver rilevato più volte la presenza di fumo nell'abitacolo}
+  \label{fig:fumoServer}
+\end{figure}
+
+Per quanto riguarda la profilazione guida sono state simulate 3 guide da 20 min ciascuna. Per ogni guida sono stati modificati i parametri relativi alla profilazione del guidatore così da poter distinguere ciascuna di esse in 3 diverse categorie: guida \textbf{brusca, intermedia e moderata}. I parametri che sono stati simulati sono: accelerometria lungo i due assi x e y, i giri motore (rpm), la velocità del veicolo (kph), la posizione della valvola a farfalla e il carico motore. 
+
+\begin{table}[h!]
+  \centering 
+  \begin{adjustbox}{max width=\textwidth}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+      \hline
+      \textbf{Stile guida} & \textbf{acc. asse x} & \textbf{acc. asse y} & \textbf{rpm} & \textbf{kph} & \textbf{throttle} & \textbf{engine load} & \textbf{voto} \\
+      \hline
+      Brusco & $[4,9] \ \text{m/s}^2$ & $[4,9] \ \text{m/s}^2$ & $[4000,8000] \ \text{giri/min}$ & $[110,220] \ \text{km/h}$ & $[50,100] \%$ & $[40,100] \%$  & 0.73\\
+      \hline
+      Intermedio & $[0,9] \ \text{m/s}^2$ & $[0,9] \ \text{m/s}^2$ & $[750,8000] \ \text{giri/min}$ & $[0,220] \ \text{km/h}$ & $[0,100] \%$ & $[0,100] \%$  & 0.66\\
+      \hline
+      Moderato & $[0,4] \ \text{m/s}^2$ & $[0,4] \ \text{m/s}^2$ & $[750,4000] \ \text{giri/min}$ & $[0,110] \ \text{km/h}$ & $[20,70] \%$ & $[10,50] \%$  & 0.40\\
+      \hline
+    \end{tabular}
+  \end{adjustbox}
+  \caption{Tabella rappresentante i range dei valori dei parametri utili alla profilazione del conducente, rappresentanti diversi stili di guida con relativa attribuzione del voto.}
+  \label{tab:stili_di_guida}
+\end{table}
+
+Per concludere questo paragrafo di seguito saranno presentati i dati di monitoraggio, segnalazione di allarmi e profilazione guida ricevuti dal server a seguito di una sincronizzazione:
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=16cm]{datiServer.png}
+  \caption{Ricezione dati lato server}
+  \label{fig:datiServer}
+\end{figure}
+
 \section{Comportamenti non implementati}
 Alcuni comportamenti relativi alla segnalazione di allarmi critici e non non sono stati implementati. Questi riguardano la gestione degli allarmi relativi al \textbf{consumo anomalo di carburante} e alla \textbf{distanza di frenata anomala} per quanto riguarda gli allarmi critici, il \textbf{rilevamento della presenza di fumo} per quanto riguarda invece gli allarmi meno critici. Quest'ultima funzionalità è facilmente implementabile con l'installazione di un sensore apposito che rileva la presenza di fumo nell'ambiente che lo circonda; l'implementazione delle prime due funzionalità è stata volutamente non implementata data la complessa natura dei due problemi, che richiedono uno studio complesso e approfondito. Questi aspetti rimangono importanti per sviluppi futuri e rappresentano punti chiave per migliorare ulteriormente il sistema.
 
@@ -871,6 +917,16 @@ Per concludere lo schema rappresentato a figura \ref{fig:ProfilazioneML} indica 
 \caption{Diagramma di flusso del sistema di profilazione conducente: la board è in grado di attribuire un voto al conducente, è inoltre possibile affiancare a questa capacità delle tecniche di machine learning adoperate per classificare lo stile di guida dei diversi clienti della flotta}
 \label{fig:ProfilazioneML}
 \end{figure}
+
+\chapter*{Ringraziamenti}
+\addcontentsline{toc}{chapter}{Ringraziamenti}  % Aggiunge i ringraziamenti all'indice
+Giunto alla conclusione di questo percorso, mi rendo conto che il percorso universitario non è stato solo una crescita personale e accademica, ma anche un percorso arricchito dalla presenza di persone che hanno contribuito a rendere questa esperienza unica.
+Vorrei ringraziare profondamente la mia famiglia, per il loro supporto incondizionato, l'incoraggiamento costante e la fiducia che hanno sempre riposto in me. I vostri sacrifici, la vostra pazienza e il vostro amore mi hanno dato la forza di superare ogni difficoltà e raggiungere questo importante traguardo.
+Un grazie particolare va a mio fratello, che è stato un esempio di determinazione e impegno. Il suo sostegno e la sua capacità di farmi vedere il lato positivo anche nei momenti più difficili hanno fatto la differenza in molte occasioni.
+Un pensiero affettuoso va ai miei amici e colleghi, che hanno condiviso con me gioie e sfide durante questi anni. Grazie per avermi sempre ricordato l'importanza di ridere, di prendersi delle pause e di vivere ogni momento con entusiasmo.
+Un ringraziamento speciale va al mio relatore, che con pazienza, disponibilità e competenza mi ha guidato in questo percorso. La sua prontezza nel rispondere a ogni mio dubbio e nel chiarire ogni mia domanda è stata fondamentale per la realizzazione di questa tesi e per la mia crescita accademica.
+Infine, il mio ringraziamento più sentito va alla mia ragazza, il cui amore, la cui pazienza e la cui comprensione hanno reso possibile tutto questo. Sei stata al mio fianco in ogni passo, offrendo sempre il tuo sostegno e la tua presenza, e per questo ti sarò sempre grato.
+A tutti voi, dedico questo traguardo.
 
 \printbibliography[title={Bibliografia}]
 
