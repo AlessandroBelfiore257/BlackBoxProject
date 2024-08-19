@@ -488,13 +488,13 @@ Per valutare il comportamento del guidatore di seguito vengono mostrati i vari l
     \hline
     \(< 0.10\) & safe \\
     \hline
-    0.1 - 0.19 & modest \\
+    0.1 - 0.18 & modest \\
     \hline
     0.19 - 0.38 & moderate risk \\
     \hline
-    0.38 - 0.56 & risk \\
+    0.39 - 0.56 & risk \\
     \hline
-     0.56 - 0.75 & reckless \\
+     0.57 - 0.75 & reckless \\
     \hline
      \(> 0.75\) & critical \\
     \hline
@@ -730,7 +730,7 @@ Sono state condotte analisi relative alla segnalazione di allarmi e alla profila
   \label{fig:fumoServer}
 \end{figure}
 
-Per quanto riguarda la profilazione guida sono state simulate 3 guide da 20 min ciascuna. Per ogni guida sono stati modificati i parametri relativi alla profilazione del guidatore così da poter distinguere ciascuna di esse in 3 diverse categorie: guida \textbf{brusca, intermedia e moderata}. I parametri che sono stati simulati sono: accelerometria lungo i due assi x e y, i giri motore (rpm), la velocità del veicolo (kph), la posizione della valvola a farfalla e il carico motore. 
+Per quanto riguarda la profilazione guida sono state simulate 3 guide da 20 min circa ciascuna. Per ogni guida sono stati modificati i parametri relativi alla profilazione del guidatore così da poter distinguere ciascuna di esse in 3 diverse categorie: guida \textbf{brusca, intermedia e moderata}. I parametri che sono stati simulati sono: accelerometria lungo i due assi x e y, i giri motore (rpm), la velocità del veicolo (kph), la posizione della valvola a farfalla e il carico motore. 
 
 \begin{table}[h!]
   \centering 
@@ -739,11 +739,11 @@ Per quanto riguarda la profilazione guida sono state simulate 3 guide da 20 min 
       \hline
       \textbf{Stile guida} & \textbf{acc. asse x} & \textbf{acc. asse y} & \textbf{rpm} & \textbf{kph} & \textbf{throttle} & \textbf{engine load} & \textbf{voto} \\
       \hline
-      Brusco & $[4,9] \ \text{m/s}^2$ & $[4,9] \ \text{m/s}^2$ & $[4000,8000] \ \text{giri/min}$ & $[110,220] \ \text{km/h}$ & $[50,100] \%$ & $[40,100] \%$  & 0.73\\
+      Spericolato & $[4,9] \ \text{m/s}^2$ & $[4,9] \ \text{m/s}^2$ & $[3000,4000] \ \text{giri/min}$ & $[0,130] \ \text{km/h}$ & $[40,90] \%$ & $[30,70] \%$  & 0.695\\
       \hline
-      Intermedio & $[0,9] \ \text{m/s}^2$ & $[0,9] \ \text{m/s}^2$ & $[750,8000] \ \text{giri/min}$ & $[0,220] \ \text{km/h}$ & $[0,100] \%$ & $[0,100] \%$  & 0.66\\
+      Intermedio & $[2,7] \ \text{m/s}^2$ & $[2,7] \ \text{m/s}^2$ & $[2000,3000] \ \text{giri/min}$ & $[0,130] \ \text{km/h}$ & $[30,70] \%$ & $[20,60] \%$  & 0.428\\
       \hline
-      Moderato & $[0,4] \ \text{m/s}^2$ & $[0,4] \ \text{m/s}^2$ & $[750,4000] \ \text{giri/min}$ & $[0,110] \ \text{km/h}$ & $[20,70] \%$ & $[10,50] \%$  & 0.40\\
+      Moderato & $[0,5] \ \text{m/s}^2$ & $[0,5] \ \text{m/s}^2$ & $[1500,2500] \ \text{giri/min}$ & $[0,130] \ \text{km/h}$ & $[20,50] \%$ & $[10,50] \%$  & 0.328\\
       \hline
     \end{tabular}
   \end{adjustbox}
@@ -920,13 +920,12 @@ Per concludere lo schema rappresentato a figura \ref{fig:ProfilazioneML} indica 
 
 \chapter*{Ringraziamenti}
 \addcontentsline{toc}{chapter}{Ringraziamenti}  % Aggiunge i ringraziamenti all'indice
-Giunto alla conclusione di questo percorso, mi rendo conto che il percorso universitario non è stato solo una crescita personale e accademica, ma anche un percorso arricchito dalla presenza di persone che hanno contribuito a rendere questa esperienza unica.
-Vorrei ringraziare profondamente la mia famiglia, per il loro supporto incondizionato, l'incoraggiamento costante e la fiducia che hanno sempre riposto in me. I vostri sacrifici, la vostra pazienza e il vostro amore mi hanno dato la forza di superare ogni difficoltà e raggiungere questo importante traguardo.
-Un grazie particolare va a mio fratello, che è stato un esempio di determinazione e impegno. Il suo sostegno e la sua capacità di farmi vedere il lato positivo anche nei momenti più difficili hanno fatto la differenza in molte occasioni.
+Giunto alla conclusione di questo cammino, mi rendo conto che il percorso universitario non è stato solo una crescita personale e accademica, ma anche un percorso arricchito dalla presenza di persone che hanno contribuito a rendere questa esperienza unica.
+Vorrei ringraziare profondamente la mia famiglia, per il loro supporto, l'incoraggiamento costante e la fiducia che hanno sempre riposto in me; i vostri sacrifici e la vostra pazienza mi hanno dato la forza di superare ogni difficoltà e raggiungere questo importante traguardo.
+Un grazie particolare va a mio fratello, che è stato un esempio di determinazione e impegno. Il suo sostegno e la sua capacità di farmi vedere il lato positivo in qualsiasi circostanza in cui ci si trova, hanno fatto la differenza in molte occasioni.
 Un pensiero affettuoso va ai miei amici e colleghi, che hanno condiviso con me gioie e sfide durante questi anni. Grazie per avermi sempre ricordato l'importanza di ridere, di prendersi delle pause e di vivere ogni momento con entusiasmo.
 Un ringraziamento speciale va al mio relatore, che con pazienza, disponibilità e competenza mi ha guidato in questo percorso. La sua prontezza nel rispondere a ogni mio dubbio e nel chiarire ogni mia domanda è stata fondamentale per la realizzazione di questa tesi e per la mia crescita accademica.
 Infine, il mio ringraziamento più sentito va alla mia ragazza, il cui amore, la cui pazienza e la cui comprensione hanno reso possibile tutto questo. Sei stata al mio fianco in ogni passo, offrendo sempre il tuo sostegno e la tua presenza, e per questo ti sarò sempre grato.
-A tutti voi, dedico questo traguardo.
 
 \printbibliography[title={Bibliografia}]
 
