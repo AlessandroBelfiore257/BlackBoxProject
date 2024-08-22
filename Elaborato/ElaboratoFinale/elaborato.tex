@@ -182,7 +182,7 @@ Il progetto mira a creare una black-box che non solo registra e monitora i dati 
 
 \chapter{Stato dell'arte}
 La \textbf{scatola nera}, chiamata anche black-box o EDR, acronimo per Event Data Recorder o, in italiano, registratore di dati di evento, è un dispositivo che registra e trasmette la propria posizione ai satelliti a cui è collegata e altre informazioni come la velocità, le accelerazioni, le decelerazioni, le frenate e la frequenza di attivazione dei sistemi di sicurezza a una centrale operativa.
-Quelle che sono comunemente indicate come "scatole nere" sono localizzatori satellitari GPS installati a bordo dell'auto, nate come strumento, ideato dalle assicurazioni, per ridurre le \textbf{frodi assicurative}.
+Quelle che sono comunemente indicate come ``scatole nere" sono localizzatori satellitari GPS installati a bordo dell'auto, nate come strumento, ideato dalle assicurazioni, per ridurre le \textbf{frodi assicurative}.
 \section{Gestioni attuali di tracking per veicoli}
 Unico beneficio del tracking del veicolo è che, grazie al localizzatore GPS, risulta utile in caso di furto: il sistema satellitare facilita il rintracciamento del veicolo qualora venga rubato. Naturalmente il localizzatore gioca un ruolo importante anche nella gestione di un incidente, infatti ne verrà parlato nel prossimo paragrafo.
 \section{Gestioni attuali delle emergenze e dei sistemi di allarmi in uso}
@@ -205,7 +205,7 @@ Nei vari contratti di noleggio \cite{hertz_pdf} vengono proposti dei termini e d
 Tutti questi obblighi vengono citati all'interno del contratto assicurativo, non è possibile però stabilire se uno tra questi divieti non dovesse essere rispettato.
 
 \section{Soluzioni esistenti per la profilazione guidatori}
-Alcune grandi compagnie di assicurazioni, quali ad esempio \textbf{Generali}, propongono il \textbf{servizio stile di guida} che permette di ottenere ulteriori sconti sulla polizza negli anni a seguire \cite{Generali}. Tengo a precisare la parola "ulteriori" dato che già l'installazione di una black-box prevede uno sconto, compreso tra il 15/20\%, sul totale dell'assicurazione.
+Alcune grandi compagnie di assicurazioni, quali ad esempio \textbf{Generali}, propongono il \textbf{servizio stile di guida} che permette di ottenere ulteriori sconti sulla polizza negli anni a seguire \cite{Generali}. Tengo a precisare la parola ``ulteriori" dato che già l'installazione di una black-box prevede uno sconto, compreso tra il 15/20\%, sul totale dell'assicurazione.
 
 \section{Trattamento dei dati personali registrati}
 Il Regolamento europeo vieta espressamente che la scatola nera registri conversazioni o usi i dati sensibili del guidatore, consentendo così l’anonimato del conducente e l’accesso ai dati solo in caso di collisione \cite{RegolamentoEU}.
@@ -261,7 +261,7 @@ Sostanzialmente il meccanismo si divide in due fasi: \textbf{rilevamento} e \tex
     \draw [arrow] (readsensor) -- (readgps);
     \draw [arrow] (readgps) -- (decision);
 
-    % Etichette "Yes" e "No"
+    % Etichette ``Yes" e ``No"
     \node at ($(decision.west)!-0.2!(readsensor.east)$) [yshift=3cm] {No};
     \node at ($(decision.east)!0.5!(sendSMS.west)$) [yshift=0.3cm] {Yes};
 
@@ -291,7 +291,7 @@ Per il rilevamento di una situazione di incidente posso utilizzare un accelerome
     \node (sendSMS) [process, right of=userabort, xshift=3cm] {Send accident SMS};
     \node (end) [startstop, below of=sendSMS] {End};
 
-    % Etichette "Yes" e "No"
+    % Etichette ``Yes" e ``No"
     \node at ($(gforcetriggered.east)!0.5!(readdata.east)$) [xshift=1.3cm] {No};
     \node at ($(gforcetriggered.south)!0.5!(incidentdetection.north)$) [xshift=0.5cm] {Yes};
     \node at ($(userabort.east)!0.5!(sendSMS.west)$) [yshift=0.3cm] {No};
@@ -523,20 +523,20 @@ Un modulo \textbf{GPS GY-NEO-6M NEO6MV2} utile per le funzionalità di tracking 
 \end{figure}
 
 \subsection{Software e librerie utilizzate}
-Il codice è stato sviluppato sull'Arduino IDE, una piattaforma open-source che rende semplice scrivere codice e caricarlo direttamente nelle varie board scelte all'interno di una sezione apposita. Il linguaggio di programmazione utilizzato all'interno dell'IDE si chiama "Arduino programming language", la sintassi è molto simile ai linguaggi C/C++, ma i costrutti puù complessi come puntatori o la programmazione orientata agli oggetti vengono messi in secondo piano \cite{sistemiEmbeddedAtrent}. Oltre a fornire i costrutti standard di un linguaggio imperativo, dato il contesto applicativo dei sistemi di controllo (sensoristica e attuatoristica), offre funzionalità legate alla gestione dei segnali: I/O digitale e analogico, interrupt su eventi hardware e accesso al clock (inteso proprio come tempo trascorso dall'accensione).
+Il codice è stato sviluppato sull'Arduino IDE, una piattaforma open-source che rende semplice scrivere codice e caricarlo direttamente nelle varie board scelte all'interno di una apposita sezione. Il linguaggio di programmazione utilizzato all'interno dell'IDE si chiama ``Arduino programming language", la sintassi è molto simile ai linguaggi C/C++, ma i costrutti più complessi come puntatori o la programmazione orientata agli oggetti vengono messi in secondo piano \cite{sistemiEmbeddedAtrent}. Oltre a fornire i costrutti standard di un linguaggio imperativo, dato il contesto applicativo dei sistemi di controllo (sensoristica e attuatoristica), offre funzionalità legate alla gestione dei segnali: I/O digitale e analogico, interrupt su eventi hardware e accesso al clock (inteso proprio come tempo trascorso dall'accensione).
 
 Le librerie utilizzate per lo sviluppo del progetto si possono divedere in tre categorie:
 
 \begin{itemize}
     \item Le librerie dedicate all'interazione con i vari sensori, ad esempio \textbf{TinyGPSPlus.h} per il GPS, \textbf{Adafruit\_MPU6050.h} per l'accelerometro, \textbf{LiquidCrystal\_I2C.h} per il display, e \textbf{time.h, sntp.h, RTClib.h} per l'RTC.
     \item Le librerie dedicate alla gestione interna del filesystem, ad esempio \textbf{LittleFS.h} per la gestione del filesystem e \textbf{sqlite3.h} per la creazione di database e iterazione con essi.
-    \item Le librerie dedicate alla comunicazione con i componenti esterni, ad esempio \textbf{"BluetoothSerial.h"} e \textbf{"ELMduino.h"} che consentono la comunicazione bluetooth tra ESP32 e lettore scanner OBD.
+    \item Le librerie dedicate alla comunicazione con i componenti esterni, ad esempio \textbf{``BluetoothSerial.h"} e \textbf{``ELMduino.h"} che consentono la comunicazione bluetooth tra ESP32 e lettore scanner OBD.
 \end{itemize}
 
 \section{Scelte progettuali}
 \subsection{Filesystem}
-Nel filesystem dell'esp32 viene creato un database (dati.db) all'interno del quale sono presenti 5 tabelle, utili per la gestione di tutti gli eventi previsti dalla black-box. Per interagire con il db viene utilizzato SQLite, una libreria scritta in linguaggio C che implementa un motore di database SQL piccolo, veloce, autonomo, ad alta affidabilità e completo. SQLite è il motore di database più utilizzato al mondo. SQLite è integrato in tutti i telefoni cellulari e nella maggior parte dei computer ed è integrato in innumerevoli altre applicazioni utilizzate ogni giorno \cite{sqliteWhentoUse}. SQLite è particolarmente adatto per l'uso in telefoni cellulari, set-top box, televisori, console di gioco, fotocamere, orologi, elettrodomestici da cucina, termostati, automobili, macchine utensili, aeroplani, sensori remoti, droni, dispositivi medici e robot: \textbf{"internet of things"}.
-Di seguito le tabelle di memorizzazione dati dell'intero sistema con qualche esempio di dato memorizzato:
+Nel filesystem dell'esp32 viene creato un database (dati.db) all'interno del quale sono presenti 5 tabelle, utili per la gestione di tutti gli eventi previsti dalla black-box. Per interagire con il db viene utilizzato SQLite, una libreria scritta in linguaggio C che implementa un motore di database SQL piccolo, veloce, autonomo, ad alta affidabilità e completo. SQLite è il motore di database più utilizzato al mondo; è integrato in tutti i telefoni cellulari e nella maggior parte dei computer ed in innumerevoli altre applicazioni utilizzate ogni giorno \cite{sqliteWhentoUse}. SQLite è particolarmente adatto per l'uso in telefoni cellulari, set-top box, televisori, console di gioco, fotocamere, orologi, elettrodomestici da cucina, termostati, automobili, macchine utensili, aeroplani, sensori remoti, droni, dispositivi medici e robot: \textbf{``internet of things"}.
+Di seguito verranno presentate le tabelle di memorizzazione dati dell'intero sistema con qualche esempio di dato memorizzato:
 
 \paragraph{Tabella t1}
 \begin{table}[h!]
@@ -544,20 +544,20 @@ Di seguito le tabelle di memorizzazione dati dell'intero sistema con qualche ese
   \begin{adjustbox}{max width=\textwidth}
     \begin{tabular}{|c|c|c|c|c|c|c|}
       \hline
-      \textbf{nomeSensore} & \textbf{valore} & \textbf{tipoDato} & \textbf{unitàMisura} & \textbf{timestamp} & \textbf{synchronised} & \textbf{Priority} \\
+      \textbf{nomeSensore} & \textbf{valore} & \textbf{tipoDato} & \textbf{unitàMisura} & \textbf{timestamp} & \textbf{synchronised} & \textbf{priority} \\
       \hline
       TEXT & TEXT & TEXT & TEXT & INTEGER (seconds since epoch) & INTEGER (boolean) & INTEGER \\
       \hline
-      "Liquido raffreddamento" & "98" & "INTEGER" & "°C" & 1715786497 & 0 & 3 \\
+      ``Liquido raffreddamento" & ``98" & ``INTEGER" & ``°C" & 1715786497 & 0 & 3 \\
       \hline
-      "Voltaggio batteria" & "12.3" & "FLOAT" & "Volt (V)" & 1715269497 & 1 & 8 \\
+      ``Voltaggio batteria" & ``12.3" & ``FLOAT" & ``Volt (V)" & 1715269497 & 1 & 8 \\
       \hline
     \end{tabular}
   \end{adjustbox}
-  \caption{Tabella "t1" dati relativi al monitoraggio del veicolo}
+  \caption{Tabella ``t1" dati relativi al monitoraggio del veicolo}
   \label{tab:t1 monitoraggio}
 \end{table}
-Il campo \textbf{timestamp} indica il numero di secondi trascorsi dall'epoc (01/01/1970).
+Il campo \textbf{timestamp} indica il numero di secondi trascorsi dall'epoc (01/01/1970), e fa riferimento al momento esatto in cui il dato è stato memorizzato.
 
 \paragraph{Tabella t2}
 \begin{table}[h!]
@@ -569,13 +569,13 @@ Il campo \textbf{timestamp} indica il numero di secondi trascorsi dall'epoc (01/
       \hline
       TEXT & INTEGER & INTEGER & INTEGER & INTEGER & INTEGER & INTEGER \\
       \hline
-      "Olio motore temp" & 45 & 1 & 15 & 20 & 45 & 600 \\
+      ``Olio motore temp" & 45 & 1 & 15 & 20 & 45 & 600 \\
       \hline
-      "Coordinate GPS" & 30 & 0 & NULL & NULL & NULL & NULL \\
+      ``Coordinate GPS" & 30 & 0 & NULL & NULL & NULL & NULL \\
       \hline
     \end{tabular}
   \end{adjustbox}
-  \caption{Tabella "t2" tempo di campionamento}
+  \caption{Tabella ``t2" tempo di campionamento}
   \label{tab:t2 campionamento}
 \end{table}
 Il campo \textbf{tempoStorage} indica ogni quanto memorizzare il valore, espresso in secondi, \textbf{variabile} indica se il tempo di storage può cambiare, \textbf{fattIncr} ci dice di quanto aumentare o diminuire il tempoStorage, \textbf{soglia} delimita se i dati campionati sono omogenei, ovvero minori di essa, oppure eterogenei, maggiori di essa, infine \textbf{tMin} e \textbf{tMax} sono i corrispettivi upper e lower bound per il tempo di storage.
@@ -592,13 +592,13 @@ Il campo \textbf{tempoStorage} indica ogni quanto memorizzare il valore, espress
       \hline
       TEXT & TEXT & INTEGER & INTEGER \\
       \hline
-      "2024-03-10 12:00:00" & "0.99" & 1715786497 & 1 \\
+      ``2024-03-10 12:00:00" & ``0.99" & 1715786497 & 1 \\
       \hline
-      "2024-07-07 17:56:20" & "0.53" & 1815786497 & 0 \\
+      ``2024-07-07 17:56:20" & ``0.53" & 1815786497 & 0 \\
       \hline
     \end{tabular}
   \end{adjustbox}
-  \caption{Tabella "t3" profilazione guida}
+  \caption{Tabella ``t3" profilazione guida}
   \label{tab:t3 profilazione}
 \end{table}
 Il campo \textbf{lastStorage} indica il momento in cui è stato memorizzato il voto inteso come numero di secondi trascorsi dall'epoc.
@@ -613,13 +613,13 @@ Il campo \textbf{lastStorage} indica il momento in cui è stato memorizzato il v
       \hline
       TEXT & TEXT & INTEGER \\
       \hline
-      "Alcool" & "2024-07-07 17:56:20" & 1 \\
+      ``Alcool" & ``2024-07-07 17:56:20" & 1 \\
       \hline
-      "Gas nell'abitacolo" & "2024-07-24 14:40:34" & 0   \\
+      ``Gas nell'abitacolo" & ``2024-07-24 14:40:34" & 0   \\
       \hline
     \end{tabular}
   \end{adjustbox}
-  \caption{Tabella "t4" allarmi critici}
+  \caption{Tabella ``t4" allarmi critici}
   \label{tab:t4 allarmi critici}
 \end{table}
 
@@ -633,13 +633,13 @@ Il campo \textbf{lastStorage} indica il momento in cui è stato memorizzato il v
       \hline
       TEXT & INTEGER & INTEGER & INTEGER & INTEGER \\
       \hline
-      "Fumo" & 3 & 3 & 1 & 0 \\
+      ``Fumo" & 3 & 3 & 1 & 0 \\
       \hline
-      "Fuori range GPS" & 0 & 5 & 0 & 0 \\
+      ``Fuori range GPS" & 0 & 5 & 0 & 0 \\
       \hline
     \end{tabular}
   \end{adjustbox}
-  \caption{Tabella "t5" allarmi meno critici}
+  \caption{Tabella ``t5" allarmi meno critici}
   \label{tab:t5 allarmi meno critici}
 \end{table}
 Il campo \textbf{soglia} indica il numero massimo di rilevamenti per ciascun tipo di problema, se il sistema black-box continua a rilevare il problema e la soglia viene superata, allora viene aggiornato il campo \textbf{daMandare}, indicante che l'informazione deve arrivare al server remoto.
@@ -650,10 +650,10 @@ La black-box è progettata per registrare dati in assenza di connessione Wi-Fi, 
 L'unica tabella che non presenta il campo synchronised è quella relativa al tempo di campionamento, utilizzata come tabella di configurazione per la gestione dei tempi di storage relativi ai dati di monitoraggio.
 
 \section{Comunicazioni e trasmissione dati}
-\subsection{Protocolli di comunicazione all'interno del veicolo}
-I protocolli di bus governano il \textbf{trasferimento dei pacchetti} lungo la rete del veicolo. Varie sottoreti e centinaia di sensori comunicano su questi sistemi a bus, inviando messaggi che controllano il comportamento del veicolo e le informazioni che la rete "conosce" in ogni dato momento.
-Le comunicazioni critiche per il veicolo, come la gestione dei giri del motore (RPM) e dei freni, viaggiano su linee di bus ad alta velocità, mentre quelle non critiche, come il blocco delle porte e il controllo A/C, viaggiano su linee di bus a media o bassa velocità.
-\paragraph{Protocollo CAN BUS} CAN (Control Area Network) è un protocollo semplice utilizzato nel settore manifatturiero e automobilistico. I veicoli più recenti sono pieni di piccoli sistemi embedded e di unità di controllo elettronico (ECU) che comunicano tra di loro utilizzando il protocollo CAN. Questo protocollo è stato uno standard delle vetture e dei piccoli autocarri statunitensi dal 1996, ma è stato reso obbligatorio solo nel 2008 (nel 2001 per i veicoli europei) \cite{manualeHacker}. CAN utilizza due cavi a doppino intrecciato: \textbf{CAN high} e \textbf{CAN low} e usa il \textbf{segnale differenziale}, il che significa che, quando arriva un segnale, CAN aumenta la tensione su una linea e riduce quella dell'altra in misura uguale. I sensori e le ECU hanno un ricetrasmettitore che verifica che entrambi i segnali siano innescati; se non lo sono, rifiuta i pacchetti come rumore. 
+\subsection{Protocollo di comunicazione all'interno del veicolo}
+I protocolli di comunicazione utilizzati nell'automotive governano il \textbf{trasferimento dei pacchetti} lungo la rete del veicolo. Varie sottoreti e centinaia di sensori comunicano su sistemi a bus, inviando messaggi che controllano il comportamento del veicolo e le informazioni che la rete ``conosce" in ogni dato momento.
+Le comunicazioni critiche per il veicolo, ad esempio la gestione dei giri del motore (RPM) e dei freni, viaggiano su linee di bus ad alta velocità, mentre quelle non critiche, come il blocco delle porte e il controllo A/C, viaggiano su linee di bus a media o bassa velocità.
+\paragraph{Protocollo CAN BUS} CAN (Control Area Network) è un protocollo di comunicazione utilizzato nel settore manifatturiero e automobilistico. I veicoli più recenti sono pieni di piccoli sistemi embedded e di unità di controllo elettronico (ECU) che comunicano tra di loro utilizzando il protocollo CAN. Questo protocollo è divenuto uno standard delle vetture e dei piccoli autocarri statunitensi dal 1996, ma è stato reso obbligatorio solo nel 2008 (nel 2001 per i veicoli europei) \cite{manualeHacker}. CAN utilizza due cavi a doppino intrecciato: \textbf{CAN high} e \textbf{CAN low} e usa il \textbf{segnale differenziale}, il che significa che, quando arriva un segnale, CAN aumenta la tensione su una linea e riduce quella dell'altra in misura uguale. I sensori, gli attuatori e le ECU hanno un ricetrasmettitore che verifica che entrambi i segnali siano innescati; se non lo sono, rifiuta i pacchetti come rumore. 
 
 \begin{figure}[h]
   \centering
@@ -664,7 +664,7 @@ Le comunicazioni critiche per il veicolo, come la gestione dei giri del motore (
 \footnotetext{Presa da: \url{https://farelettronica.it/web/app/uploads/2022/04/02-controller-area-network-ecu-evoque-adam-ali-small.png}}
 
 \paragraph{Il connettore OBD} Molti veicoli sono dotati di un connettore \textbf{OBD-II}, detto anche connettore del collegamento diagnostico (DLC, Diagnostic Link Connector), che comunica con la rete interna del veicolo. Solitamente questo connettore si trova sotto il piantone dello sterzo o nascosto da qualche parte nel cruscotto in una posizione comunque relativamente accessibile.
-La tensione a riposo dei cavi CAN è di 2.5V, quando arriva un segnale, sommerà o sottrarrà 1V (3.5V o 1.5V). I fili CAN attraversano il veicolo e collegano le ECU e altri sensori e sono sempre in coppia. Le connessioni CAN high e CAN low sono presenti sui pin 6 e 14 del connettore OBD-II, come illustrato nella figura sottostante \ref{fig:Connettore OBD}. \cite{manualeHacker}
+La tensione a riposo dei cavi CAN è di 2.5V, quando arriva un segnale, si sommerà o sottrarrà 1V alla tensione a riposo  (3.5V o 1.5V). I fili CAN attraversano il veicolo e collegano le ECU e altri sensori e sono sempre in coppia. Le connessioni CAN high e CAN low sono presenti sui pin 6 e 14 del connettore OBD-II, come illustrato nella figura sottostante \ref{fig:Connettore OBD}. \cite{manualeHacker}
 
 
 \begin{figure}[h]
@@ -677,12 +677,12 @@ La tensione a riposo dei cavi CAN è di 2.5V, quando arriva un segnale, sommerà
 
 \paragraph{Struttura dei pacchetti del bus CAN}
 Vi sono due tipi di pacchetti CAN: 
-\textbf{standard} ed \textbf{estesi}. I pacchetti estesi sono come quelli standard, semplicemente hanno uno spazio maggiore per conservare ID. \textbf{Pacchetti standard:} Ogni pacchetto di bus CAN contiene quattro elementi fondamentali:
+\textbf{standard} ed \textbf{estesi}. I pacchetti estesi sono come quelli standard, semplicemente hanno uno spazio maggiore per conservare l'ID. \textbf{Pacchetti standard:} Ogni pacchetto di bus CAN contiene quattro elementi fondamentali:
 \begin{itemize}
     \item \textbf{L'ID di arbitraggio} (arbitration ID) è un messaggio broadcast che indica l'ID del dispositivo che cerca di comunicare, anche se ogni dispositivo può inviare più ID di arbitraggio. Se sul bus vengono inviati due pacchetti CAN contemporaneamente, vince quello con l'ID di arbitraggio più basso.
     \item \textbf{IDE}, estensione dell'identificatore (Identifier Extension). Questo bit è sempre 0 per i pacchetti CAN standard.
     \item \textbf{DLC}, codice della lunghezza dei dati (Data Length Code) Questa è la dimensione dei dati che varia da 0 a 8 byte.
-    \item \textbf{Dati} Questi sono i dati in senso stretto. Le dimensioni massime dei dati veicolati da un pacchetto standard del bus CAN è di 8 byte, ma alcuni sistemi forzano le dimensioni sempre a 8 byte, "imbottendo" il pacchetto.
+    \item \textbf{Dati} Questi sono i dati in senso stretto. Le dimensioni massime dei dati veicolati da un pacchetto standard del bus CAN è di 8 byte, ma alcuni sistemi forzano le dimensioni sempre a 8 byte, ``imbottendo" il pacchetto.
 \end{itemize}
 
 \begin{figure}[h]
@@ -693,13 +693,13 @@ Vi sono due tipi di pacchetti CAN:
 \end{figure}
 \footnotetext{Presa da: \url{https://upload.wikimedia.org/wikipedia/commons/5/54/CAN-bus-frame-with-stuff-bit-and-correct-CRC.png}}
 
-Poiché i pacchetti del bus CAN sono di tipo broadcast, tutti i controller sulla stessa rete vedono tutti i pacchetti. I pacchetti non portano con sè informazioni sul controller che li abbia inviati. Poiché qualsiasi dispositivo può vedere e trasmettere pacchetti.
+Poiché i pacchetti del bus CAN sono di tipo broadcast, tutti i controller sulla stessa rete vedono tutti i pacchetti. 
 
 \textbf{Pacchetti estesi:}
-I pacchetti estesi sono come quelli standard, tranne che possono essere concatenati fra loro per creare ID più lunghi. I pacchetti estesi sono fatti in modo da adattarsi alla formattazione CAN standard per mantenere la compatibilità a ritroso; così se un sensore non ha il supporto per i pacchetti estesi, non si guasterà se un altro dispositivo trasmette pacchetti CAN estesi sulla stessa rete. I pacchetti standard e quelli estesi si differenziano anche per l'uso dei flag. Se esaminati i pacchetti estesi in un dump di rete, vedrete che, a differenza di quelli standard, usano un flag \textbf{SSR} (Substitute remote request) anzichè \textbf{RTR} (Remote transmission request), con SSR impostato al valore 1. Avranno anche il campo IDE impostato al valore 1 ed i pacchetti avranno identificatori a 18 bit, che è la seconda parte dell'identificatore standard a 11 bit.
+I pacchetti estesi sono come quelli standard, tranne che possono essere concatenati fra loro per creare ID più lunghi. I pacchetti estesi sono fatti in modo da adattarsi alla formattazione CAN standard per mantenere la compatibilità a ritroso, così se un sensore non ha il supporto per i pacchetti estesi, non si guasterà se un altro dispositivo trasmette pacchetti CAN estesi sulla stessa rete. I pacchetti standard e quelli estesi si differenziano anche per l'uso dei flag. Se esaminati i pacchetti estesi in un dump di rete, vedremo che, a differenza di quelli standard, usano un flag \textbf{SSR} (Substitute remote request) anzichè \textbf{RTR} (Remote transmission request), con SSR impostato al valore 1, per separare la prima parte del pacchetto con l'Identifier extension bit (IDE). I pacchetti estesi avranno il campo IDE impostato al valore 1 ed identificatori a 29 bit, 18 bit presenti subito dopo l'IDE e gli 11 bit standard presenti nella prima parte del pacchetto.
 
 \subsection{OBD scanner - esp32}
-Per leggere i messaggi presenti all'interno della rete CAN BUS è necessario un lettore OBD-II in grado di connettersi con il corrispettivo connettore OBD presente all'interno del veicolo e di trasmettere dati via \textbf{Bluetooth} ad un apparecchio esterno, nel nostro caso l'ESP32. Per leggere e decifrare i messaggi provenienti dalla rete CAN, è stata utilizzata una libreria ELMduino; utile per interfacciare facilmente l'ESP32 con uno scanner OBD-II. Tramite questa libreria è possibile interrogare tutti i PID supportati da OBD-II per raccogliere un'ampia varietà di dati, ad esempio velocità, giri al minuto, temperatura del motore...
+Per leggere i messaggi presenti all'interno della rete CAN BUS è necessario un lettore OBD-II in grado di connettersi con il corrispettivo connettore OBD presente all'interno del veicolo e di trasmettere dati via \textbf{Bluetooth} ad un apparecchio esterno, nel nostro caso l'ESP32. Per leggere e decifrare i messaggi provenienti dalla rete CAN, è stata utilizzata una libreria ELMduino; utile per interfacciare facilmente l'ESP32 con uno scanner OBD-II. Tramite questa libreria è possibile interrogare tutti i PID supportati da OBD-II per raccogliere un'ampia varietà di dati, ad esempio velocità, giri al minuto, temperatura dell'olio motore...
 
 \begin{figure}[h]
   \centering
@@ -710,7 +710,7 @@ Per leggere i messaggi presenti all'interno della rete CAN BUS è necessario un 
 \footnotetext{Presa da: \url{https://m.media-amazon.com/images/I/51crnV3RTbL._AC_SX679_.jpg}}
 
 \subsection{esp32 - server remoto}
-Quando la black box rileva la presenza di una connessione Internet, si collega ad un server remoto, il quale è sempre in ascolto, per trasmettere dati relativi al monitoraggio, alla segnalazione di allarmi e sulla profilazione del conducente. 
+Quando la black-box rileva la presenza di una connessione Internet, si collega ad un server remoto, il quale è sempre in ascolto, per trasmettere dati relativi al monitoraggio, alla segnalazione di allarmi e sulla profilazione del conducente. 
 Nel progetto viene adoperato Netcat, un programma open source a riga di comando di comunicazione remota, utilizzabile sia col protocollo TCP sia col protocollo UDP. Lato server è necessario mettersi in ascolto per ricevere dati al momento di sincronizzazione, dopodichè è possibile redirigere l'output su di un file utilizzato appositamente per la raccolta dati. \cite{Netcat}
 
 \chapter{Risultati ottenuti}
@@ -853,7 +853,7 @@ Di seguito vengono suggerite alcune tecniche che potrebbero essere utilizzate pe
 \end{itemize}
 
 \paragraph{Clustering partizionale} 
-Il clustering partizionale è la tecnica più comunemente utilizzata tra gli algoritmi di clusterizzazione. Questi algoritmi lavorano per minimizzare un determinato criterio di clustering, spostando iterativamente i punti dati tra i cluster fino a raggiungere una partizione ottimale. Questo approccio suddivide gli oggetti in K partizioni, ognuna delle quali rappresenta un cluster. La suddivisione avviene in base ad una specifica funzione obiettivo. I cluster vengono formati per ottimizzare un criterio di partizionamento definito, come una funzione di dissimilarità basata sulla distanza, in modo che gli oggetti all'interno di un cluster siano considerati "simili", mentre quelli in cluster diversi siano considerati "dissimili". I metodi di clustering partizionale sono particolarmente adatti per applicazioni in cui è richiesto un numero predefinito di cluster, alcuni esempi di algoritmi di clustering includono K-means, PAM (Partition Around Medoids) e Clara.
+Il clustering partizionale è la tecnica più comunemente utilizzata tra gli algoritmi di clusterizzazione. Questi algoritmi lavorano per minimizzare un determinato criterio di clustering, spostando iterativamente i punti dati tra i cluster fino a raggiungere una partizione ottimale. Questo approccio suddivide gli oggetti in K partizioni, ognuna delle quali rappresenta un cluster. La suddivisione avviene in base ad una specifica funzione obiettivo. I cluster vengono formati per ottimizzare un criterio di partizionamento definito, come una funzione di dissimilarità basata sulla distanza, in modo che gli oggetti all'interno di un cluster siano considerati ``simili", mentre quelli in cluster diversi siano considerati ``dissimili". I metodi di clustering partizionale sono particolarmente adatti per applicazioni in cui è richiesto un numero predefinito di cluster, alcuni esempi di algoritmi di clustering includono K-means, PAM (Partition Around Medoids) e Clara.
 
 \begin{figure}[h] \centering
 \includegraphics[width=8cm]{C_Partizionale.png}
