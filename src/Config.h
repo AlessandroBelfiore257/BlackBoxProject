@@ -23,20 +23,24 @@
 #define MAX_READINGS_TORQUE 0 
 #define MAX_READINGS_BATTERIA_V 0
 #define MAX_READINGS_CARBURANTE_LEVEL 0
+#define MAX_READINGS_ENGINE_LOAD 0
+#define MAX_READINGS_RPM 0
+#define MAX_READINGS_KPH 0
+#define MAX_READINGS_THROTTLE 0
 
 #define DEBUG_OBD true
 
-#define ACCELEROMETRIA_READ_INTERVAL 15 * TASK_SECOND
+#define ACCELEROMETRIA_READ_INTERVAL 15 * TASK_SECOND //15
 #define AIR_READ_INTERVAL 20 * TASK_SECOND
 #define GPS_READ_INTERVAL 30 * TASK_SECOND
-#define CAR_OBD_STORAGE_INTERVAL 45 * TASK_SECOND
+#define CAR_OBD_STORAGE_INTERVAL 45 * TASK_SECOND //45
 #define OBD_READ_INTERVAL 0.1 * TASK_SECOND
 #define RESPONSE_TIME 5000
 #define CENTRALINA_LOG 10 * TASK_SECOND
 #define PROFILAZIONE_INTERVAL 10 * TASK_SECOND
 #define ALLARMI_INTERVAL 6 * TASK_SECOND
 #define WEEK (7 * 86400) * TASK_SECOND
-#define SYNCHRONIZATION_DATA 60 * TASK_SECOND  // adesso sincronizzo ogni 60 sec, nella versione ufficiale la sincronizzazione avverrà in presenza di connessione e con un tempo maggiore di 24h dall'ultima sincronizzazione
+#define SYNCHRONIZATION_DATA 2 * 60 * TASK_SECOND  // adesso sincronizzo ogni 60 sec, nella versione ufficiale la sincronizzazione avverrà in presenza di connessione e con un tempo maggiore di 24h dall'ultima sincronizzazione
 #define CLEANING_ROUTINE 120 * TASK_SECOND     // adesso sono 120 secondi, nella versione ufficiale saranno 6h
 #define CLEANING_MEMORY_FULL 300 * TASK_SECOND
 
@@ -61,7 +65,7 @@
 #define DATE_TIME_FORMAT "%Y-%m-%d %H:%M:%S"
 #define DATE_TIME_LEN 20
 
-#define MAX_CAMPIONAMENTI_PROFILAZIONE 3
+#define MAX_CAMPIONAMENTI_PROFILAZIONE 6 //3
 #define MAX_CAMPIONAMENTI_ALLARMI_ROSSI 6
 #define MAX_CAMPIONAMENTI_ALLARMI_GIALLI 6
 
@@ -91,7 +95,7 @@
 #define STERZATA_DX_BRUSCA 0.5
 #define STERZATA_SX_BRUSCA -0.5
 #define MAX_SPEED_CAR 220
-#define MAX_RPM_CAR 8000
+#define MAX_RPM_CAR 6000
 #define RANGE_INF 0.9
 #define RANGE_SUP 1.3
 #define LOAD_MIN 20
