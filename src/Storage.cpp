@@ -76,17 +76,22 @@ void createPolicyStorage() {
   char buffer7[BUFFER_SIZE / 2];
   char buffer8[BUFFER_SIZE / 2];
   char buffer9[BUFFER_SIZE / 2];
-  sprintf(buffer1, "INSERT INTO t2 VALUES ('Accelerometria', 15, 0, 'NULL', 'NULL', 'NULL', 'NULL');");
+
+  char buffer10[BUFFER_SIZE / 2];
+  char buffer11[BUFFER_SIZE / 2];
+  char buffer12[BUFFER_SIZE / 2];
+  char buffer13[BUFFER_SIZE / 2];
+  sprintf(buffer1, "INSERT INTO t2 VALUES ('Accelerometria', 5, 0, 'NULL', 'NULL', 'NULL', 'NULL');");
   rc = db_exec(db, buffer1);
-  sprintf(buffer2, "INSERT INTO t2 VALUES ('Alcool', 20, 1, 10, 0.25, 20, 120);");
+  sprintf(buffer2, "INSERT INTO t2 VALUES ('Alcool', 20, 1, 10, 410, 20, 120);");
   rc = db_exec(db, buffer2);
-  sprintf(buffer3, "INSERT INTO t2 VALUES ('Qualità aria', 20, 1, 10, 0.25, 20, 120);");
+  sprintf(buffer3, "INSERT INTO t2 VALUES ('Qualità aria', 20, 1, 10, 410, 20, 120);");
   rc = db_exec(db, buffer3);
   sprintf(buffer4, "INSERT INTO t2 VALUES ('Coordinate GPS', 30, 0, 'NULL', 'NULL', 'NULL', 'NULL');");
   rc = db_exec(db, buffer4);
-  sprintf(buffer5, "INSERT INTO t2 VALUES ('Liquido raffreddamento', 45, 1, '15', '0.25', '45', '600');");
+  sprintf(buffer5, "INSERT INTO t2 VALUES ('Liquido raffreddamento', 45, 1, '15', '10', '45', '600');");
   rc = db_exec(db, buffer5);
-  sprintf(buffer6, "INSERT INTO t2 VALUES ('Olio motore temp', 45, 1, '15', '0.25', '45', '600');");
+  sprintf(buffer6, "INSERT INTO t2 VALUES ('Olio motore temp', 45, 1, '15', '20', '45', '600');");
   rc = db_exec(db, buffer6);
   sprintf(buffer7, "INSERT INTO t2 VALUES ('Coppia motore', 45, 0, 'NULL', 'NULL', 'NULL', 'NULL');");
   rc = db_exec(db, buffer7);
