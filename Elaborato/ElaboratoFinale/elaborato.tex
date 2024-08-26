@@ -752,6 +752,18 @@ Per quanto riguarda la profilazione guida sono state simulate 3 guide da 20 min 
   \label{tab:stili_di_guida}
 \end{table}
 
+Come ulteriore verifica relativa al corretto funzionamento dell'algoritmo di profilazione del conducente, sono stati elaborati tutti i dati relativi a tale attività da un \textbf{algoritmo di machine learning} (ML) e messi a confronto i risultati finali di tale algoritmo con quello implementato all'interno della black-box. Sono state simulate 3 guide da 20 minuti ciascuna, ognuna rappresentante uno stile di guida diverso dall'altra, ed è stato modificato il codice così da poter inoltrare i dati relativi alla profilazione al server remoto. I dati, ricevuti dalla black-box in formato JSON, sono stati filtrati da apposite librerie e utilizzati da un algoritmo di classificazione, ovvero un algoritmo di ML che adopera un tipo di \textbf{apprendimento supervisionato} per la classificazione di una singola istanza che dovrà essere classificata in base alla propria classe di appartenenza.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=8cm]{ClassiML.png}
+  \caption{Alcuni algoritmi di machine learning, la loro classificazione e i principali utilizzi}
+  \label{ClassiML}
+\end{figure}
+\footnotetext{Presa da: \url{https://www.digitalworlditalia.it/tecnologie-emergenti/intelligenza-artificiale/machine-learning-124626}}
+
+Mancano i risultati: sono in attesa !!!
+
 Per concludere questo paragrafo di seguito saranno presentati i dati di monitoraggio, segnalazione di allarmi e profilazione guida ricevuti al server a seguito di una sincronizzazione:
 
 \begin{figure}[h]
