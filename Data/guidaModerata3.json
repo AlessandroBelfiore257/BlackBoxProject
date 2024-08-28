@@ -1,0 +1,176 @@
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"1.00 / -1.00 / 9.85", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:53:13", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"1840.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:53:13", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"35.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:13", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"38.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:14", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"92.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:53:14", "priority":"2" }
+{ "typeOfDetection":"profilazione", "vote":"0.99", "date":"2024-03-10 12:00:00" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"0.00 / -1.00 / 9.87", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:53:17", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"48.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:17", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2332.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:53:18", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"67.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:53:18", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"0.00 / 1.00 / 9.86", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:53:19", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"22.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:19", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2355.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:53:20", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"37.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:20", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"38.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:21", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"85.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:53:21", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"1.00 / 1.00 / 9.83", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:53:22", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"1661.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:53:23", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"30.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:23", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"77.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:53:24", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"1.00 / 0.00 / 9.85", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:53:25", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"21.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:25", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"28.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:26", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2381.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:53:27", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"21.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:28", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"22.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:53:28", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"0.00 / 0.00 / 9.92", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:53:29", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"13.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:30", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"1833.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:53:31", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"83.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:53:31", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"40.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:32", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"1.00 / -1.00 / 9.88", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:53:33", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"23.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:34", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2425.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:53:35", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"73.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:53:36", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"33.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:37", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"-1.00 / 0.00 / 9.87", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:53:38", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"31.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:39", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2213.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:53:40", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"20.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:53:40", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"-1.00 / -1.00 / 9.85", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:53:42", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"38.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:42", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"38.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:43", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"1510.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:53:45", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"24.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:53:46", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"23.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:47", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"1.00 / 1.00 / 9.84", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:53:48", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"23.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:49", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2224.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:53:50", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"49.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:53:51", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"49.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:52", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"-5.00 / 1.00 / 9.76", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:53:53", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"30.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:55", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"1925.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:53:56", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"104.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:53:57", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"30.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:53:58", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"0.00 / -1.00 / 9.85", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:54:00", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"46.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:54:01", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2479.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:54:02", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"117.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:54:03", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"23.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:54:05", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"0.00 / 1.00 / 9.88", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:54:06", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"47.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:54:07", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2032.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:54:09", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"113.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:54:10", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"42.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:54:11", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"1.00 / -1.00 / 9.81", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:54:13", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"12.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:54:14", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2401.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:54:16", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"78.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:54:17", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"36.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:54:18", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"-1.00 / 0.00 / 9.82", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:54:20", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"23.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:54:21", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2436.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:54:23", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"57.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:54:25", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"33.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:54:26", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"0.00 / 0.00 / 9.87", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:54:28", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"49.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:54:29", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2164.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:54:31", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"70.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:54:32", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"36.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:54:34", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"0.00 / 0.00 / 9.84", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:54:36", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"34.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:54:37", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2431.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:54:39", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"81.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:54:41", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"27.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:54:42", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"-1.00 / 1.00 / 9.84", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:54:44", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"28.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:54:46", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"1908.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:54:48", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"43.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:54:49", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"32.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:54:51", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"1.00 / 0.00 / 9.84", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:54:53", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"35.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:54:55", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2350.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:54:57", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"104.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:54:58", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"39.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:55:00", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"1.00 / -1.00 / 9.86", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:55:02", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"17.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:55:04", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"1745.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:55:06", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"85.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:55:08", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"28.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:55:10", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"-1.00 / 0.00 / 9.86", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:55:12", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"20.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:55:13", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"1559.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:55:15", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"32.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:55:17", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"43.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:55:19", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"-2.00 / 1.00 / 9.86", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:55:21", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"22.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:55:23", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"1589.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:55:25", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"110.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:55:28", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"48.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:55:30", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"0.00 / 1.00 / 9.84", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:55:32", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"47.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:55:34", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2160.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:55:36", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"69.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:55:38", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"38.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:55:40", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"-1.00 / -1.00 / 9.85", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:55:42", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"36.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:55:45", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2247.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:55:47", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"72.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:55:49", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"25.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:55:51", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"0.00 / 1.00 / 9.82", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:55:53", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"15.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:55:56", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2226.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:55:58", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"70.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:56:00", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"30.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:56:03", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"1.00 / -1.00 / 9.84", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:56:05", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"47.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:56:07", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2065.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:56:10", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"41.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:56:12", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"33.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:56:14", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"-1.00 / 0.00 / 9.86", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:56:17", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"26.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:56:19", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"1590.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:56:22", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"64.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:56:24", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"21.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:56:26", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"-1.00 / -1.00 / 9.91", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:56:29", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"37.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:56:31", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"1754.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:56:34", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"79.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:56:36", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"44.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:56:39", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"1.00 / -1.00 / 9.85", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:56:42", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"38.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:56:44", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2213.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:56:47", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"112.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:56:49", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"25.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:56:52", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"1.00 / 1.00 / 9.83", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:56:54", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"43.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:56:57", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2476.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:57:00", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"120.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:57:02", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"48.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:57:05", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"1.00 / 1.00 / 9.87", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:57:08", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"31.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:57:11", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2406.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:57:13", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"49.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:57:16", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"20.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:57:19", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"1.00 / -1.00 / 9.82", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:57:22", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"48.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:57:25", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2022.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:57:28", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"31.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:57:30", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"45.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:57:33", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"5.00 / 1.00 / 9.87", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:57:36", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"49.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:57:39", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2039.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:57:42", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"67.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:57:45", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"45.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:57:48", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"-1.00 / 0.00 / 9.84", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:57:51", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"15.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:57:54", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2294.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:57:57", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"110.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:58:00", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"47.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:58:03", "priority":"4" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Accelerometria", "value":"-1.00 / 0.00 / 9.82", "dataType":"String", "unitOfMeasurement":"m/s^2", "date":"2024-08-28 09:58:06", "priority":"6" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Carico motore", "value":"34.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:58:09", "priority":"1" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Giri motore", "value":"2254.00", "dataType":"Integer", "unitOfMeasurement":"giriMotore/minuto", "date":"2024-08-28 09:58:12", "priority":"3" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Velocità", "value":"66.00", "dataType":"Integer", "unitOfMeasurement":"km/h", "date":"2024-08-28 09:58:15", "priority":"2" }
+{ "typeOfDetection":"monitoraggio", "parameter":"Posizione valvola", "value":"34.00", "dataType":"Integer", "unitOfMeasurement":"%", "date":"2024-08-28 09:58:18", "priority":"4" }
