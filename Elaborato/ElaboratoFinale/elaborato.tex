@@ -752,34 +752,36 @@ Per quanto riguarda la profilazione guida sono state simulate 3 guide da 20 min 
   \label{tab:stili_di_guida}
 \end{table}
 
-Come ulteriore verifica relativa al corretto funzionamento dell'algoritmo di profilazione del conducente, sono stati elaborati tutti i dati relativi a tale attività da un \textbf{algoritmo esterno} scritto da un collega tesista e sono stati messi a confronto i risultati finali di tale algoritmo con quello implementato all'interno della black-box. L'obiettivo dell'algoritmo esterno è quello di profilare lo stile di guida del conducente attribuendogli un'etichettatura rappresentativa. Sono state simulate 3 guide da 20 minuti ciascuna, ognuna rappresentante uno stile di guida diverso dall'altra (sono stati usati gli stessi range di valori usati precedentemente \ref{tab:stili_di_guida}), ed è stato modificato il codice così da poter inoltrare i dati relativi alla profilazione al server remoto. I dati, ricevuti dalla black-box in formato JSON, sono stati filtrati da apposite librerie e utilizzati dall'algoritmo esterno. I rusultati sono stati messi a confronto con la tabella \ref{tab:stili_di_guida}.
+Come ulteriore verifica relativa al corretto funzionamento dell'algoritmo di profilazione del conducente, sono stati elaborati tutti i dati relativi a tale attività da un \textbf{algoritmo esterno} scritto da un collega tesista e sono stati messi a confronto i risultati finali di tale algoritmo con quello implementato all'interno della black-box. L'obiettivo dell'algoritmo esterno è quello di profilare lo stile di guida del conducente attribuendogli un'etichettatura rappresentativa. Sono state simulate 3 guide da 20 minuti ciascuna, ognuna rappresentante uno stile di guida diverso dall'altra (sono stati usati gli stessi range di valori usati precedentemente \ref{tab:stili_di_guida}), ed è stato modificato il codice così da poter inoltrare i dati relativi alla profilazione al server remoto. I dati, ricevuti dalla black-box in formato \textbf{NDJSON} (Newline Delimited JSON), sono stati filtrati utilizzando apposite librerie in R, come \textbf{jsonlite}, un parser e generatore JSON semplice e robusto. Successivamente, i dati sono stati convertiti in un dataframe per facilitarne la manipolazione in R, quindi trasformati in formato CSV per essere utilizzati dall'algoritmo esterno. I rusultati sono stati messi a confronto con la tabella \ref{tab:stili_di_guida}.
 
-\vspace{0.5cm}
+\newpage
 
 I grafici mostrati sotto rappresentano i tre stili di guida, ciascuno classificato dall'algoritmo esterno. 
 
+\vspace{1cm}
+
 \begin{figure}[h]
   \centering
-  \includegraphics[width=16cm]{GuidaSpericolata.png}
+  \includegraphics[width=14cm]{GuidaSpericolata.png}
   \caption{Stile di guida spericolato}
   \label{Guida spericolata}
 \end{figure}
 
-\newpage
-
 \begin{figure}[h]
   \centering
-  \includegraphics[width=16cm]{GuidaIntermedia.png}
+  \includegraphics[width=14cm]{GuidaIntermedia.png}
   \caption{Stile di guida intermedio}
   \label{Guida intermedia}
 \end{figure}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=16cm]{GuidaModerata.png}
+  \includegraphics[width=14cm]{GuidaModerata.png}
   \caption{Stile di guida moderato}
   \label{Guida moderata}
 \end{figure}
+
+\newpage
 
 Osservando le tre classificazioni è possibile notare che il trend valutativo risulta essere molto simile alle valutazioni che sono state date precedentemente dall'algoritmo presente all'interno della board. 
 
@@ -793,6 +795,8 @@ Per concludere questo paragrafo di seguito verrà mostrato un esempio di una ser
   \caption{Ricezione dati lato server}
   \label{fig:datiServer}
 \end{figure}
+
+\newpage
 
 \section{Comportamenti non implementati}
 Alcuni comportamenti relativi alla segnalazione di allarmi critici e non non sono stati implementati. Questi riguardano la gestione degli allarmi relativi al \textbf{consumo anomalo di carburante} e alla \textbf{distanza di frenata anomala} per quanto riguarda gli allarmi critici, il \textbf{rilevamento della presenza di fumo} per quanto riguarda invece gli allarmi meno critici. Quest'ultima funzionalità è facilmente implementabile con l'installazione di un sensore apposito che rileva la presenza di fumo nell'ambiente che lo circonda; l'implementazione delle prime due funzionalità è stata volutamente non implementata data la complessa natura dei due problemi, che richiedono uno studio complesso e approfondito. Questi aspetti rimangono importanti per sviluppi futuri e rappresentano punti chiave per migliorare ulteriormente il sistema.
