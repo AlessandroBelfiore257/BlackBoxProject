@@ -122,7 +122,7 @@
 
 \cleardoublepage
 \phantomsection
-\addcontentsline{toc}{chapter}{Elenco delle figure}
+\addcontentsline{toc}{chapter}{Elenco delle figure}\todo{AT: forse vanno in fondo i due elenchi}
 \listoffigures
 
 \cleardoublepage
@@ -134,13 +134,13 @@
 % o sections (dipende dal documentclass)
 \chapter{Introduzione}
 Il settore assicurativo è stato uno dei primi a intuire le potenzialità di un tracciamento GPS in grado di registrare gli spostamenti di un determinato automobilista
-e di aiutarlo in caso di incidente segnalando ai soccorsi la posizione esatta dell’accaduto, o in caso di furto segnalando alle forze dell’ordine la posizione dell’auto in
-tempo reale. Tutto questo è stato possibile grazie all’introduzione della cosiddetta
-“scatola nera” o black-box, un piccolo apparecchio da installare sull’auto di un
-assicurato, in grado di registrare tutti gli spostamenti di un’automobile, nonchè il
+e di aiutarlo in caso di incidente segnalando ai soccorsi la posizione esatta dell'accaduto, o in caso di furto segnalando alle forze dell'ordine la posizione dell'auto in
+tempo reale. Tutto questo è stato possibile grazie all'introduzione della cosiddetta
+“scatola nera” o black-box, un piccolo apparecchio da installare sull'auto di un
+assicurato, in grado di registrare tutti gli spostamenti di un'automobile, nonchè\todo{AT: fai uno spellcheck, accenti sbagliati} il
 comportamento alla guida del conducente. Può essere utilizzata dalla compagnia
 assicuratrice per profilare i clienti e offrire quindi delle polizze personalizzate e fatte su misura per il tipo di utilizzo
-\cite{fracassi2012}.
+\cite{fracassi2012}.\todo{AT: accennare già al fatto della profilazione?}
 \section{Cos'è una scatola nera?}
 La black-box è un dispositivo elettronico utilizzato principalmente per monitorare e registrare vari parametri di funzionamento del veicolo e comportamento del conducente. Sebbene il termine sia spesso associato alle registrazioni di volo degli aerei, nel contesto automobilistico e assicurativo, la scatola nera ha una funzione leggermente diversa ma altrettanto cruciale. Ecco una descrizione dettagliata nei due paragrafi che seguono:
 
@@ -161,16 +161,16 @@ La black-box è un dispositivo elettronico utilizzato principalmente per monitor
 L'importanza di una black-box è data dai benefici che si possono trarre da essa: 
 \begin{itemize}
     \item \textbf{Assistenza rapida}: in caso di incidente, la scatola nera può inviare automaticamente la posizione ai servizi di emergenza, riducendo i tempi di risposta.
-    \item \textbf{Recupero dei veicoli rubati}: la localizzazione GPS permette di tracciare e recuperare rapidamente veicoli rubati.
+    \item \textbf{Recupero dei veicoli rubati}: la localizzazione GPS permette di tracciare e recuperare rapidamente veicoli rubati.\todo{AT: se non lo rimuovono/staccano}
     \item \textbf{Polizze assicurative personalizzate}: le compagnie assicurative possono utilizzare i dati registrati per profilare meglio i clienti e offrire polizze personalizzate basate sul comportamento di guida e sull'uso del veicolo, incentivando una guida più responsabile attraverso sconti per chi mantiene uno stile di guida prudente.
-    \item \textbf{Miglioramento della sicurezza}: i dati raccolti possono essere utilizzati per educare i conducenti su comportamenti di guida sicuri, contribuendo a ridurre il rischio di incidenti. Un’indagine dell’ANIA (Associazione Nazionale delle Imprese Assicurative) ha stabilito che chi installa la black-box ha una condotta di guida più responsabile \cite{diminuzioneIncidenti}, un comportamento che quindi fa diminuire la probabilità di provocare sinistri. Lo studio ha rilevato una riduzione della sinistrosità per i veicoli controllati dal congegno quasi doppia rispetto a quella delle auto che non montano il sistema di sorveglianza. 
+    \item \textbf{Miglioramento della sicurezza}: i dati raccolti possono essere utilizzati per educare i conducenti su comportamenti di guida sicuri, contribuendo a ridurre il rischio di incidenti. Un'indagine dell'ANIA (Associazione Nazionale delle Imprese Assicurative) ha stabilito che chi installa la black-box ha una condotta di guida più responsabile \cite{diminuzioneIncidenti}, un comportamento che quindi fa diminuire la probabilità di provocare sinistri. Lo studio ha rilevato una riduzione della sinistrosità per i veicoli controllati dal congegno quasi doppia rispetto a quella delle auto che non montano il sistema di sorveglianza. \todo{AT: prima o poi mi aspetto considerazioni sull'aspetto privacy}
 \end{itemize}
 \section{Obiettivi del progetto}
 Il principale obiettivo di questo progetto è quello di sviluppare una black-box avanzata per veicoli appartenenti ad una flotta di autonoleggio a lungo termine, che si distingua dalle soluzioni tradizionali per la sua capacità di diagnosticare sia il veicolo sia il comportamento del conducente. Le tradizionali black-box non solo registrano i dati di viaggio, ma svolgono anche funzioni fondamentali come il monitoraggio costante del veicolo, il tracciamento degli incidenti e la richiesta automatica di assistenza in caso di emergenza. La nostra black-box, oltre a queste funzionalità di base, introduce due caratteristiche innovative che ne ampliano ulteriormente le potenzialità.
 
 \vspace{1cm}
 
-La \textbf{prima caratteristica distintiva} è la capacità di rilevare e segnalare tempestivamente sia allarmi critici che non, relativi a problemi meccanici del veicolo e comportamenti inappropriati del conducente. Questo sistema avanzato di diagnostica è in grado di identificare malfunzionamenti interni dell’autovettura, come anomalie nel motore, nonché situazioni di pericolo come la presenza di gas nell'abitacolo. Inoltre, è capace di monitorare e segnalare comportamenti non leciti del conducente, la presenza di fumo nell'abitacolo (potrebbe essere un vincolo da rispettare imposto dalla compagnia), guida sotto l'influenza di alcool, utilizzo del veicolo su strade non asfaltate, guida fuori dal territorio nazionale o trasporto di un rimorchio senza autorizzazione.
+La \textbf{prima caratteristica distintiva} è la capacità di rilevare e segnalare tempestivamente sia allarmi critici che non, relativi a problemi meccanici del veicolo e comportamenti inappropriati del conducente. Questo sistema avanzato di diagnostica è in grado di identificare malfunzionamenti interni dell'autovettura, come anomalie nel motore, nonché situazioni di pericolo come la presenza di gas nell'abitacolo. Inoltre, è capace di monitorare e segnalare comportamenti non leciti del conducente, la presenza di fumo nell'abitacolo (potrebbe essere un vincolo da rispettare imposto dalla compagnia), guida sotto l'influenza di alcool, utilizzo del veicolo su strade non asfaltate, guida fuori dal territorio nazionale o trasporto di un rimorchio senza autorizzazione.
 
 \vspace{1cm}
 
@@ -178,17 +178,17 @@ La \textbf{seconda caratteristica innovativa} è la generazione automatica di un
 
 \vspace{1cm}
 
-Il progetto mira a creare una black-box che non solo registra e monitora i dati di viaggio e le condizioni del veicolo, ma offre anche un sistema di diagnostica integrato in grado di riconoscere malfunzionamenti interni del veicolo, comportamenti inappropriati del conducente e la capacità di valutarlo in base al suo stile di guida; migliorando la sicurezza e l’efficienza del veicolo e contribuendo ad una guida più responsabile e consapevole.
+Il progetto mira a creare una black-box che non solo registra e monitora i dati di viaggio e le condizioni del veicolo, ma offre anche un sistema di diagnostica integrato in grado di riconoscere malfunzionamenti interni del veicolo, comportamenti inappropriati del conducente e la capacità di valutarlo in base al suo stile di guida; migliorando la sicurezza e l'efficienza del veicolo e contribuendo ad una guida più responsabile e consapevole.
 
 \chapter{Stato dell'arte}
 La \textbf{scatola nera}, chiamata anche black-box o EDR, acronimo per Event Data Recorder o, in italiano, registratore di dati di evento, è un dispositivo che registra e trasmette la propria posizione ai satelliti a cui è collegata e altre informazioni come la velocità, le accelerazioni, le decelerazioni, le frenate e la frequenza di attivazione dei sistemi di sicurezza a una centrale operativa.
 Quelle che sono comunemente indicate come ``scatole nere" sono localizzatori satellitari GPS installati a bordo dell'auto, nate come strumento, ideato dalle assicurazioni, per ridurre le \textbf{frodi assicurative}.
 \section{Gestioni attuali di tracking per veicoli}
-Unico beneficio del tracking del veicolo è che, grazie al localizzatore GPS, risulta utile in caso di furto: il sistema satellitare facilita il rintracciamento del veicolo qualora venga rubato. Naturalmente il localizzatore gioca un ruolo importante anche nella gestione di un incidente, infatti ne verrà parlato nel prossimo paragrafo.
+Unico beneficio del tracking del veicolo è che, grazie al localizzatore GPS, risulta utile in caso di furto: il sistema satellitare facilita il rintracciamento del veicolo qualora venga rubato. Naturalmente il localizzatore gioca un ruolo importante anche nella gestione di un incidente, infatti ne verrà parlato\todo{AT: italiano da rivedere!} nel prossimo paragrafo.
 \section{Gestioni attuali delle emergenze e dei sistemi di allarmi in uso}
 \subsection{Vantaggi e Svantaggi nella gestione delle emergenze}
 \subsubsection{Vantaggi}
-Grazie all'installazione di una black-box sul proprio veicolo e al monitoraggio continuo e tracking di esso, è possibile, in caso di incidente, visualizzare il luogo dell'accaduto immediatamente e ricostruire con precisione la dinamica degli incidenti stradali. Tramite questo strumento le compagnie assicurative sono in grado di ricostruire più facilmente la dinamica di un sinistro stradale. Questo non solo avvantaggia la compagnia, ma anche il guidatore, che vedrà diminuire il tempo per ottenere il risarcimento del danno, dato che grazie alla black-box è possibile evitare le lunghe procedure per l'accertamento delle responsabilità in un incidente.
+Grazie all'installazione di una black-box sul proprio veicolo e al monitoraggio continuo e tracking di esso, è possibile, in caso di incidente, visualizzare il luogo dell'accaduto immediatamente e ricostruire con precisione la dinamica degli incidenti stradali. Tramite questo strumento le compagnie assicurative sono in grado di ricostruire più facilmente la dinamica di un sinistro stradale. Questo non solo avvantaggia la compagnia, ma anche il guidatore, che vedrà diminuire il tempo\todo{AT: o anche però non vedersi rimborsare perché gli affibbiano la colpa, senza possibilità di contestazione} per ottenere il risarcimento del danno, dato che grazie alla black-box è possibile evitare le lunghe procedure per l'accertamento delle responsabilità in un incidente.
 \subsubsection{Svantaggi}
 Le black-box attuali sono in grado di registrare anche la velocità del veicolo: in un ipotetico incidente, senza alcun tipo di colpa, se fosse stata registrata una velocità anche poco sopra al limite, si potrebbe riconoscere al guidatore una piccola parte di responsabilità nel sinistro.
 
@@ -205,17 +205,17 @@ Nei vari contratti di noleggio \cite{hertz_pdf} vengono proposti dei termini e d
 Tutti questi obblighi vengono citati all'interno del contratto assicurativo, non è possibile però stabilire se uno tra questi divieti non dovesse essere rispettato.
 
 \section{Soluzioni esistenti per la profilazione guidatori}
-Alcune grandi compagnie di assicurazioni, quali ad esempio \textbf{Generali}, propongono il \textbf{servizio stile di guida} che permette di ottenere ulteriori sconti sulla polizza negli anni a seguire \cite{Generali}. Tengo a precisare la parola ``ulteriori" dato che già l'installazione di una black-box prevede uno sconto, compreso tra il 15/20\%, sul totale dell'assicurazione.
+Alcune grandi compagnie di assicurazioni, quali ad esempio \textbf{Generali}, propongono il \textbf{servizio stile di guida} che permette di ottenere ulteriori sconti sulla polizza negli anni a seguire \cite{Generali}. Tengo a precisare la parola ``ulteriori" dato che già l'installazione di una black-box prevede uno sconto, compreso tra il 15/20\%, sul totale dell'assicurazione.\todo{AT: il costo effettivo è in realtà nascosto, perché l'assicurazione ha più leva per non pagarti, inoltre paghi con la rinuncia alla tua privacy}
 
 \section{Trattamento dei dati personali registrati}
-Il Regolamento europeo vieta espressamente che la scatola nera registri conversazioni o usi i dati sensibili del guidatore, consentendo così l’anonimato del conducente e l’accesso ai dati solo in caso di collisione \cite{RegolamentoEU}.
+Il Regolamento europeo vieta espressamente che la scatola nera registri conversazioni o usi i dati sensibili del guidatore, consentendo così l'anonimato del conducente e l'accesso ai dati solo in caso di collisione \cite{RegolamentoEU}.
 
 \section{Quanto è comune la scatola nera in Italia?}
 L'uso della scatola nera in Italia inizia ad essere rilevante. Il trend di crescita non si è mai interrotto negli ultimi 10 anni e la percentuale di auto dotate di black-box sono passate dal 6\% del 2013 al 23,2\% del 2020 (primo semestre)  \cite{Telepass}. Uno dei principali motivi di tale gradimento sono gli sconti sulle teriffe delle varie assicurazioni. I dati del 2021 del report IVASS confermano una diffusione più alta nei centri urbani del Sud Italia, come Caserta (65,5\%), Napoli (52,5\%) e Reggio Calabria (38,6\%). Le percentuali calano sotto il 10\% nelle città e nelle province del Nord come Udine (9\%), Trento (8\%), Belluno (7,3\%) e Bolzano (4,4\%).
 
 \chapter{Funzionalità del sistema}
 \section{Monitoraggio}
-Il monitoraggio consiste nella raccolta dati di alcuni parametri provenienti dal lettore OBD e da alcuni sensori installati sulla black-box. 
+Il monitoraggio consiste nella raccolta dati di alcuni parametri provenienti dal lettore OBD\todo{AT: la prima volta che usi un termine non di uso comune devi spiegarlo o mettere un rimando (anche in avanti) alla spiegazione} e da alcuni sensori installati sulla black-box. 
 Il motivo per cui si è scelto di monitorare lo stato del veicolo è quello di ottenere una visione completa della sua salute. In particolare, i dati che vengono registrati sono l'\textbf{accelerazione} misurata grazie ad un accelerometro, utile per analizzare il comportamento dinamico del veicolo. Il sensore di alcool permette di rilevare la \textbf{presenza di vapori alcolici} nell'abitacolo, garantendo un ambiente sicuro; per assicurare una \textbf{qualità dell'aria} adeguata all'interno del veicolo, viene utilizzato un sensore specifico che rileva vari inquinanti, il modulo GPS fornisce \textbf{coordinate} precise, fondamentali sia per la tracciabilità del veicolo in caso di furto, sia per analizzare i percorsi abituali. Viene inoltre monitorata  costantemente la \textbf{temperatura del liquido di raffreddamento} e dell'\textbf{olio motore} grazie allo scanner OBD. Inoltre, vengono registrati la \textbf{coppia del motore} per valutare le sue prestazioni e il \textbf{voltaggio della batteria} per prevenire problemi elettrici.
 Infine, il dato relativo al \textbf{livello del carburante} mi permette di tenere traccia dell'autonomia del veicolo. 
 \section{Tracking}
@@ -272,7 +272,7 @@ Sostanzialmente il meccanismo si divide in due fasi: \textbf{rilevamento} e \tex
     \end{tikzpicture}
     \caption{Diagramma di flusso per il monitoraggio dell'accelerometro ed eventuale invio SMS}
     \label{fig:rilevamentoInvioIncidente}
-\end{figure}
+\end{figure}\todo{AT: i diarammi di flusso sanno di ``antico'', li ridurrei in dimensione o eliminerei}
 
 I sensori maggiormente coinvolti sono l'accelerometro, il GPS e il dato relativo alla velocità del veicolo proveniente dalla rete can bus. Nella fase di campionamento, l'accelerometro contina ad estrarre informazioni relative alla forza G speriementata dagli occupanti. Il GPS, nella fase di notifica, è utile per inviare le coordinate alla stazione remota. Infine la velocità del veicolo, coinvolta sempre in fase di notifica, viene mandata alla stazione remota e può essere utilizzata per future ricostruzioni/analisi dell'incidente. \cite{shubham2021survey}
 
@@ -410,6 +410,9 @@ ECU è l'unità centrale di controllo del veicolo dove sono collegati tutti i va
     \item Gli eccessi di velocità data dalla differenza tra i limiti imposti dalla legge e quelli reali del veicolo.
 \end{itemize}
 
+
+
+\todo{AT: il codice inserito qui senza un po' di spiegazione non va molto bene, va almeno fatta introduzione al perché lo mostri}
 \begin{lstlisting}
 // Implementazione task relativo alla profilazione guida
 void profilazioneCallback() {
@@ -472,7 +475,7 @@ Per quanto riguarda il primo e il secondo punto è possibile utilizzare un accel
   \includegraphics[width=8cm]{Accelerometro.jpg}
   \caption{Modello meccanico di un accelerometro a 3 assi}
   \label{fig:accelerometro}
-\end{figure}
+\end{figure}\todo{AT: non c'è fonte nella caption}
 \footnotetext{Presa da: \url{https://futuranet.it/wp-content/uploads/2023/01/Figura-4-6-768x789.jpg}}
 
 Il terzo e quarto punto sono invece calcolabili per via analitica raccogliendo dati provenienti dall'OBD-II; per quanto riguarda l'ultimo punto (carico del motore espresso in \%) non si ha bisogno di alcuna manipolazione dei dati in quanto essi provengono direttamente dalla rete CAN-BUS.
@@ -537,6 +540,7 @@ Le librerie utilizzate per lo sviluppo del progetto si possono divedere in tre c
 \subsection{Filesystem}
 Nel filesystem dell'esp32 viene creato un database (dati.db) all'interno del quale sono presenti 5 tabelle, utili per la gestione di tutti gli eventi previsti dalla black-box. Per interagire con il db viene utilizzato SQLite, una libreria scritta in linguaggio C che implementa un motore di database SQL piccolo, veloce, autonomo, ad alta affidabilità e completo. SQLite è il motore di database più utilizzato al mondo; è integrato in tutti i telefoni cellulari e nella maggior parte dei computer ed in innumerevoli altre applicazioni utilizzate ogni giorno \cite{sqliteWhentoUse}. SQLite è particolarmente adatto per l'uso in telefoni cellulari, set-top box, televisori, console di gioco, fotocamere, orologi, elettrodomestici da cucina, termostati, automobili, macchine utensili, aeroplani, sensori remoti, droni, dispositivi medici e robot: \textbf{``internet of things"}.
 Di seguito verranno presentate le tabelle di memorizzazione dati dell'intero sistema con qualche esempio di dato memorizzato:
+\todo{AT: avrei messo (anche o solo) uno schema ER}
 
 \paragraph{Tabella t1}
 \begin{table}[h!]
@@ -660,7 +664,7 @@ Le comunicazioni critiche per il veicolo, ad esempio la gestione dei giri del mo
   \includegraphics[width=8cm]{CAN_auto.png}
   \caption{Protocollo CAN BUS all'interno di un'autovettura}
   \label{fig:Protocallo CAN-BUS}
-\end{figure}
+\end{figure}\todo{AT: anche qui manca fonte nella caption, verifica tutte le figure}
 \footnotetext{Presa da: \url{https://farelettronica.it/web/app/uploads/2022/04/02-controller-area-network-ecu-evoque-adam-ali-small.png}}
 
 \paragraph{Il connettore OBD} Molti veicoli sono dotati di un connettore \textbf{OBD-II}, detto anche connettore del collegamento diagnostico (DLC, Diagnostic Link Connector), che comunica con la rete interna del veicolo. Solitamente questo connettore si trova sotto il piantone dello sterzo o nascosto da qualche parte nel cruscotto in una posizione comunque relativamente accessibile.
@@ -752,7 +756,7 @@ Per quanto riguarda la profilazione guida sono state simulate 3 guide da 20 min 
   \label{tab:stili_di_guida}
 \end{table}
 
-Come ulteriore verifica relativa al corretto funzionamento dell'algoritmo di profilazione del conducente, sono stati elaborati tutti i dati relativi a tale attività da un \textbf{algoritmo esterno} scritto da un collega tesista e sono stati messi a confronto i risultati finali di tale algoritmo con quello implementato all'interno della black-box. L'obiettivo dell'algoritmo esterno è quello di profilare lo stile di guida del conducente attribuendogli un'etichettatura rappresentativa. Sono state simulate 3 guide da 20 minuti ciascuna, ognuna rappresentante uno stile di guida diverso dall'altra (sono stati usati gli stessi range di valori usati precedentemente \ref{tab:stili_di_guida}), ed è stato modificato il codice così da poter inoltrare i dati relativi alla profilazione al server remoto. I dati, ricevuti dalla black-box in formato \textbf{NDJSON} (Newline Delimited JSON), sono stati filtrati utilizzando apposite librerie in R, come \textbf{jsonlite}, un parser e generatore JSON semplice e robusto. Successivamente, i dati sono stati convertiti in un dataframe per facilitarne la manipolazione in R, quindi trasformati in formato CSV per essere utilizzati dall'algoritmo esterno. I rusultati sono stati messi a confronto con la tabella \ref{tab:stili_di_guida}.
+Come ulteriore verifica relativa al corretto funzionamento dell'algoritmo di profilazione del conducente, sono stati elaborati tutti i dati relativi a tale attività da un \textbf{algoritmo esterno} scritto da un collega tesista\todo{AT: metti nome e cognome, a meno che Bianchi preferisca di no, chiedigli} e sono stati messi a confronto i risultati finali di tale algoritmo con quello implementato all'interno della black-box. L'obiettivo dell'algoritmo esterno è quello di profilare lo stile di guida del conducente attribuendogli un'etichettatura rappresentativa. Sono state simulate 3 guide da 20 minuti ciascuna, ognuna rappresentante uno stile di guida diverso dall'altra (sono stati usati gli stessi range di valori usati precedentemente \ref{tab:stili_di_guida}), ed è stato modificato il codice così da poter inoltrare i dati relativi alla profilazione al server remoto. I dati, ricevuti dalla black-box in formato \textbf{NDJSON} (Newline Delimited JSON), sono stati filtrati utilizzando apposite librerie in R, come \textbf{jsonlite}, un parser e generatore JSON semplice e robusto. Successivamente, i dati sono stati convertiti in un dataframe per facilitarne la manipolazione in R, quindi trasformati in formato CSV per essere utilizzati dall'algoritmo esterno. I rusultati sono stati messi a confronto con la tabella \ref{tab:stili_di_guida}.
 
 \newpage
 
@@ -859,7 +863,7 @@ Un'altra funzionalità utile per la profilazione che potrebbe essere implementat
     \item \textbf{Sicurezza stradale}: aumentare la sicurezza stradale, informando il conducente in caso di superamento dei limiti di velocità. 
 \end{itemize}
 
-\subsection{Profilazione conducente lato server remoto} 
+\subsection{Profilazione conducente lato server remoto} \todo{AT: tutta questa parte è solo teorica, non c'è nulla di effettivamente applicato al tuo caso?}
 Per concludere il nostro studio possiamo affiancare alla capacità della board di valutazione del guidatore, tecniche di Machine Learning relative sia all'apprendimento supervisionato che non supervisionato, consentendoci di esaminare più approfonditamente la natura della nostra flotta. In questo contesto, ci concentreremo su due principali tecniche di Machine Learning: la \textbf{classificazione} e il \textbf{clustering}. La classificazioneci permette di assegnare ai guidatori delle etichette, come ad esempio 'prudente' piuttosto che 'negligente', in base ai loro comportamenti al volante, mentre il clustering ci consente di raggruppare i guidatori in base a similitudini nel comportamento di guida. Esploreremo queste tecniche nel dettaglio, evidenziando le loro applicazioni specifiche e i benefici che possono apportare all'analisi e alla gestione dell'autonoleggio. \cite{wiki:Apprendimento_automatico}
 
 \vspace{0.5cm}
