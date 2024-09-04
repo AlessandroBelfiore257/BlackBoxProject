@@ -375,13 +375,13 @@ void profilazioneCallback() {
   float x = a.acceleration.x;
   float y = a.acceleration.y;
 
-  // Accelerazioni / decelerazioni brusche
-  if ((x / FORZA_G) > (ACCELERAZIONE_BRUSCA) || (x / FORZA_G) < (DECELERAZIONE_BRUSCA)) {
-    nRilevamentiAccDecBrusche++;
-  }
-  // Sterzate sinistra e destra brusche
-  if ((y / FORZA_G) > (STERZATA_DX_BRUSCA) || (y / FORZA_G) < (STERZATA_SX_BRUSCA)) {
+  /// Sterzate sinistra e destra brusche
+  if ((x / FORZA_G) > (STERZATA_DX_BRUSCA) || (x / FORZA_G) < (STERZATA_SX_BRUSCA)) {
     nRilevamentiSterzateBrusche++;
+  }
+  // Accelerazioni / decelerazioni brusche
+  if ((y / FORZA_G) > (ACCELERAZIONE_BRUSCA) || (y / FORZA_G) < (DECELERAZIONE_BRUSCA)) {
+    nRilevamentiAccDecBrusche++;
   }
   // Fattore 1
   float fatt1 = ((kph / MAX_SPEED_CAR) / (rpm / MAX_RPM_CAR));
