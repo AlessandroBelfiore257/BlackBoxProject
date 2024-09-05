@@ -44,7 +44,7 @@
 #define CLEANING_ROUTINE 120 * TASK_SECOND     // adesso sono 120 secondi, nella versione ufficiale saranno 6h
 #define CLEANING_MEMORY_FULL 300 * TASK_SECOND
 
-#define GPS_TRACKING_SECURITY 300 * TASK_SECOND // ogni 5 min mando via GSM la posizione del veicolo
+#define GPS_TRACKING_SECURITY 120 * TASK_SECOND // ogni 2 min mando via GSM la posizione del veicolo
 #define ACCIDENT_AND_ASSISTANCE 2 * TASK_SECOND // Rilevo frequentemente la forga G esercitata sul veicolo + la pressione del bottone
 
 #define GPSBAUD 38400
