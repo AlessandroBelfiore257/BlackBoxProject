@@ -153,7 +153,7 @@ Il principale obiettivo di questo progetto è quello di sviluppare una black-box
 
 \vspace{1cm}
 
-La \textbf{prima caratteristica distintiva} è la capacità di rilevare e segnalare tempestivamente sia allarmi critici che non, relativi a problemi meccanici del veicolo e comportamenti inappropriati del conducente. Questo sistema avanzato di diagnostica è in grado di identificare malfunzionamenti interni dell'autovettura, come anomalie nel motore, nonché situazioni di pericolo come la presenza di gas nell'abitacolo. Inoltre, è capace di monitorare e segnalare comportamenti non leciti del conducente: la presenza di fumo nell'abitacolo (che potrebbe essere un vincolo da rispettare imposto dalla compagnia), la guida sotto l'effetto di alcolici, l'utilizzo del veicolo su strade non asfaltate, la guida fuori dal territorio nazionale o il trasporto di un rimorchio senza autorizzazione.
+La \textbf{prima caratteristica distintiva} è la capacità di rilevare e segnalare tempestivamente sia allarmi critici che di minore gravità, relativi a problemi meccanici del veicolo e comportamenti inappropriati del conducente. Questo sistema avanzato di diagnostica è in grado di identificare malfunzionamenti interni dell'autovettura, come anomalie nel motore, nonché situazioni di pericolo come la presenza di gas nell'abitacolo. Inoltre, è capace di monitorare e segnalare comportamenti non leciti del conducente: la presenza di fumo nell'abitacolo (che potrebbe essere un vincolo da rispettare imposto dalla compagnia), la guida sotto l'effetto di alcolici, l'utilizzo del veicolo su strade non asfaltate, la guida fuori dal territorio nazionale o il trasporto di un rimorchio senza autorizzazione.
 
 \vspace{1cm}
 
@@ -164,7 +164,7 @@ La \textbf{seconda caratteristica innovativa} è la generazione automatica di un
 Il progetto mira a creare una black-box che non solo registra e monitora i dati di viaggio e le condizioni del veicolo, ma offre anche un sistema di diagnostica integrato in grado di riconoscere malfunzionamenti interni del veicolo, comportamenti inappropriati del conducente e la capacità di valutare quest'ultimo sulla base del suo stile di guida; migliorando sicurezza ed efficienza del veicolo e contribuendo ad una guida più responsabile e consapevole.
 
 \chapter{Stato dell'arte}
-La \textbf{scatola nera}, chiamata anche black-box o EDR, acronimo di Event Data Recorder o, in italiano, registratore di dati di evento, è un dispositivo che registra e trasmette la propria posizione ai satelliti a cui è collegato e altre informazioni come la velocità, le accelerazioni e decelerazioni, le frenate e la frequenza di attivazione dei sistemi di sicurezza a una centrale operativa.
+La \textbf{scatola nera}, chiamata anche black-box o EDR (Event Data Recorder, ovvero registratore di dati di evento), è un dispositivo che registra dati come la posizione (determinata tramite GPS), la velocità, le accelerazioni, le decelerazioni, le frenate e la frequenza di attivazione dei sistemi di sicurezza, trasmettendoli poi a una centrale operativa.
 Quelle che sono comunemente indicate come ``scatole nere" sono localizzatori satellitari GPS installati a bordo dell'auto, ideate dalle assicurazioni come strumento con lo scopo di ridurre le \textbf{frodi assicurative}.
 \section{Gestioni attuali di tracking per veicoli}
 Il principale vantaggio del tracking dei veicoli è quello di facilitare il rintracciamento del veicolo in caso di furto, grazie al localizzatore GPS. Naturalmente, il localizzatore ha un ruolo rilevante anche nella gestione degli incidenti, come verrà discusso nel prossimo paragrafo.
@@ -204,11 +204,11 @@ L'uso della scatola nera in Italia inizia ad essere rilevante. Il trend di cresc
 \section{Monitoraggio}
 Il monitoraggio consiste nella raccolta dati di alcuni parametri provenienti dal lettore OBD \ref{sec:capitolo432} % \todo{AT: la prima volta che usi un termine non di uso comune devi spiegarlo o mettere un rimando (anche in avanti) alla spiegazione} 
 e da alcuni sensori installati sulla black-box. 
-Il motivo per cui si è scelto di monitorare lo stato del veicolo è quello di ottenere una visione completa della sua salute. In particolare, i dati che vengono registrati sono: l'\textbf{accelerazione}, misurata grazie ad un accelerometro, utile per analizzare il comportamento dinamico del veicolo, il sensore di alcool che permette di rilevare la \textbf{presenza di vapori alcolici} nell'abitacolo, garantendo un ambiente sicuro; per assicurare una \textbf{qualità dell'aria} adeguata all'interno del veicolo, viene utilizzato un sensore specifico che rileva vari inquinanti. Il modulo GPS fornisce \textbf{coordinate} precise, fondamentali sia per la tracciabilità del veicolo in caso di furto sia per analizzare i percorsi abituali. Attraverso un lettore OBD, inoltre, viene monitorata  costantemente la \textbf{temperatura del liquido di raffreddamento} e dell'\textbf{olio motore}. Vengono poi registrati la \textbf{coppia del motore} per valutare le sue prestazioni e il \textbf{voltaggio della batteria} per prevenire problemi elettrici.
+Il motivo per cui si è scelto di monitorare lo stato del veicolo è quello di ottenere una visione completa della sua salute. In particolare, i dati che vengono registrati sono: l'\textbf{accelerazione}, misurata grazie ad un accelerometro, utile per analizzare il comportamento dinamico del veicolo; la \textbf{presenza di vapori alcolici} nell'abitacolo, rilevata da un sensore per garantire la sicurezza del conducente e dei passeggeri; per assicurare una \textbf{qualità dell'aria} adeguata all'interno del veicolo, viene utilizzato un sensore specifico che rileva vari inquinanti. Il modulo GPS fornisce \textbf{coordinate} precise, fondamentali sia per la tracciabilità del veicolo in caso di furto sia per analizzare i percorsi abituali. Attraverso un lettore OBD, inoltre, viene monitorata  costantemente la \textbf{temperatura del liquido di raffreddamento} e dell'\textbf{olio motore}. Vengono poi registrati la \textbf{coppia del motore} per valutare le sue prestazioni e il \textbf{voltaggio della batteria} per prevenire problemi elettrici.
 Infine, il dato relativo al \textbf{livello del carburante} permette di tenere traccia dell'autonomia del veicolo. 
 \section{Tracking}
 Questa funzionalità del sistema viene adoperata per localizzare i veicoli della flotta \cite{al2012hybrid}. Il sistema di tracking è in grado di generare la posizione esatta del veicolo usando due parametri: la latitudine e la longitudine. I dati di geolocalizzazione, per ogni slot temporale di 2 minuti, vengono trasferiti al server remoto della centrale operativa dell'autonoleggio. A posteriori potrebbero essere utilizzati per visualizzare i percorsi abituali del cliente o il percorso effettuato un preciso giorno. Il sistema di tracking è utile soprattutto in caso di furto del veicolo.
-Infatti, l'antenna GPS e il ricevitore GPS ricevono informazioni dal satellite nel formato NMEA (National Marine Electronics Association), quest'ultime vengono processate dall'esp32 e trasmesse al server remoto via GSM. Il server, una volta ricevuto i dati, li memorizza in locale per analisi future. 
+Infatti, il ricevitore GPS riceve informazioni dal satellite nel formato NMEA (National Marine Electronics Association), quest'ultime vengono processate dall'esp32 e trasmesse al server remoto via GSM. Il server, una volta ricevuto i dati, li memorizza in locale per analisi future. 
 
 \begin{figure}[h] \centering
 \includegraphics[width=8cm]{tracking.png}
@@ -388,7 +388,7 @@ I principali parametri che vengono catturati per l'analisi del guidatore sono: \
 \label{diagrammaFlussoProfilazione}
 \end{figure}
 
-ECU è l'unità centrale di controllo del veicolo dove sono collegati tutti i vari attuatori e sensori del veicolo: motore, aria condizionata, livello carburante... Lo scanner OBD-II trasmette i dati dalla ECU alla board via Bluetooth. La board processa i dati ed è in grado di generare uno score del guidatore. Il punteggio [0,1] viene calcolato considerando:
+ECU (master) è l'unità centrale di controllo del veicolo dove sono collegati tutti i vari attuatori e sensori del veicolo: motore, aria condizionata, livello carburante... Lo scanner OBD-II trasmette i dati dalla ECU alla board via Bluetooth. La board processa i dati ed è in grado di generare uno score del guidatore. Il punteggio [0,1] viene calcolato considerando:
 
 \begin{itemize}
     \item Le accelerazioni e decelerazioni brusche. \cite{fazeen2012safe}
@@ -660,7 +660,22 @@ L'unica tabella che non presenta il campo synchronised è quella relativa al tem
 \subsection{Protocollo di comunicazione all'interno del veicolo}
 I protocolli di comunicazione utilizzati nell'automotive governano il \textbf{trasferimento dei pacchetti} lungo la rete del veicolo. Varie sottoreti e centinaia di sensori comunicano su sistemi a bus, inviando messaggi che controllano il comportamento del veicolo e le informazioni che la rete ``conosce" in ogni dato momento.
 Le comunicazioni critiche per il veicolo, ad esempio la gestione dei giri del motore (RPM) e dei freni, viaggiano su linee di bus ad alta velocità, mentre quelle non critiche, come il blocco delle porte e il controllo A/C, viaggiano su linee di bus a media o bassa velocità.
-\paragraph{Protocollo CAN BUS} CAN (Control Area Network) è un protocollo di comunicazione utilizzato nel settore manifatturiero e automobilistico. I veicoli più recenti sono pieni di piccoli sistemi embedded e di unità di controllo elettronico (ECU) che comunicano tra di loro utilizzando il protocollo CAN. Questo protocollo è divenuto uno standard delle vetture e dei piccoli autocarri statunitensi dal 1996, ma è stato reso obbligatorio solo nel 2008 (nel 2001 per i veicoli europei) \cite{manualeHacker}. CAN utilizza due cavi a doppino intrecciato: \textbf{CAN high} e \textbf{CAN low} e usa un \textbf{segnale differenziale}, il che significa che, quando arriva un segnale, CAN aumenta la tensione su una linea e riduce quella dell'altra in misura uguale. I sensori, gli attuatori e le ECU hanno un ricetrasmettitore che verifica che entrambi i segnali siano innescati: se non lo sono, rifiuta i pacchetti come rumore. 
+\paragraph{Protocollo CAN BUS} CAN (Control Area Network) è un protocollo di comunicazione utilizzato nel settore manifatturiero e automobilistico. I veicoli più recenti sono pieni di piccoli sistemi embedded e di unità di controllo elettronico (ECU) che comunicano tra di loro utilizzando il protocollo CAN. Questo protocollo è divenuto uno standard delle vetture e dei piccoli autocarri statunitensi dal 1996, ma è stato reso obbligatorio solo nel 2008 (nel 2001 per i veicoli europei) \cite{manualeHacker}. 
+
+\newpage
+
+CAN utilizza due cavi a doppino intrecciato: \textbf{CAN high} (CANH) e \textbf{CAN low} (CANL) e usa un \textbf{segnale} di tipo \textbf{differenziale}, il che significa che, quando arriva un segnale, CAN aumenta la tensione su una linea e riduce quella dell'altra in misura uguale, vedi figura \ref{fig:segnaleDiffCAN}. Il segnale differenziale è utilizzato in ambienti che debbono essere fault tolerant per quanto riguarda il rumore, come nei sistemi automobilistici e nella manifattura.
+
+\vspace{0.2cm}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=15cm]{SegnaleDiffCAN.png}
+  \caption{Segnale differenziale CAN\protect\footnotemark (fonte: libro Il manuale dell'hacker di automobili di Chris Evans)}
+  \label{fig:segnaleDiffCAN}
+\end{figure}
+
+La figura \ref{fig:segnaleDiffCAN} mostra un segnale catturato con un PicoScope, che ascolta sia CANH (linee più scure nella parte superiore del grafico) sia CANL (linee più chiare nella parte inferiore del grafico). Si può osservare che, quando viene trasmesso un bit sul bus CAN, il segnale diffonde simultaneamente 1V in più e in meno. I sensori, gli attuatori e le ECU hanno un ricetrasmettitore che verifica che entrambi i segnali siano innescati: se non lo sono, rifiuta i pacchetti come rumore. 
 
 \begin{figure}[h]
   \centering
@@ -718,7 +733,7 @@ Per leggere i messaggi presenti all'interno della rete CAN BUS è necessario un 
 \footnotetext{Presa da: \url{https://m.media-amazon.com/images/I/51crnV3RTbL._AC_SX679_.jpg}}
 
 \subsection{esp32 - server remoto}
-Quando la black-box rileva la presenza di una connessione Internet, si collega ad un server remoto, il quale è sempre in ascolto, per trasmettere dati relativi al monitoraggio, alla segnalazione di allarmi e sulla profilazione del conducente. 
+Quando la black-box rileva la presenza di una connessione Internet, si collega ad un server remoto. Esso è sempre in ascolto, al fine di ricevere dati relativi al monitoraggio, alla segnalazione di allarmi e sulla profilazione del conducente. 
 Nel progetto viene adoperato Netcat, un programma open source a riga di comando di comunicazione remota, utilizzabile sia col protocollo TCP sia col protocollo UDP. Lato server è necessario mettersi in ascolto per ricevere dati al momento di sincronizzazione, dopodichè è possibile redirigere l'output su di un file utilizzato appositamente per la raccolta dati. \cite{Netcat}
 
 \chapter{Risultati ottenuti}
@@ -870,77 +885,14 @@ Un'altra funzionalità utile per la profilazione e che potrebbe essere implement
 \end{itemize}
 
 \subsection{Profilazione conducente lato server remoto} % \todo{AT: tutta questa parte è solo teorica, non c'è nulla di effettivamente applicato al tuo caso?} -> Esatto è teorica, l'ho scritta perchè ci tenevo a mettere in evidenza che se non si è soddisfatti dell'algoritmo di profilazione interno della black-box, con facilità si può profilare il cliente con tecniche già esistenti di ML (ho fatto un riassunto delle tecniche più comuni che ho letto nei vari paper di profilazione)
-Per concludere tale studio possiamo affiancare alla capacità della board di valutazione del guidatore, tecniche di Machine Learning relative sia all'apprendimento supervisionato che non supervisionato, consentendoci di esaminare più approfonditamente la natura della nostra flotta. In questo contesto, ci si concentrerà su due principali tecniche di Machine Learning: la \textbf{classificazione} e il \textbf{clustering}. La classificazione permette di assegnare ai guidatori delle etichette, come ad esempio 'prudente' piuttosto che 'negligente', in base ai loro comportamenti al volante, mentre il clustering consente di raggruppare i guidatori in base a similitudini nel comportamento di guida. Si osserveranno tali tecniche nel dettaglio, evidenziando le loro applicazioni specifiche e i benefici che possono apportare all'analisi e alla gestione dell'autonoleggio. \cite{wiki:Apprendimento_automatico}
+Per concludere tale studio possiamo affiancare alla capacità della board di valutazione del guidatore, tecniche di Machine Learning relative sia all'apprendimento supervisionato che non supervisionato, consentendoci di esaminare più approfonditamente la natura della nostra flotta. In questo contesto, ci si concentrerà su due principali tecniche di Machine Learning: la \textbf{classificazione} e il \textbf{clustering}. La classificazione permette di assegnare ai guidatori delle etichette, come ad esempio 'prudente' piuttosto che 'negligente', in base ai loro comportamenti al volante, mentre il clustering consente di raggruppare i guidatori in base a similitudini nel comportamento di guida. \cite{wiki:Apprendimento_automatico}
 
 \vspace{0.5cm}
+
 \paragraph{Machine Learning nell'analisi dei guidatori: applicazioni nel nostro contesto}
 Una volta processati i dati relativi all'analisi di profilazione del guidatore, essi possono essere inviati ad un server remoto. Dopodichè, è possibile usare varie tecniche di machine learning di apprendimento supervisionato, ad esempio la \textbf{classificazione}, o di apprendimento non supervisionato ad esempio il \textbf{clustering}, per assegnare ai clienti dell'autonoleggio una certa etichetta di classificazione o raggrupparli in cluster in modo tale da poter osservare un generale comportamento della flotta.
 
-\paragraph{Apprendimento supervisionato}
-La \textbf{classificazione} è una tecnica di apprendimento supervisionato con l'obiettivo di predire la classe di appartenenza di un'istanza di input in un insieme discreto di classi; ad esempio, classificare se una mail è spam o non, se un paziente è soggetto a diabete o meno e molti altri esempi. In questo caso di studio vorremmo poter classificare i clienti come guidatori prudenti o negligenti in base ai valori di valutazione studiati durante l'analisi di profilazione fatta precedentemente \ref{sec:AnalisiProfilazione}. Questa tecnica di ML prevede la suddivisione dei dati in due insiemi distinti: un insieme di addestramento e un insieme di test. L'insieme di addestramento viene adoperato per addestrare il modello, mentre l'insieme di test viene utilizzato per valutarne le prestazioni su dati non visti. Per addestrare un modello di apprendimento supervisionato, vengono utilizzati diversi algoritmi che si differenziano per tipo di problema e per tipo di dati. Alcuni esempi di algoritmi comuni includono Support Vector Machine (SVM), Random Forest, Decision Tree, Neural Networks e Regressione Lineare. Dopo l'addestramento, il modello viene valutato utilizzando l'insieme di test. Una volta soddisfatti delle prestazioni del modello, questo può essere pubblicato, implementato in un'applicazione o integrato in un sistema più ampio per fare previsioni su nuovi dati \cite{muhammad2015supervised}. Di seguito un esempio di classificazione binaria: 
-
-\begin{figure}[h] \centering
-\includegraphics[width=10cm]{Classificazione.png}
-\caption{Esempio di classificazione binaria che stabilisce se una email è spam o no\protect\footnotemark (fonte: Andrea Minini)}
-\label{fig:Classificazione binaria}
-\end{figure}
-\footnotetext{Presa da: \url{https://www.andreaminini.com/data/andreaminini/apprendimento-supervisionato-esempio-1.gif}}
-Se nel nostro studio si volesse classificare il guidatore in più classi, prudente, moderato, negligente ad esempio, con lo scopo di stipulare un contratto assicurativo in base allo stile di guida, esiste la classificazione multiclasse dove sono presenti più di due classi possibili tra cui scegliere e dove ogni istanza da classificare può appartenere ad una sola classe tra le possibili.
-
-\paragraph{Apprendimento non supervisionato}
-Il \textbf{clustering} è una tecnica di apprendimento non supervisionato il cui scopo è quello di raggruppare un insieme di oggetti in cluster; gli oggetti dovranno avere un'alta similarità intra-cluster e una bassa inter-cluster. E' una tecnica molto complessa dato che i vari algoritmi imparano osservando i dati e non tramite degli esempi. Grazie a questa tecnica è possibile visualizzare il comportamento dei guidatori della flotta. L'ideale sarebbe quello di avere cluster il cui valore medio che li rappresenta contenga valori di valutazione, quelli citati nella sezione relativa alla profilazione, ragionevoli o che non si discostino troppo dai valori attesi del guidatore prudente.
-
-\vspace{0.5cm}
-Di seguito vengono suggerite alcune tecniche che potrebbero essere utilizzate per clusterizzare i propri clienti \cite{popat2014review}: 
-
-\begin{itemize}
-    \item Clustering partizionale
-    \item Clustering gerarchico
-    \item Clustering basato sulla densità
-\end{itemize}
-
-\paragraph{Clustering partizionale} 
-Il clustering partizionale è la tecnica più comunemente utilizzata tra gli algoritmi di clusterizzazione. Questi algoritmi lavorano per minimizzare un determinato criterio di clustering, spostando iterativamente i punti dati tra i cluster fino a raggiungere una partizione ottimale. Questo approccio suddivide gli oggetti in K partizioni, ognuna delle quali rappresenta un cluster. La suddivisione avviene in base ad una specifica funzione obiettivo. I cluster vengono formati per ottimizzare un criterio di partizionamento definito, come una funzione di dissimilarità basata sulla distanza, in modo che gli oggetti all'interno di un cluster siano considerati ``simili", mentre quelli in cluster diversi siano considerati ``dissimili". I metodi di clustering partizionale sono particolarmente adatti per applicazioni in cui è richiesto un numero predefinito di cluster, alcuni esempi di algoritmi di clustering includono K-means, PAM (Partition Around Medoids) e Clara.
-
-\begin{figure}[h] \centering
-\includegraphics[width=8cm]{C_Partizionale.png}
-\caption{K-means usato per la classificazione di 3 partizioni\protect\footnotemark (fonte: Wikipedia)}
-\label{fig:esempio k-means}
-\end{figure}
-\footnotetext{Presa da: \url{https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/KMeans-Gaussian-data.svg/1280px-KMeans-Gaussian-data.svg.png}}
-
-\paragraph{Clustering gerarchico} 
-Gli algoritmi di clustering gerarchico dividono o uniscono un dataset in una sequenza di partizioni nidificate. La gerarchia delle partizioni nidificate può essere agglomerativa (bottum-up) o divisiva (top-down). Nella metodologia agglomerativa, il clustering inizia con ogni singolo oggetto in un singolo cluster e continua a raggruppare le coppie di cluster più vicine fino a quando tutti gli oggetti sono insieme in un unico cluster. Il clustering gerarchico divisivo, d'altra parte, inizia con tutti gli oggetti in un singolo cluster e continua a dividere i cluster più grandi in cluster più piccoli fino a quando tutti gli oggetti sono separati in cluste unitari. Entrambi i metodi gerarchici possono essere rappresentati naturalmente da un dendogramma, che illustra la struttura dei cluster. Esempi di questi algoritmi sono Rock, Birch (Balance Iterative Reducing and Clustering using Hierarchies), Cure (Cluster Using Representatives)
-
-Una gerarchia di cluster può essere interpretata come un albero binario standard in cui la radice rappresenta tutti gli insiemi di oggetti dati da clusterizzare che formano il livello più alto della gerarchia (livello 0). Ad ogni livello, i nodi che sono il sottoinsieme dell'intero dataset corrispondono al cluster. Gli elementi in ciascuno di questi cluster possono essere determinati attraverso l'attraversamento dell'albero dal nodo del cluster corrente alla base singleton, rappresentata dalle foglie dell'albero. Questa gerarchia di cluster è chiamata dendogramma. Il vantaggio fondamentale di avere un metodo di clustering gerarchico è che consente di tagliare la gerarchia al livello desiderato e questa caratteristica lo rende diversamente diverso dagli altri algoritmi di clustrering. Esistono diversi algoritmi di clustering gerarchico agglomerativo che utilizzano misure di similarità diverse: linkage singolo, linkage completo, linkage medio di gruppo, linkage del centroide, criterio di Ward.
-
-\begin{figure}[h] \centering
-\includegraphics[width=8cm]{C_Gerarchico1.png}
-\caption{Esempio di dendogramma\protect\footnotemark (fonte: Maggioli Developers)}
-\label{fig:esempio di clustering gerarchico}
-\end{figure}
-\footnotetext{Presa da: \url{https://www.developersmaggioli.it/wp-content/uploads/2019/06/images.png}}
-
-\vspace{1cm}
-
-\begin{figure}[h] \centering
-\includegraphics[width=8cm]{C_Gerarchico2.png}
-\caption{Esempio di dendogramma con tagli gerarchici\protect\footnotemark (fonte: ResearchGate)}
-\label{fig:esempio dendogramma}
-\end{figure}
-\footnotetext{Presa da: \url{https://www.researchgate.net/profile/Emanuele-Lo-Biundo/publication/344452675/figure/fig7/AS:942183599325184@1601645483382/Figura-23-Esempio-di-clustering-gerarchico-su-8-osservazioni.ppm}}
-
-\paragraph{Clustering basato sulla densità}
-Gli algoritmi di clustering basati sulla densità sono ideati per la creazione di cluster di forma arbitraria. In questo approccio, un cluster di forma arbitraria è considerato come una regione in cui la densità degli oggetti supera una soglia. Nel clustering density-based, il raggruppamento avviene analizzando l'intorno di ogni punto nello spazio. In particolare, viene considerata la densità di punti in un intorno di raggio fissato. DBSCAN e SSN RDBC sono algoritmi tipici di questo tipo.
-
-\begin{figure}[h] \centering
-\includegraphics[width=8cm]{C_Density.png}
-\caption{Esempio DBSCAN\protect\footnotemark (fonte:\textbf{STHDA} (Statistical tools for high-throughput data analysis))}
-\label{fig:density clustering}
-\end{figure}
-\footnotetext{Presa da: \url{http://www.sthda.com/sthda/RDoc/figure/clustering/dbscan-density-based-clustering-density-based-clustering-1.png}}
-
-\vspace{2cm}
+\newpage
 
 Per concludere, lo schema rappresentato a figura \ref{fig:ProfilazioneML} indica che con la black-box è possibile sfruttare la capacità valutativa della board, la quale è in grado di generare uno score del guidatore e di giudicarlo in base a questo, la possibilità di classificarlo utilizzando tecniche di machine learning o la possibilità di utilizzare entrambe le tecniche per avere un quadro completo relativo al suo stile di guida.
 
