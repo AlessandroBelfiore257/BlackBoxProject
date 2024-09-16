@@ -518,14 +518,14 @@ Un modulo \textbf{GPS GY-NEO-6M NEO6MV2} utile per le funzionalità di tracking 
 \end{figure}
 
 \subsection{Software e librerie utilizzate}
-Il codice è stato sviluppato sull'Arduino IDE, una piattaforma open-source che rende semplice scrivere codice e caricarlo direttamente nelle varie board scelte all'interno di un'apposita sezione. Il linguaggio di programmazione utilizzato all'interno dell'IDE si chiama ``Arduino programming language", la sintassi è molto simile al linguaggio C o a Java, ma i costrutti più complessi come puntatori o la programmazione orientata agli oggetti vengono messi in secondo piano \cite{sistemiEmbeddedAtrent}. Oltre a fornire i costrutti standard di un linguaggio imperativo, dato il contesto applicativo dei sistemi di controllo (sensoristica e attuatoristica), offre funzionalità legate alla gestione dei segnali: I/O digitale e analogico, interrupt su eventi hardware e accesso al clock (inteso proprio come tempo trascorso dall'accensione).
+Il codice è stato sviluppato sull'Arduino IDE, una piattaforma open source che rende semplice scrivere codice e caricarlo direttamente nelle varie board scelte all'interno di un'apposita sezione. Il linguaggio di programmazione utilizzato all'interno dell'IDE si chiama ``Arduino programming language", la sintassi è molto simile al linguaggio C o a Java, ma i costrutti più complessi come puntatori o la programmazione orientata agli oggetti vengono messi in secondo piano \cite{sistemiEmbeddedAtrent}. Oltre a fornire i costrutti standard di un linguaggio imperativo, dato il contesto applicativo dei sistemi di controllo (sensoristica e attuatoristica), offre funzionalità legate alla gestione dei segnali: I/O digitale e analogico, interrupt su eventi hardware e accesso al clock (inteso proprio come tempo trascorso dall'accensione).
 
 Le librerie utilizzate per lo sviluppo del progetto si possono divedere in tre categorie:
 
 \begin{itemize}
     \item Le librerie dedicate all'interazione con i vari sensori, ad esempio \textbf{TinyGPSPlus.h} per il GPS, \textbf{Adafruit\_MPU6050.h} per l'accelerometro, \textbf{LiquidCrystal\_I2C.h} per il display, e \textbf{time.h, sntp.h, RTClib.h} per l'RTC.
-    \item Le librerie dedicate alla gestione interna del filesystem, ad esempio \textbf{LittleFS.h} per la gestione del filesystem e \textbf{sqlite3.h} per la creazione di database e iterazione con essi.
-    \item Le librerie dedicate alla comunicazione con i componenti esterni, ad esempio \textbf{``BluetoothSerial.h"} e \textbf{``ELMduino.h"} che consentono la comunicazione bluetooth tra ESP32 e lettore scanner OBD.
+    \item Le librerie dedicate alla gestione interna del filesystem, ad esempio \textbf{LittleFS.h} per la gestione del filesystem e \textbf{sqlite3.h} per la creazione di database e interazione con essi.
+    \item Le librerie dedicate alla comunicazione con i componenti esterni, ad esempio \textbf{``BluetoothSerial.h"} e \textbf{``ELMduino.h"} che consentono la comunicazione bluetooth tra esp32 e lettore scanner OBD.
 \end{itemize}
 
 \section{Scelte progettuali}
@@ -670,7 +670,7 @@ CAN utilizza due cavi a doppino intrecciato: \textbf{CAN high} (CANH) e \textbf{
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=15cm]{SegnaleDiffCAN.png}
+  \includegraphics[width=13cm]{SegnaleDiffCAN.png}
   \caption{Segnale differenziale CAN\protect\footnotemark (fonte: libro Il manuale dell'hacker di automobili di Chris Evans)}
   \label{fig:segnaleDiffCAN}
 \end{figure}
@@ -722,7 +722,7 @@ I pacchetti estesi sono come quelli standard, tranne che possono essere concaten
 
 \subsection{OBD scanner - esp32}
 \label{sec:capitolo432}
-Per leggere i messaggi presenti all'interno della rete CAN BUS è necessario un lettore OBD-II in grado di connettersi con il corrispettivo connettore OBD presente all'interno del veicolo e di trasmettere dati via \textbf{Bluetooth} ad un apparecchio esterno, in questo caso l'ESP32. Per leggere e decifrare i messaggi provenienti dalla rete CAN, è stata utilizzata una libreria ELMduino, utile per interfacciare facilmente l'ESP32 con uno scanner OBD-II. Tramite questa libreria è possibile interrogare tutti i PID supportati da OBD-II per raccogliere un'ampia varietà di dati, ad esempio velocità, giri al minuto, temperatura dell'olio motore...
+Per leggere i messaggi presenti all'interno della rete CAN BUS è necessario un lettore OBD-II in grado di connettersi con il corrispettivo connettore OBD presente all'interno del veicolo e di trasmettere dati via \textbf{Bluetooth} ad un apparecchio esterno, in questo caso l'esp32. Per leggere e decifrare i messaggi provenienti dalla rete CAN, è stata utilizzata una libreria ELMduino, utile per interfacciare facilmente l'esp32 con uno scanner OBD-II. Tramite questa libreria è possibile interrogare tutti i PID supportati da OBD-II per raccogliere un'ampia varietà di dati, ad esempio velocità, giri al minuto, temperatura dell'olio motore...
 
 \begin{figure}[h]
   \centering
@@ -750,7 +750,7 @@ Sono state condotte analisi relative alla segnalazione di allarmi e alla profila
 \begin{figure}[h]
   \centering
   \includegraphics[width=14cm]{fumoServer.jpg}
-  \caption{Esempio di notifica ricevuta al server remoto a seguito aver rilevato più volte la presenza di fumo nell'abitacolo}
+  \caption{Esempio di notifica ricevuta al server remoto al seguito di aver rilevato più volte la presenza di fumo nell'abitacolo}
   \label{fig:fumoServer}
 \end{figure}
 
@@ -830,8 +830,8 @@ Un altro componente non installato nel sistema attuale è il \textbf{modulo GSM 
 L'installazione del modulo GSM può essere facilmente eseguito seguendo due approcci: 
 
 \begin{itemize}
-    \item \textbf{Modulo separato}: un modulo GSM con relativa antenna può essere facilmente aggiunto al sistema esistente. Questi moduli sono ampiamente disponibili e possono essere integrati con l'ESP32 attraverso interfacce standard, vedi figura  \ref{fig:modulo_gsm}.
-    \item \textbf{Modulo integrato}: esistono versioni dell'ESP32 che includono un modulo GSM integrato, semplificando ulteriormente l'implementazione di questa funzionalità senza la necessità di componenti aggiuntivi, vedi figura \ref{fig:esp32_gsm}.
+    \item \textbf{Modulo separato}: un modulo GSM con relativa antenna può essere facilmente aggiunto al sistema esistente. Questi moduli sono ampiamente disponibili e possono essere integrati con l'esp attraverso interfacce standard, vedi figura  \ref{fig:modulo_gsm}.
+    \item \textbf{Modulo integrato}: esistono versioni dell'esp32 che includono un modulo GSM integrato, semplificando ulteriormente l'implementazione di questa funzionalità senza la necessità di componenti aggiuntivi, vedi figura \ref{fig:esp32_gsm}.
 \end{itemize}
 
 \begin{figure}[h]
@@ -845,7 +845,7 @@ L'installazione del modulo GSM può essere facilmente eseguito seguendo due appr
 \begin{figure}[h]
   \centering
   \includegraphics[width=6cm]{esp32_gsm.png}
-  \caption{ESP32 SIM800L\protect\footnotemark (fonte: futura group progetti)}
+  \caption{Esp32 SIM800L\protect\footnotemark (fonte: futura group progetti)}
   \label{fig:esp32_gsm}
 \end{figure}
 \footnotetext{Presa da: \url{https://futuranet.it/wp-content/uploads/2021/02/1606-HR1761.jpg}}
@@ -869,7 +869,7 @@ Negli sviluppi futuri del progretto, un'area di miglioramento fondamentale è l'
 \footnotetext{Presa da: \url{https://www.electronicwings.com/storage/PlatformSection/TopicContent/452/description/MicroSD.jpg}}
 
 \paragraph{Maggiore spazio di storage per il monitoraggio del veicolo} 
-Uno dei limiti attuali dell'ESP32 è la sua capacità di storage relativamente limitata (4MB), che può rappresentare un ostacolo nel contesto del monitoraggio continuo dei dati del veicolo. L'integrazione di una memoria esterna, come una scheda microSD o modulo di memoria flash, è in grado di aumentare notevolmente la quantità di dati che possono essere registrati e memorizzati. Questo incremento di capacità di storage consente di:
+Uno dei limiti attuali dell'esp32 è la sua capacità di storage relativamente limitata (4MB), che può rappresentare un ostacolo nel contesto del monitoraggio continuo dei dati del veicolo. L'integrazione di una memoria esterna, come una scheda microSD o modulo di memoria flash, è in grado di aumentare notevolmente la quantità di dati che possono essere registrati e memorizzati. Questo incremento di capacità di storage consente di:
 
 \begin{itemize}
     \item \textbf{Monitoraggio continuo}: registrare dati continuamente per periodi più estesi senza preoccuparsi di esaurire lo spazio disponibile.
@@ -938,7 +938,7 @@ Giunto alla conclusione di questo cammino, mi rendo conto che il percorso univer
 Vorrei ringraziare profondamente la mia famiglia, per il loro supporto, l'incoraggiamento costante e la fiducia che hanno sempre riposto in me; i vostri sacrifici e la vostra pazienza mi hanno dato la forza di superare ogni difficoltà e raggiungere questo importante traguardo.
 Un grazie particolare va a mio fratello, che è stato un esempio di determinazione e impegno. Il suo sostegno e la sua capacità di farmi vedere il lato positivo in qualsiasi circostanza in cui ci si trova, hanno fatto la differenza in molte occasioni.
 Un pensiero affettuoso va ai miei amici e colleghi, che hanno condiviso con me gioie e sfide durante questi anni. Grazie per avermi sempre ricordato l'importanza di ridere, di prendersi delle pause e di vivere ogni momento con entusiasmo.
-Un ringraziamento speciale va al mio relatore, che con pazienza, disponibilità e competenza mi ha guidato in questo percorso. La sua prontezza nel rispondere a ogni mio dubbio e nel chiarire ogni mia domanda è stata fondamentale per la realizzazione di questa tesi e per la mia crescita accademica.
+Un ringraziamento speciale va al mio relatore e correlatore, che con pazienza, disponibilità e competenza mi hanno guidato in questo percorso. La loro prontezza nel rispondere a ogni mio dubbio e chiarire ogni mia domanda è stata fondamentale per la realizzazione di questa tesi e per la mia crescita accademica.
 Infine, il mio ringraziamento più sentito va alla mia ragazza, il cui amore, la cui pazienza e la cui comprensione hanno reso possibile tutto questo. Sei stata al mio fianco in ogni passo, offrendo sempre il tuo sostegno e la tua presenza, e per questo ti sarò sempre grato.
 
 \printbibliography[title={Bibliografia}]
